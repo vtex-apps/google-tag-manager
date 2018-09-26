@@ -45,7 +45,7 @@ class GoogleTagManager extends Component {
   componentDidMount() {
     window.dataLayer = window.dataLayer || []
     this.gtm({js: new Date()})
-    this.gtm({config: this.gtmID})
+    this.gtm({config: this.gtmId})
   }
 
   render() {
