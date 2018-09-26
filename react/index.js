@@ -24,7 +24,7 @@ class GoogleTagManager extends Component {
   get gtmId() {
     const { gtmId } = this.context.getSettings(APP_LOCATOR) || {} 
     if (!gtmId) {
-      console.warn("Warning: The Google Adwords ID isn't set on your environment.")
+      console.warn("Warning: The GTM ID isn't set on your environment.")
     }
     return gtmId 
   }
