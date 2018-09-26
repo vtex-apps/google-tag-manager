@@ -7,7 +7,7 @@ const APP_LOCATOR = 'vtex.google-tag-manager'
 
 const GTM_UNDEFINED = ({ workspace, account }) => (
   `No Google Tag Manager ID is defined. Take a look at:\
-  https://${workspace}--${account}.myvtex.com/admin/apps/vtex.store/setup`
+  https://${workspace}--${account}.myvtex.com/admin/apps/${APP_LOCATOR}/setup`
 )
 
 /**
