@@ -1,0 +1,37 @@
+{
+  "name": "vtex.google-tag-manager",
+  "version": "0.0.0",
+  "description": "Google Tag Manager.",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "VTEX",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react-app": "^3.1.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^22.4.3",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-intl": "^2.4.0",
+    "react-testing-library": "^2.1.1"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ],
+    "setupFiles": [
+      "./tests-setup.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__test__/fileMock.js",
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    }
+  }
+}
