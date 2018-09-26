@@ -30,7 +30,6 @@ class GoogleTagManager extends Component {
   }
 
   productView = event => {
-    console.log(">>>>>>>>>>>>> GTM: ", event)
     const { products } = event
     let skuId = null
     if (products && products.length > 0) {
