@@ -25,7 +25,7 @@
       "gtmId": {
         "title": "Google Tag Manager",
         "type": "string",
-        "description": "Enter the ID (AW-XXXX) from your Google Tag Manager"
+        "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager"
       }
     }
   }

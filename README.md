@@ -31,4 +31,6 @@
       }
     }
 
+4 - Configure your GTM ID on the VTEX Admin, openning the APP's session at the left-side menu.
+
 See an example in [Dreamstore](https://github.com/vtex-apps/dreamstore/blob/master/pages/pages.json).
