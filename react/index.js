@@ -1,9 +1,14 @@
 import { Component } from 'react'
-import { Helmet } from 'render'
+import { withRuntimeContext, Helmet } from 'render'
 import { Pixel } from 'vtex.store/PixelContext'
 import { gtmScript, gtmFrame } from './scripts/gtm'
 
 const APP_LOCATOR = 'vtex.google-tag-manager'
+
+const GTM_UNDEFINED = ({ workspace, account }) => (
+  `No Google Tag Manager ID is defined. Take a look at:\
+  https://${workspace}--${account}.myvtex.com/admin/apps/vtex.store/setup`
+)
 
 /**
  * Component that encapsulate the communication to
@@ -24,7 +29,7 @@ class GoogleTagManager extends Component {
   get gtmId() {
     const { gtmId } = this.context.getSettings(APP_LOCATOR) || {} 
     if (!gtmId) {
-      console.warn("Warning: The GTM ID isn't set on your environment.")
+      console.warn(GTM_UNDEFINED(this.props.runtime))
     }
     return gtmId 
   }
@@ -66,4 +71,4 @@ GoogleTagManager.contextTypes = {
   getSettings: PropTypes.func,
 }
 
-export default Pixel(GoogleTagManager)
+export default withRuntimeContext(Pixel(GoogleTagManager))
