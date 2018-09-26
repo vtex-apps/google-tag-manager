@@ -1,0 +1,32 @@
+{
+  "name": "google-tag-manager",
+  "vendor": "vtex",
+  "version": "0.1.0",
+  "title": "Google Tag Manager",
+  "description": "Google Tag Manager",
+  "mustUpdateAt": "2019-04-03",
+  "registries": [
+    "smartcheckout"
+  ],
+  "scripts": {
+    "postreleasy": "vtex publish --verbose"
+  },
+  "builders": {
+    "react": "2.x",
+    "pages": "0.x"
+  },
+  "dependencies": {
+    "vtex.store": "1.x"
+  },
+  "settingsSchema": {
+    "title": "Google Tag Manager",
+    "type": "object",
+    "properties": {
+      "gtmId": {
+        "title": "Google Tag Manager",
+        "type": "string",
+        "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager"
+      }
+    }
+  }
+}

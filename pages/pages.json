@@ -1,0 +1,12 @@
+{
+  "pages": {
+    "google-tag-manager": {
+      "path": "/_v/google-tag-manager"
+    }
+  },
+  "extensions": {
+    "google-tag-manager": {
+      "component": "index"
+    }
+  }
+}
