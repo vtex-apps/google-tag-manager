@@ -20,7 +20,10 @@
     "react-dom": "^16.3.1",
     "react-intl": "^2.4.0",
     "react-testing-library": "^2.1.1",
-    "tslint-eslint-rules": "^5.4.0"
+    "tslint": "^5.11.0",
+    "tslint-config-vtex": "^2.0.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.1.1"
   },
   "jest": {
     "verbose": true,
