@@ -1,0 +1,72 @@
+Arguments: 
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add --dev typescript tslint tslint-config-vtex tslint-config-rules @types/react @types/prop-types @types/react-helmet
+
+PATH: 
+  /home/lucas/bin:/home/lucas/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/snap/bin:/usr/local/bin/:/home/lucas/bin:/home/lucas/.fzf/bin:/home/lucas/.dotfiles/bin:/home/lucas/.rvm/bin:/home/lucas/.config/composer/vendor/bin:/home/lucas/bin:/home/lucas/Library/Android/sdk/tools:/home/lucas/Library/Android/sdk/platform-tools:/home/lucas/Library/Python/3.6/bin:/home/lucas/.tst/bin:/home/lucas/.yarn/bin
+
+Yarn version: 
+  1.10.1
+
+Node version: 
+  9.11.2
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/tslint-config-rules: Not found
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:61073:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:120166:22)
+      at Request.emit (events.js:180:13)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:121138:10)
+      at Request.emit (events.js:180:13)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:121060:12)
+      at Object.onceWrapper (events.js:272:13)
+      at IncomingMessage.emit (events.js:185:15)
+      at endReadableNT (_stream_readable.js:1106:12)
+      at process._tickCallback (internal/process/next_tick.js:178:19)
+
+npm manifest: 
+  {
+    "name": "vtex.google-tag-manager",
+    "version": "0.0.0",
+    "description": "Google Tag Manager.",
+    "scripts": {
+      "test": "jest"
+    },
+    "author": "VTEX",
+    "license": "ISC",
+    "devDependencies": {
+      "babel-jest": "^22.4.3",
+      "babel-preset-env": "^1.6.1",
+      "babel-preset-react-app": "^3.1.1",
+      "identity-obj-proxy": "^3.0.0",
+      "jest": "^22.4.3",
+      "react": "^16.3.1",
+      "react-dom": "^16.3.1",
+      "react-intl": "^2.4.0",
+      "react-testing-library": "^2.1.1"
+    },
+    "jest": {
+      "verbose": true,
+      "transform": {
+        "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
+      },
+      "transformIgnorePatterns": [
+        "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+      ],
+      "setupFiles": [
+        "./tests-setup.js"
+      ],
+      "moduleNameMapper": {
+        "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__test__/fileMock.js",
+        "\\.(css|less|scss)$": "identity-obj-proxy"
+      }
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
