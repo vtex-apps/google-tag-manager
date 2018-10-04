@@ -56,7 +56,7 @@ class GoogleTagManager extends Component<Props> {
     })
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     if (!this.gtmId) {
       const { runtime: { workspace, account } } = this.props
 
@@ -70,7 +70,12 @@ class GoogleTagManager extends Component<Props> {
     this.gtm({config: this.gtmId})
   }
 
-  render() {
+  public shouldComponentUpdate() {
+    // should only be rendered once
+    return false
+  }
+
+  public render() {
     window.dataLayer = window.dataLayer || []
 
     const scripts = this.gtmId ? [{
