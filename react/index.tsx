@@ -70,6 +70,12 @@ class GoogleTagManager extends Component<Props> {
     this.gtm({config: this.gtmId})
   }
 
+  public componentWillUnmount() {
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
+  }
+
   public shouldComponentUpdate() {
     // should only be rendered once
     return false
