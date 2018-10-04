@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { withRuntimeContext, Helmet } from 'render'
+import { Helmet, withRuntimeContext } from 'render'
 import { Pixel } from 'vtex.store/PixelContext'
 
-import { gtmScript, gtmFrame } from './scripts/gtm'
+import { gtmFrame, gtmScript } from './scripts/gtm'
 
 const APP_LOCATOR = 'vtex.google-tag-manager'
 
@@ -61,8 +61,8 @@ class GoogleTagManager extends Component<Props> {
       const { runtime: { workspace, account } } = this.props
 
       console.warn(
-        `No Google Tag Manager ID is defined. Take a look at:\
-  https://${workspace}--${account}.myvtex.com/admin/apps/${APP_LOCATOR}/setup`
+        'No Google Tag Manager ID is defined. Take a look at' +
+        `https://${workspace}--${account}.myvtex.com/admin/apps/${APP_LOCATOR}/setup`
       )
     }
 
@@ -85,8 +85,8 @@ class GoogleTagManager extends Component<Props> {
     window.dataLayer = window.dataLayer || []
 
     const scripts = this.gtmId ? [{
-      'type': 'application/javascript',
-      'innerHTML': gtmScript(this.gtmId),
+      innerHTML: gtmScript(this.gtmId),
+      type: 'application/javascript',
     }] : []
 
     const noscripts = this.gtmId ? [{
