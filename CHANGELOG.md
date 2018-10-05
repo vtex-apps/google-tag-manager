@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Change the Readme to reflect the Setup of the service.
 - Migrate the app to typescript.
+- Update to use new pixel API.
 
 ## [0.1.0] - 2018-09-26
 ### Added
