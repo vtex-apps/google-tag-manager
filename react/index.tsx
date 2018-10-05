@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { path } from 'ramda'
 import React, { Component } from 'react'
 import { Helmet, withRuntimeContext } from 'render'
 import { Pixel } from 'vtex.store/PixelContext'
@@ -34,7 +35,7 @@ class GoogleTagManager extends Component<Props> {
     this.unsubscribe = this.props.subscribe(this)
   }
 
-  public gtm(data: any) {
+  public push(data: any) {
     window.dataLayer.push(data)
   }
 
@@ -44,16 +45,35 @@ class GoogleTagManager extends Component<Props> {
   }
 
   public productView = (event: any) => {
-    const { products } = event
-    let skuId = null
-    if (products && products.length > 0) {
-      skuId = products[0].id
+    const {
+      product: {
+        productId,
+        productName,
+        brand,
+        categories,
+        items
+      }
+    } = event
+
+    const category = path(['0'], categories) as string
+
+    const data = {
+      ecommerce: {
+        detail: {
+          products: [
+            {
+              brand,
+              category: category && category.replace(/^\/|\/$/g, ''),
+              id: productId,
+              name: productName,
+              price: path([])
+            },
+          ],
+        },
+      },
     }
-    this.gtm({
-      event: 'productView',
-      send_to: this.gtmId,
-      sku_id: skuId
-    })
+
+    this.push(data)
   }
 
   public componentDidMount() {
@@ -66,8 +86,8 @@ class GoogleTagManager extends Component<Props> {
       )
     }
 
-    this.gtm({js: new Date()})
-    this.gtm({config: this.gtmId})
+    this.push({js: new Date()})
+    this.push({config: this.gtmId})
   }
 
   public componentWillUnmount() {
