@@ -22,10 +22,10 @@
     "title": "Google Tag Manager",
     "type": "object",
     "properties": {
-      "gtmId": {
-        "title": "Google Tag Manager",
-        "type": "string",
-        "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager"
+      "pixelDependencies": {
+        "title": "Pixel base code",
+        "description": "You can get this configuration from the GTM documentation at https://developers.google.com/tag-manager/quickstart",
+        "type": "string"
       }
     }
   }
