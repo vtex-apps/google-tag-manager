@@ -2,6 +2,12 @@ import { path } from 'ramda'
 
 import gtmScript from './scripts/gtm'
 
+const gtmId = window.__SETTINGS__.gtmId
+
+if (!gtmId) {
+  throw new Error('Warning: No Google Tag Manager ID is defined. To setup this app, take a look at your admin')
+}
+
 // tslint:disable-next-line no-eval
 eval(gtmScript(window.__SETTINGS__.gtmId))
 
