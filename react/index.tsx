@@ -1,5 +1,10 @@
 import { path } from 'ramda'
 
+import gtmScript from './scripts/gtm'
+
+// tslint:disable-next-line no-eval
+eval(gtmScript(window.__SETTINGS__.gtmId))
+
 window.dataLayer = window.dataLayer || []
 
 window.addEventListener('message', e => {
