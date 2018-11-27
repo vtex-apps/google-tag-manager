@@ -6,7 +6,9 @@
   },
   "extensions": {
     "store/pixel/gtm": {
-      "component": "index"
+      "component": "index",
+      "shouldRender": false,
+      "ssr": false
     }
   }
 }
