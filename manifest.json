@@ -11,6 +11,13 @@
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
+  "billingOptions": {
+    "termsURL": "",
+    "support": {
+      "url": "https://support.vtex.com/hc/requests"
+    },
+    "free": true
+  },
   "builders": {
     "react": "2.x",
     "pages": "0.x"
