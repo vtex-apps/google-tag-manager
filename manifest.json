@@ -1,7 +1,7 @@
 {
   "name": "google-tag-manager",
   "vendor": "vtex",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "title": "Google Tag Manager",
   "description": "Google Tag Manager",
   "mustUpdateAt": "2019-04-03",
@@ -10,6 +10,13 @@
   ],
   "scripts": {
     "postreleasy": "vtex publish --verbose"
+  },
+  "billingOptions": {
+    "termsURL": "",
+    "support": {
+      "url": "https://support.vtex.com/hc/requests"
+    },
+    "free": true
   },
   "builders": {
     "react": "2.x",
