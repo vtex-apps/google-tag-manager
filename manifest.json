@@ -16,7 +16,7 @@
     "pages": "0.x"
   },
   "dependencies": {
-    "vtex.store": "1.x"
+    "vtex.pixel-manager": "0.x"
   },
   "settingsSchema": {
     "title": "Google Tag Manager",
