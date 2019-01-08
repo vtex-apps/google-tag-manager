@@ -12,8 +12,7 @@
     "postreleasy": "vtex publish --verbose"
   },
   "builders": {
-    "react": "2.x",
-    "pages": "0.x"
+    "react": "2.x"
   },
   "dependencies": {
     "vtex.pixel-manager": "0.x"
