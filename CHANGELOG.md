@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-01-16
+### Changed
+- Migrate the app to typescript.
+- Update to use new pixel API.
+
 ## [0.1.2] - 2018-12-04
 ### Fixed
 - Add billingOptions on manifest.json.
@@ -17,8 +22,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Change the Readme to reflect the Setup of the service.
-- Migrate the app to typescript.
-- Update to use new pixel API.
 
 ## [0.1.0] - 2018-09-26
 ### Added
