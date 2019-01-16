@@ -8,6 +8,7 @@
   "author": "VTEX",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^10.12.18",
     "@types/ramda": "^0.25.42",
     "identity-obj-proxy": "^3.0.0",
     "tslint": "^5.11.0",
