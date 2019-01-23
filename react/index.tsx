@@ -45,6 +45,29 @@ window.addEventListener('message', e => {
       window.dataLayer.push(data)
       return
     }
+    case 'vtex:addToCart': {
+      const {
+        items
+      } = e.data
+
+      window.dataLayer.push({
+        ecommerce: {
+          add: {
+            products: items.map((sku: any) => ({
+              brand: sku.brand,
+              id: sku.skuId,
+              name: sku.name,
+              price: `${sku.price}`,
+              quantity: sku.quantity,
+              variant: sku.variant,
+            }))
+          },
+          currencyCode: (e as any).currency,
+        },
+        event: 'addToCart',
+      })
+      return
+    }
     default: {
       return
     }
