@@ -62,7 +62,7 @@ window.addEventListener('message', e => {
               variant: sku.variant,
             }))
           },
-          currencyCode: (e as any).currency,
+          currencyCode: e.data.currency,
         },
         event: 'addToCart',
       })
