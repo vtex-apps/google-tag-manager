@@ -24,6 +24,11 @@
   "dependencies": {
     "vtex.pixel-manager": "0.x"
   },
+  "policies": [
+    {
+      "name": "pixel"
+    }
+  ],
   "settingsSchema": {
     "title": "Google Tag Manager",
     "type": "object",
