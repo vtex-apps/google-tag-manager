@@ -13,37 +13,49 @@ eval(gtmScript(window.__SETTINGS__.gtmId))
 
 window.dataLayer = window.dataLayer || []
 
-window.addEventListener('message', e => {
+interface PixelManagerEvent {
+  data: {
+    eventName: string
+    [key: string]: any
+  }
+}
+
+function handleEvents(e: MessageEvent & PixelManagerEvent) {
+  console.log('LISTENED', { data: e.data })
+
   switch (e.data.eventName) {
     case 'vtex:productView': {
-      const {
-        productId,
-        productName,
-        brand,
-        categories,
-        items,
-      } = e.data.product
+      try {
+        const {
+          productId,
+          productName,
+          brand,
+          categories,
+        } = e.data.product
 
-      const category = path(['0'], categories) as string
+        const category = path(['0'], categories) as string
 
-      const data = {
-        ecommerce: {
-          detail: {
-            products: [
-              {
-                brand,
-                category: category && category.replace(/^\/|\/$/g, ''),
-                id: productId,
-                name: productName,
-                price: path(['items', '0', 'sellers', '0', 'commertialOffer', 'ListPrice'], e.data.product)
-              },
-            ],
+        const data = {
+          ecommerce: {
+            detail: {
+              products: [
+                {
+                  brand,
+                  category: category && category.replace(/^\/|\/$/g, ''),
+                  id: productId,
+                  name: productName,
+                  price: path(['items', '0', 'sellers', '0', 'commertialOffer', 'Price'], e.data.product)
+                },
+              ],
+            },
           },
-        },
-      }
+        }
 
-      window.dataLayer.push(data)
-      return
+        window.dataLayer.push(data)
+        return
+      } catch (e) {
+        console.error(e)
+      }
     }
     case 'vtex:addToCart': {
       const {
@@ -72,4 +84,7 @@ window.addEventListener('message', e => {
       return
     }
   }
-})
+}
+
+window.addEventListener('message', handleEvents)
+
