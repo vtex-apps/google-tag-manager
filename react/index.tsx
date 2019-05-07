@@ -92,6 +92,29 @@ function handleEvents(e: PixelManagerEvent) {
       })
       return
     }
+    case 'vtex:removeFromCart': {
+      const {
+        items
+      } = e.data
+
+      window.dataLayer.push({
+        ecommerce: {
+          currencyCode: e.data.currency,
+          remove: {
+            products: items.map((sku: any) => ({
+              brand: sku.brand,
+              id: sku.skuId,
+              name: sku.name,
+              price: `${sku.price}`,
+              quantity: sku.quantity,
+              variant: sku.variant,
+            }))
+          },
+        },
+        event: 'removeFromCart',
+      })
+      return
+    }
     default: {
       return
     }
