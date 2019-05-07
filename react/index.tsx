@@ -46,7 +46,6 @@ function handleEvents(e: PixelManagerEvent) {
         productName,
         brand,
         categories,
-        items,
       } = e.data.product
 
       const category = path(['0'], categories) as string
