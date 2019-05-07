@@ -59,7 +59,7 @@ function handleEvents(e: PixelManagerEvent) {
                 category: category && category.replace(/^\/|\/$/g, ''),
                 id: productId,
                 name: productName,
-                price: path(['items', '0', 'sellers', '0', 'commertialOffer', 'ListPrice'], e.data.product)
+                price: path(['items', '0', 'sellers', '0', 'commertialOffer', 'Price'], e.data.product)
               },
             ],
           },
