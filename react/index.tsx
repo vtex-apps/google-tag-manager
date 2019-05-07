@@ -1,6 +1,25 @@
 import { path } from 'ramda'
 
-import gtmScript from './scripts/gtm'
+type EventType =
+  | 'vtex:homeView'
+  | 'vtex:productView'
+  | 'vtex:productClick'
+  | 'vtex:otherView'
+  | 'vtex:categoryView'
+  | 'vtex:departmentView'
+  | 'vtex:internalSiteSearchView'
+  | 'vtex:pageInfo'
+  | 'vtex:pageView'
+  | 'vtex:addToCart'
+  | 'vtex:removeFromCart'
+  | 'vtex:pageComponentInteraction'
+
+interface PixelManagerEvent extends MessageEvent {
+  data: {
+    eventName: EventType
+    [key: string]: any
+  }
+}
 
 const gtmId = window.__SETTINGS__.gtmId
 
@@ -13,7 +32,7 @@ eval(gtmScript(window.__SETTINGS__.gtmId))
 
 window.dataLayer = window.dataLayer || []
 
-window.addEventListener('message', e => {
+function handleEvents(e: PixelManagerEvent) {
   switch (e.data.eventName) {
     case 'vtex:productView': {
       const {
@@ -72,4 +91,6 @@ window.addEventListener('message', e => {
       return
     }
   }
-})
+}
+
+window.addEventListener('message', handleEvents)
