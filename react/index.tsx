@@ -13,12 +13,15 @@ type EventType =
   | 'vtex:addToCart'
   | 'vtex:removeFromCart'
   | 'vtex:pageComponentInteraction'
+  | 'vtex:orderPlaced'
 
 interface PixelManagerEvent extends MessageEvent {
-  data: {
-    eventName: EventType
-    [key: string]: any
-  }
+  data: Data
+}
+
+interface Data {
+  eventName: EventType,
+  [key: string]: any
 }
 
 const gtmId = window.__SETTINGS__.gtmId
@@ -115,9 +118,111 @@ function handleEvents(e: PixelManagerEvent) {
       })
       return
     }
+    case 'vtex:orderPlaced': {
+      const order = e.data as Order
+
+      window.dataLayer.push({
+        event: 'orderPlaced',
+        ...order,
+      })
+
+      window.dataLayer.push({
+        ecommerce: {
+          purchase: {
+            actionFields: getPurchaseObjectData(order),
+            products: order.transactionProducts.map(
+              (product: Product) => getProductObjectData(product)
+            ),
+          }
+        },
+        event: 'pageLoaded',
+      })
+    }
     default: {
       return
     }
+  }
+}
+
+interface Order extends Data {
+  currency: string
+  accountName: string
+  orderGroup: string
+  salesChannel: string
+  coupon: string
+  visitorType: string
+  visitorContactInfo: string[]
+  transactionId: string
+  transactionDate: string
+  transactionAffiliation: string
+  transactionTotal: number,
+  transactionShipping: number,
+  transactionTax: number,
+  transactionCurrency: string,
+  transactionPaymentType: PaymentType[],
+  transactionShippingMethod: ShippingMethod[]
+  transactionProducts: Product[]
+  transactionPayment: {
+    id: string
+  }
+}
+
+interface PaymentType {
+  group: string
+  paymentSystemName: string
+  installments: number
+  value: number
+}
+
+interface ShippingMethod {
+  itemId: string
+  selectedSla: string
+}
+
+interface Product {
+  id: string,
+  name: string,
+  sku: string,
+  skuRefId: string,
+  skuName: string,
+  brand: string,
+  brandId: string,
+  seller: string,
+  sellerId: string,
+  category: string,
+  categoryId: string,
+  categoryTree: string[]
+  categoryIdTree: string[]
+  originalPrice: number
+  price: number
+  sellingPrice: number
+  tax: number
+  quantity: number
+  components: any[]
+  measurementUnit: string
+  unitMultiplier: number
+}
+
+function getPurchaseObjectData(order: Order) {
+  return {
+    affiliation: order.transactionAffiliation,
+    coupon: order.coupon ? order.coupon : null,
+    id: order.orderGroup,
+    revenue: order.transactionTotal,
+    shipping: order.transactionShipping,
+    tax: order.transactionTax,
+  }
+}
+
+function getProductObjectData(product: Product) {
+  return {
+    brand: product.brand,
+    category: product.category,
+    id: product.sku,
+    name: product.name,
+    price: product.price,
+    quantity: product.quantity,
+    variant: product.skuName,
   }
 }
 
