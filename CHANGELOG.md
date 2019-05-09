@@ -7,28 +7,50 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.2.0] - 2019-03-18
+## [1.3.0] - 2019-05-09
+
+### Fixed
+
+- Use the right price property.
+
 ### Added
+
+- Event `removeFromCart`.
+- Event `orderPlaced`.
+
+## [1.2.0] - 2019-03-18
+
+### Added
+
 - Add `pixel` policy.
 
 ## [1.1.0] - 2019-01-25
 
 ## [1.0.0] - 2019-01-16
+
 ### Changed
+
 - Migrate the app to typescript.
 - Update to use new pixel API.
 
 ## [0.1.2] - 2018-12-04
+
 ### Fixed
+
 - Add billingOptions on manifest.json.
 
 ## [0.1.1] - 2018-12-03
+
 ### Added
+
 - Add full description to publish in Apps Store.
 
 ### Changed
+
 - Change the Readme to reflect the Setup of the service.
 
 ## [0.1.0] - 2018-09-26
+
 ### Added
+
 - MVP of `Google Tag Manager`.
