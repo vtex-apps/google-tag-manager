@@ -56,6 +56,7 @@ function handleEvents(e: PixelMessage) {
             ],
           },
         },
+        event: 'productDetail',
       }
 
       window.dataLayer.push(data)
