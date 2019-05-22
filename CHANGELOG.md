@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Event `pageView`.
+- Property `event: 'productDetail'` to product view event.
+
 ## [1.3.0] - 2019-05-09
 
 ### Fixed
