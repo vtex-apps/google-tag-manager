@@ -1,27 +1,14 @@
 import { path } from 'ramda'
-import { PixelMessage, Order, Product } from './typings/events'
+import { PixelMessage, Order, ProductOrder } from './typings/events'
+import addTagManager from './modules/tagManagerScript'
+import push from './modules/push'
 
-const gtmId = window.__SETTINGS__.gtmId
+addTagManager()
 
-if (!gtmId) {
-  throw new Error('Warning: No Google Tag Manager ID is defined. To setup this app, take a look at your admin')
-}
-
-// GTM script snippet. Taken from: https://developers.google.com/tag-manager/quickstart
-/* tslint:disable */
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer',gtmId)
-/* tslint:enable */
-
-window.dataLayer = window.dataLayer || []
-
-function handleEvents(e: PixelMessage) {
+export function handleEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:pageView': {
-      window.dataLayer.push({
+      push({
         event: 'pageView',
         referrer: e.data.referrer,
         location: e.data.pageUrl,
@@ -59,7 +46,7 @@ function handleEvents(e: PixelMessage) {
         event: 'productDetail',
       }
 
-      window.dataLayer.push(data)
+      push(data)
       return
     }
     case 'vtex:addToCart': {
@@ -67,7 +54,7 @@ function handleEvents(e: PixelMessage) {
         items
       } = e.data
 
-      window.dataLayer.push({
+      push({
         ecommerce: {
           add: {
             products: items.map((sku: any) => ({
@@ -90,7 +77,7 @@ function handleEvents(e: PixelMessage) {
         items
       } = e.data
 
-      window.dataLayer.push({
+      push({
         ecommerce: {
           currencyCode: e.data.currency,
           remove: {
@@ -111,7 +98,7 @@ function handleEvents(e: PixelMessage) {
     case 'vtex:orderPlaced': {
       const order = e.data as Order
 
-      window.dataLayer.push({
+      push({
         event: 'orderPlaced',
         ...order,
       })
@@ -133,7 +120,6 @@ function handleEvents(e: PixelMessage) {
     }
   }
 }
-
 
 function getPurchaseObjectData(order: Order) {
   return {
