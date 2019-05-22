@@ -101,9 +101,6 @@ export function handleEvents(e: PixelMessage) {
       push({
         event: 'orderPlaced',
         ...order,
-      })
-
-      window.dataLayer.push({
         ecommerce: {
           purchase: {
             actionFields: getPurchaseObjectData(order),
@@ -112,7 +109,29 @@ export function handleEvents(e: PixelMessage) {
             ),
           }
         },
-        event: 'pageLoaded',
+      })
+      return
+    }
+    case 'vtex:productImpression': {
+      const { product, currency, position, list } = e.data
+
+      push({
+        event: 'productImpression',
+        ecommerce: {
+          currencyCode: currency,
+          impressions: [
+            {
+              brand: product.brand,
+              category: getCategory(product.categories),
+              id: product.productId,
+              list,
+              name: product.productName,
+              position,
+              price: `${product.sku.seller.commertialOffer.Price}`,
+              variant: product.sku.name,
+            }
+          ]
+        }
       })
     }
     default: {
@@ -142,6 +161,17 @@ function getProductObjectData(product: ProductOrder) {
     quantity: product.quantity,
     variant: product.skuName,
   }
+}
+
+function getCategory(rawCategories: string[]) {
+  if (!rawCategories || !rawCategories.length) return
+
+  const categories = rawCategories.map(function (categoryPath: string) {
+    let splitedPath = categoryPath.split('/').filter(Boolean)
+    return splitedPath[0]
+  })
+
+  return categories ? categories[0] : categories
 }
 
 window.addEventListener('message', handleEvents)
