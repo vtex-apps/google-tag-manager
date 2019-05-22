@@ -70,7 +70,7 @@ export interface Order {
   transactionCurrency: string,
   transactionPaymentType: PaymentType[],
   transactionShippingMethod: ShippingMethod[]
-  transactionProducts: Product[]
+  transactionProducts: ProductOrder[]
   transactionPayment: {
     id: string
   }
@@ -88,7 +88,7 @@ interface ShippingMethod {
   selectedSla: string
 }
 
-interface Product {
+interface ProductOrder {
   id: string,
   name: string,
   sku: string,
@@ -114,15 +114,27 @@ interface Product {
 
 interface Product {
   brand: string
-  categoryId: string
+  categoryId?: string // inconsistency
   categories: string[]
   productId: string
   productName: string
-  selectedSku: string
+  selectedSku?: string // inconsistency
   items: Item[]
+  sku: Item
+  [key: string]: any
 }
 
 interface Item {
   itemId: string
   name: string
+  seller: Seller
+  [key: string]: any
+}
+
+interface Seller {
+  commertialOffer: CommertialOffer
+}
+
+interface CommertialOffer {
+  Price: number
 }
