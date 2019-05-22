@@ -20,6 +20,18 @@ window.dataLayer = window.dataLayer || []
 
 function handleEvents(e: PixelMessage) {
   switch (e.data.eventName) {
+    case 'vtex:pageView': {
+      window.dataLayer.push({
+        event: 'pageView',
+        referrer: e.data.referrer,
+        location: e.data.pageUrl,
+        page: e.data.pageUrl.replace(e.origin, ''),
+        ...(e.data.pageTitle && {
+          title: e.data.pageTitle,
+        }),
+      })
+      return
+    }
     case 'vtex:productView': {
       const {
         productId,
