@@ -1,28 +1,5 @@
 import { path } from 'ramda'
-
-type EventType =
-  | 'vtex:homeView'
-  | 'vtex:productView'
-  | 'vtex:productClick'
-  | 'vtex:otherView'
-  | 'vtex:categoryView'
-  | 'vtex:departmentView'
-  | 'vtex:internalSiteSearchView'
-  | 'vtex:pageInfo'
-  | 'vtex:pageView'
-  | 'vtex:addToCart'
-  | 'vtex:removeFromCart'
-  | 'vtex:pageComponentInteraction'
-  | 'vtex:orderPlaced'
-
-interface PixelManagerEvent extends MessageEvent {
-  data: Data
-}
-
-interface Data {
-  eventName: EventType,
-  [key: string]: any
-}
+import { PixelMessage, Order, Product } from './typings/events'
 
 const gtmId = window.__SETTINGS__.gtmId
 
@@ -41,7 +18,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 window.dataLayer = window.dataLayer || []
 
-function handleEvents(e: PixelManagerEvent) {
+function handleEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:productView': {
       const {
@@ -144,64 +121,6 @@ function handleEvents(e: PixelManagerEvent) {
   }
 }
 
-interface Order extends Data {
-  currency: string
-  accountName: string
-  orderGroup: string
-  salesChannel: string
-  coupon: string
-  visitorType: string
-  visitorContactInfo: string[]
-  transactionId: string
-  transactionDate: string
-  transactionAffiliation: string
-  transactionTotal: number,
-  transactionShipping: number,
-  transactionTax: number,
-  transactionCurrency: string,
-  transactionPaymentType: PaymentType[],
-  transactionShippingMethod: ShippingMethod[]
-  transactionProducts: Product[]
-  transactionPayment: {
-    id: string
-  }
-}
-
-interface PaymentType {
-  group: string
-  paymentSystemName: string
-  installments: number
-  value: number
-}
-
-interface ShippingMethod {
-  itemId: string
-  selectedSla: string
-}
-
-interface Product {
-  id: string,
-  name: string,
-  sku: string,
-  skuRefId: string,
-  skuName: string,
-  brand: string,
-  brandId: string,
-  seller: string,
-  sellerId: string,
-  category: string,
-  categoryId: string,
-  categoryTree: string[]
-  categoryIdTree: string[]
-  originalPrice: number
-  price: number
-  sellingPrice: number
-  tax: number
-  quantity: number
-  components: any[]
-  measurementUnit: string
-  unitMultiplier: number
-}
 
 function getPurchaseObjectData(order: Order) {
   return {
