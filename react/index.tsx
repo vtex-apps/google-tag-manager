@@ -108,7 +108,7 @@ export function handleEvents(e: PixelMessage) {
           purchase: {
             actionFields: getPurchaseObjectData(order),
             products: order.transactionProducts.map(
-              (product: Product) => getProductObjectData(product)
+              (product: ProductOrder) => getProductObjectData(product)
             ),
           }
         },
@@ -132,7 +132,7 @@ function getPurchaseObjectData(order: Order) {
   }
 }
 
-function getProductObjectData(product: Product) {
+function getProductObjectData(product: ProductOrder) {
   return {
     brand: product.brand,
     category: product.category,
