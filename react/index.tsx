@@ -98,17 +98,25 @@ export function handleEvents(e: PixelMessage) {
     case 'vtex:orderPlaced': {
       const order = e.data as Order
 
+      const ecommerce = {
+        purchase: {
+          actionFields: getPurchaseObjectData(order),
+          products: order.transactionProducts.map(
+            (product: ProductOrder) => getProductObjectData(product)
+          ),
+        }
+      }
+
       push({
         event: 'orderPlaced',
         ...order,
-        ecommerce: {
-          purchase: {
-            actionFields: getPurchaseObjectData(order),
-            products: order.transactionProducts.map(
-              (product: ProductOrder) => getProductObjectData(product)
-            ),
-          }
-        },
+        ecommerce,
+      })
+
+      // Backwards compatible event
+      push({
+        event: 'pageLoaded',
+        ecommerce,
       })
       return
     }

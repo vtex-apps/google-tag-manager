@@ -15,10 +15,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Add Enhanced Ecommerce data to `orderPlaced` event.
 
-### Removed
-
-- Event `pageLoaded` after `orderPlaced` event, added all this info to the `orderPlaced` event.
-
 ## [1.4.0] - 2019-05-22
 
 ### Added
