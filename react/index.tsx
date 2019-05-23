@@ -100,7 +100,7 @@ export function handleEvents(e: PixelMessage) {
 
       const ecommerce = {
         purchase: {
-          actionFields: getPurchaseObjectData(order),
+          actionField: getPurchaseObjectData(order),
           products: order.transactionProducts.map(
             (product: ProductOrder) => getProductObjectData(product)
           ),
