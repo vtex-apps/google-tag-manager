@@ -19,7 +19,7 @@
     "react": "3.x"
   },
   "dependencies": {
-    "vtex.pixel-manager": "1.x"
+    "vtex.pixel-manager": "1.0.0-beta.1"
   },
   "policies": [
     {
