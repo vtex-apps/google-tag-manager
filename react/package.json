@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "Google Tag Manager.",
   "scripts": {
-    "test": "vtex-test-tools test"
+    "test": "vtex-test-tools test",
+    "lint": "tsc --noEmit && tslint --fix -c tslint.json './**/*.tsx'"
   },
   "author": "VTEX",
   "license": "ISC",
@@ -17,12 +18,8 @@
     "@vtex/test-tools": "^0.3.2",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
-    "eslint": "^5.16.0",
-    "eslint-config-vtex": "^10.1.0",
-    "prettier": "^1.17.1",
+    "tslint": "^5.2.0",
+    "tslint-config-vtex": "^2.0.0",
     "typescript": "^3.4.5"
-  },
-  "dependencies": {
-    "ramda": "^0.25.0"
   }
 }

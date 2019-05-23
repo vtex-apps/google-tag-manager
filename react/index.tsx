@@ -1,7 +1,7 @@
-import { path } from 'ramda'
-import { PixelMessage, Order, ProductOrder } from './typings/events'
-import addTagManager from './modules/tagManagerScript'
 import push from './modules/push'
+import { Order, PixelMessage, ProductOrder } from './typings/events'
+
+const addTagManager: any = require('./modules/tagManagerScript').default // tslint:disable-line
 
 addTagManager()
 
@@ -27,7 +27,14 @@ export function handleEvents(e: PixelMessage) {
         categories,
       } = e.data.product
 
-      const category = path(['0'], categories) as string
+      const category = categories[0] as string
+
+      let price
+      try {
+        price = e.data.product.items[0].sellers[0].commertialOffer.Price
+      } catch {
+        price = undefined
+      }
 
       const data = {
         ecommerce: {
@@ -38,7 +45,7 @@ export function handleEvents(e: PixelMessage) {
                 category: category && category.replace(/^\/|\/$/g, ''),
                 id: productId,
                 name: productName,
-                price: path(['items', '0', 'sellers', '0', 'commertialOffer', 'Price'], e.data.product)
+                price,
               },
             ],
           },
@@ -51,7 +58,7 @@ export function handleEvents(e: PixelMessage) {
     }
     case 'vtex:addToCart': {
       const {
-        items
+        items,
       } = e.data
 
       push({
@@ -64,7 +71,7 @@ export function handleEvents(e: PixelMessage) {
               price: `${sku.price}`,
               quantity: sku.quantity,
               variant: sku.variant,
-            }))
+            })),
           },
           currencyCode: e.data.currency,
         },
@@ -74,7 +81,7 @@ export function handleEvents(e: PixelMessage) {
     }
     case 'vtex:removeFromCart': {
       const {
-        items
+        items,
       } = e.data
 
       push({
@@ -88,7 +95,7 @@ export function handleEvents(e: PixelMessage) {
               price: `${sku.price}`,
               quantity: sku.quantity,
               variant: sku.variant,
-            }))
+            })),
           },
         },
         event: 'removeFromCart',
@@ -104,7 +111,7 @@ export function handleEvents(e: PixelMessage) {
           products: order.transactionProducts.map(
             (product: ProductOrder) => getProductObjectData(product)
           ),
-        }
+        },
       }
 
       push({
@@ -115,8 +122,8 @@ export function handleEvents(e: PixelMessage) {
 
       // Backwards compatible event
       push({
-        event: 'pageLoaded',
         ecommerce,
+        event: 'pageLoaded',
       })
       return
     }
@@ -137,9 +144,9 @@ export function handleEvents(e: PixelMessage) {
               position,
               price: `${product.sku.seller.commertialOffer.Price}`,
               variant: product.sku.name,
-            }
-          ]
-        }
+            },
+          ],
+        },
       })
     }
     default: {
@@ -172,10 +179,10 @@ function getProductObjectData(product: ProductOrder) {
 }
 
 function getCategory(rawCategories: string[]) {
-  if (!rawCategories || !rawCategories.length) return
+  if (!rawCategories || !rawCategories.length) { return }
 
   const categories = rawCategories.map(function (categoryPath: string) {
-    let splitedPath = categoryPath.split('/').filter(Boolean)
+    const splitedPath = categoryPath.split('/').filter(Boolean)
     return splitedPath[0]
   })
 

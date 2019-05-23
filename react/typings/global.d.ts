@@ -1,6 +1,4 @@
 interface Window extends Window {
   dataLayer: any[]
-  __SETTINGS__: {
-    gtmId: string
-  }
+  __SETTINGS__: Record<string, any>
 }
