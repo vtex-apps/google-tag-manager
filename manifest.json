@@ -21,7 +21,6 @@
     "pixel": "0.x"
   },
   "dependencies": {
-    "vtex.pixel-manager": "1.x",
     "vtex.store": "2.x"
   },
   "policies": [
