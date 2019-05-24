@@ -1,18 +1,16 @@
 import push from './modules/push'
 import { Order, PixelMessage, ProductOrder } from './typings/events'
 
-const addTagManager: any = require('./modules/tagManagerScript').default // tslint:disable-line
-
-addTagManager()
+export default function () { return null } // no-op for extension point
 
 export function handleEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:pageView': {
       push({
         event: 'pageView',
-        referrer: e.data.referrer,
         location: e.data.pageUrl,
         page: e.data.pageUrl.replace(e.origin, ''),
+        referrer: e.data.referrer,
         ...(e.data.pageTitle && {
           title: e.data.pageTitle,
         }),
@@ -142,7 +140,7 @@ export function handleEvents(e: PixelMessage) {
               list,
               name: product.productName,
               position,
-              price: `${product.sku.seller.commertialOffer.Price}`,
+              price: `${product.sku.seller!.commertialOffer.Price}`,
               variant: product.sku.name,
             },
           ],

@@ -127,14 +127,16 @@ interface Product {
 interface Item {
   itemId: string
   name: string
-  seller: Seller
+  seller?: Seller
   [key: string]: any
 }
 
 interface Seller {
   commertialOffer: CommertialOffer
+  [key: string]: any
 }
 
 interface CommertialOffer {
   Price: number
+  [key: string]: any
 }

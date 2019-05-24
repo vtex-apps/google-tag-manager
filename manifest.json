@@ -16,10 +16,13 @@
     "free": true
   },
   "builders": {
-    "react": "3.x"
+    "react": "3.x",
+    "store": "0.x",
+    "pixel": "0.x"
   },
   "dependencies": {
-    "vtex.pixel-manager": "1.0.0-beta.1"
+    "vtex.pixel-manager": "1.x",
+    "vtex.store": "2.x"
   },
   "policies": [
     {
