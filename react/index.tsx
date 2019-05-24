@@ -59,11 +59,11 @@ export function handleEvents(e: PixelMessage) {
           add: {
             products: items.map((sku: any) => ({
               brand: sku.brand,
-              id: sku.skuId,
+              id: sku.skuId || sku.id,
               name: sku.name,
               price: `${sku.price}`,
               quantity: sku.quantity,
-              variant: sku.variant,
+              variant: sku.variant || sku.skuName,
             }))
           },
           currencyCode: e.data.currency,
@@ -83,11 +83,11 @@ export function handleEvents(e: PixelMessage) {
           remove: {
             products: items.map((sku: any) => ({
               brand: sku.brand,
-              id: sku.skuId,
+              id: sku.skuId || sku.id,
               name: sku.name,
               price: `${sku.price}`,
               quantity: sku.quantity,
-              variant: sku.variant,
+              variant: sku.variant || sku.skuName,
             }))
           },
         },
