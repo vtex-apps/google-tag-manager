@@ -8,10 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [2.0.0] - 2019-05-25
-
-## [2.0.0-beta.0] - 2019-05-23
-
-## [2.0.0-beta] - 2019-05-23
+### Changed
+- Ported to pixel builder 0
 
 ## [1.5.1] - 2019-05-23
 
