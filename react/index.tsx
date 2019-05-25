@@ -1,3 +1,5 @@
+import { canUseDOM } from 'vtex.render-runtime'
+
 import push from './modules/push'
 import { Order, PixelMessage, ProductOrder } from './typings/events'
 
@@ -187,4 +189,6 @@ function getCategory(rawCategories: string[]) {
   return categories ? categories[0] : categories
 }
 
-window.addEventListener('message', handleEvents)
+if (canUseDOM) {
+  window.addEventListener('message', handleEvents)
+}
