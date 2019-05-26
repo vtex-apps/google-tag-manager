@@ -1,5 +1,5 @@
-import { handleEvents } from '../index'
 import productImpressionData from '../__mocks__/productImpression'
+import { handleEvents } from '../index'
 import push from '../modules/push'
 
 jest.mock('../modules/tagManagerScript', () => jest.fn())
