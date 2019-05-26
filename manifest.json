@@ -21,7 +21,7 @@
     "pixel": "0.x"
   },
   "dependencies": {
-    "vtex.store": "2.x"
+    "vtex.pixel-interfaces": "1.x"
   },
   "policies": [
     {
