@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Use ES5.
+- Avoid using global scope.
 
 ## [2.0.3] - 2019-05-27
 
