@@ -1,9 +1,9 @@
 <script>
-  const gtmId = "{{settings.gtmId}}"
+  var gtmId = "{{settings.gtmId}}";
   if (!gtmId) {
-    var workspace = "{{workspace}}"
-    var adminUrl = 'https://' + (workspace && workspace !== 'master' ? workspace + '--' : '') + '{{account}}.myvtex.com/admin/apps'
-    console.error('Warning: No Google Tag Manager ID is defined. Please configure it in the apps admin: ' + adminUrl)
+    var workspace = "{{workspace}}";
+    var adminUrl = 'https://' + (workspace && workspace !== 'master' ? workspace + '--' : '') + '{{account}}.myvtex.com/admin/apps';
+    console.error('Warning: No Google Tag Manager ID is defined. Please configure it in the apps admin: ' + adminUrl);
   } else {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ 'gtm.blacklist': ['html'] });
