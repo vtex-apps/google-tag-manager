@@ -82,12 +82,12 @@ To create a Tag, click on "Tags" on the menu on the left and then on the button 
 5. Type "{{Event}}" in Action
 6. In Google Analytics Settings choose "{{Google Analytics - Checkout and Order Placed}}"
 7. Choose the Triggers: 
-  1. "Custom Event - cart"
-  2. "Custom Event - email"
-  3. "Custom Event - orderPlaced"
-  4. "Custom Event - payment"
-  5. "Custom Event - profile"
-  6. "Custom Event - shipping"
+    1. "Custom Event - cart"
+    2. "Custom Event - email"
+    3. "Custom Event - orderPlaced"
+    4. "Custom Event - payment"
+    5. "Custom Event - profile"
+    6. "Custom Event - shipping"
 8. Save as "Google Analytics - Checkout and Order Placed"
 
 #### Google Analytics - Enhanced Ecommerce
@@ -99,10 +99,10 @@ To create a Tag, click on "Tags" on the menu on the left and then on the button 
 5. Type "{{Event}}" in Action
 6. In Google Analytics Settings choose "{{Google Analytics}}"
 7. Choose the Triggers:
-  1. "Custom Event - addToCart"
-  2. "Custom Event - productDetail"
-  3. "Custom Event - productImpression"
-  4. "Custom Event - removeFromCart"
+    1. "Custom Event - addToCart"
+    2. "Custom Event - productDetail"
+    3. "Custom Event - productImpression"
+    4. "Custom Event - removeFromCart"
 8. Save as "Google Analytics - Enhanced Ecommerce"
 
 #### Google Analytics - Page View
