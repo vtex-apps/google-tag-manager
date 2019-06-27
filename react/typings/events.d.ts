@@ -1,5 +1,5 @@
 export interface PixelMessage extends MessageEvent {
-  data: ProductViewData | ProductClickData | OrderPlacedData | PageViewData | ProductImpressionData | AddToCartData | RemoveToCartData
+  data: ProductViewData | ProductClickData | OrderPlacedData | PageViewData | ProductImpressionData | AddToCartData | RemoveToCartData | PromoViewData | PromoClickData
 }
 
 export interface EventData {
@@ -26,6 +26,19 @@ export interface RemoveToCartData extends EventData {
   event: 'removeFromCart'
   eventName: 'vtex:removeFromCart'
   items: any[]
+}
+
+export interface PromoViewData extends EventData {
+  event: 'promoView'
+  eventName: 'vtex:promoView'
+  promotions: Promotion[]
+}
+
+export interface PromoClickData extends EventData {
+  event: 'promotionClick'
+  eventName: 'vtex:promotionClick'
+  promotions: Promotion[]
+  eventCallback?: () => void
 }
 
 export interface OrderPlacedData extends Order, EventData {
@@ -74,6 +87,13 @@ export interface Order {
   transactionPayment: {
     id: string
   }
+}
+
+interface Promotion {
+  id?: string
+  name?: string
+  creative?: string
+  position?: string
 }
 
 interface PaymentType {
