@@ -148,6 +148,31 @@ export function handleEvents(e: PixelMessage) {
           ],
         },
       })
+      return
+    }
+    case 'vtex:promoView': {
+      const { promotions } = e.data
+      push({
+        ecommerce: {
+          promoView: {
+            promotions,
+          }
+        }
+      })
+      return
+    }
+    case 'vtex:promotionClick': {
+      const { promotions, eventCallback } = e.data
+      push({
+        event: 'promotionClick',
+        ecommerce: {
+          promoClick: {
+            promotions
+          },
+        },
+        eventCallback,
+      })
+      return
     }
     default: {
       return
