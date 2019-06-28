@@ -3,7 +3,9 @@ import { canUseDOM } from 'vtex.render-runtime'
 import push from './modules/push'
 import { Order, PixelMessage, ProductOrder } from './typings/events'
 
-export default function () { return null } // no-op for extension point
+export default function() {
+  return null
+} // no-op for extension point
 
 export function handleEvents(e: PixelMessage) {
   switch (e.data.eventName) {
@@ -20,12 +22,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:productView': {
-      const {
-        productId,
-        productName,
-        brand,
-        categories,
-      } = e.data.product
+      const { productId, productName, brand, categories } = e.data.product
 
       const category = categories[0] as string
 
@@ -57,9 +54,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:addToCart': {
-      const {
-        items,
-      } = e.data
+      const { items } = e.data
 
       push({
         ecommerce: {
@@ -80,9 +75,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:removeFromCart': {
-      const {
-        items,
-      } = e.data
+      const { items } = e.data
 
       push({
         ecommerce: {
@@ -108,8 +101,8 @@ export function handleEvents(e: PixelMessage) {
       const ecommerce = {
         purchase: {
           actionField: getPurchaseObjectData(order),
-          products: order.transactionProducts.map(
-            (product: ProductOrder) => getProductObjectData(product)
+          products: order.transactionProducts.map((product: ProductOrder) =>
+            getProductObjectData(product)
           ),
         },
       }
@@ -127,28 +120,29 @@ export function handleEvents(e: PixelMessage) {
       })
       return
     }
-    case 'vtex:productImpression': {
-      const { product, currency, position, list } = e.data
+    case 'vtex:productImpression':
+      {
+        const { currency, list, impressions } = e.data
+        const parsedImpressions = impressions.map(({ product, position }) => ({
+          brand: product.brand,
+          category: getCategory(product.categories),
+          id: product.productId,
+          list,
+          name: product.productName,
+          position,
+          price: `${product.sku.seller!.commertialOffer.Price}`,
+          variant: product.sku.name,
+        }))
 
-      push({
-        event: 'productImpression',
-        ecommerce: {
-          currencyCode: currency,
-          impressions: [
-            {
-              brand: product.brand,
-              category: getCategory(product.categories),
-              id: product.productId,
-              list,
-              name: product.productName,
-              position,
-              price: `${product.sku.seller!.commertialOffer.Price}`,
-              variant: product.sku.name,
-            },
-          ],
-        },
-      })
-    }
+        push({
+          event: 'productImpression',
+          ecommerce: {
+            currencyCode: currency,
+            impressions: parsedImpressions,
+          },
+        })
+      }
+      return
     default: {
       return
     }
@@ -179,9 +173,11 @@ function getProductObjectData(product: ProductOrder) {
 }
 
 function getCategory(rawCategories: string[]) {
-  if (!rawCategories || !rawCategories.length) { return }
+  if (!rawCategories || !rawCategories.length) {
+    return
+  }
 
-  const categories = rawCategories.map(function (categoryPath: string) {
+  const categories = rawCategories.map(function(categoryPath: string) {
     const splitedPath = categoryPath.split('/').filter(Boolean)
     return splitedPath[0]
   })

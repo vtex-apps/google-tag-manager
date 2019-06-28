@@ -1,5 +1,12 @@
 export interface PixelMessage extends MessageEvent {
-  data: ProductViewData | ProductClickData | OrderPlacedData | PageViewData | ProductImpressionData | AddToCartData | RemoveToCartData
+  data:
+    | ProductViewData
+    | ProductClickData
+    | OrderPlacedData
+    | PageViewData
+    | ProductImpressionData
+    | AddToCartData
+    | RemoveToCartData
 }
 
 export interface EventData {
@@ -48,8 +55,7 @@ export interface ProductClickData extends EventData {
 export interface ProductImpressionData extends EventData {
   event: 'productImpression'
   eventName: 'vtex:productImpression'
-  product: Product
-  position: number
+  impressions: Impression[]
   list: string
 }
 
@@ -64,16 +70,21 @@ export interface Order {
   transactionId: string
   transactionDate: string
   transactionAffiliation: string
-  transactionTotal: number,
-  transactionShipping: number,
-  transactionTax: number,
-  transactionCurrency: string,
-  transactionPaymentType: PaymentType[],
+  transactionTotal: number
+  transactionShipping: number
+  transactionTax: number
+  transactionCurrency: string
+  transactionPaymentType: PaymentType[]
   transactionShippingMethod: ShippingMethod[]
   transactionProducts: ProductOrder[]
   transactionPayment: {
     id: string
   }
+}
+
+interface Impression {
+  product: Product
+  position: number
 }
 
 interface PaymentType {
@@ -89,17 +100,17 @@ interface ShippingMethod {
 }
 
 interface ProductOrder {
-  id: string,
-  name: string,
-  sku: string,
-  skuRefId: string,
-  skuName: string,
-  brand: string,
-  brandId: string,
-  seller: string,
-  sellerId: string,
-  category: string,
-  categoryId: string,
+  id: string
+  name: string
+  sku: string
+  skuRefId: string
+  skuName: string
+  brand: string
+  brandId: string
+  seller: string
+  sellerId: string
+  category: string
+  categoryId: string
   categoryTree: string[]
   categoryIdTree: string[]
   originalPrice: number
