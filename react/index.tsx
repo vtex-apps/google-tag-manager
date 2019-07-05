@@ -1,7 +1,7 @@
 import { canUseDOM } from 'vtex.render-runtime'
 
 import push from './modules/push'
-import { Order, PixelMessage, ProductOrder } from './typings/events'
+import { Order, PixelMessage, ProductOrder, Impression } from './typings/events'
 
 export default function() {
   return null
@@ -122,23 +122,25 @@ export function handleEvents(e: PixelMessage) {
     }
     case 'vtex:productImpression':
       {
-        const { currency, list, impressions } = e.data
-        const parsedImpressions = impressions.map(({ product, position }) => ({
-          brand: product.brand,
-          category: getCategory(product.categories),
-          id: product.productId,
-          list,
-          name: product.productName,
-          position,
-          price: `${product.sku.seller!.commertialOffer.Price}`,
-          variant: product.sku.name,
-        }))
+        const { currency, list, impressions, product, position } = e.data
+        let oldImpresionFormat = null
+        if (product != null && position != null) {
+          // make it backwards compatible
+          oldImpresionFormat = getProductImpressionObjectData(list)({
+            product,
+            position,
+          })
+        }
+
+        const parsedImpressions = (impressions || []).map(
+          getProductImpressionObjectData(list)
+        )
 
         push({
           event: 'productImpression',
           ecommerce: {
             currencyCode: currency,
-            impressions: parsedImpressions,
+            impressions: oldImpresionFormat || parsedImpressions,
           },
         })
       }
@@ -184,6 +186,20 @@ function getCategory(rawCategories: string[]) {
 
   return categories ? categories[0] : categories
 }
+
+const getProductImpressionObjectData = (list: string) => ({
+  product,
+  position,
+}: Impression) => ({
+  brand: product.brand,
+  category: getCategory(product.categories),
+  id: product.productId,
+  list,
+  name: product.productName,
+  position,
+  price: `${product.sku.seller!.commertialOffer.Price}`,
+  variant: product.sku.name,
+})
 
 if (canUseDOM) {
   window.addEventListener('message', handleEvents)
