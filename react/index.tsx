@@ -123,13 +123,13 @@ export function handleEvents(e: PixelMessage) {
     case 'vtex:productImpression':
       {
         const { currency, list, impressions, product, position } = e.data
-        let oldImpresionFormat = null
+        let oldImpresionFormat: Record<string, any> | null = null
         if (product != null && position != null) {
           // make it backwards compatible
-          oldImpresionFormat = getProductImpressionObjectData(list)({
+          oldImpresionFormat = [getProductImpressionObjectData(list)({
             product,
             position,
-          })
+          })]
         }
 
         const parsedImpressions = (impressions || []).map(
