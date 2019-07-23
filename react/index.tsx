@@ -24,8 +24,6 @@ export function handleEvents(e: PixelMessage) {
     case 'vtex:productView': {
       const { productId, productName, brand, categories } = e.data.product
 
-      const category = categories[0] as string
-
       let price
       try {
         price = e.data.product.items[0].sellers[0].commertialOffer.Price
@@ -39,7 +37,7 @@ export function handleEvents(e: PixelMessage) {
             products: [
               {
                 brand,
-                category: category && category.replace(/^\/|\/$/g, ''),
+                category: getCategory(categories),
                 id: productId,
                 name: productName,
                 price,
@@ -54,9 +52,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:productClick': {
-      const { productId, productName, brand, categories, sku} = e.data.product
-
-      const category = categories[0] as string
+      const { productId, productName, brand, categories, sku } = e.data.product
 
       let price
       try {
@@ -69,16 +65,18 @@ export function handleEvents(e: PixelMessage) {
         event: 'productClick',
         ecommerce: {
           click: {
-            products: [{
-              name: productName,
-              id: productId,
-              price: price,
-              brand: brand,
-              category: category,
-              variant: sku.name,
-            }]
-          }
-        }
+            products: [
+              {
+                brand,
+                category: getCategory(categories),
+                id: productId,
+                name: productName,
+                variant: sku.name,
+                price,
+              },
+            ],
+          },
+        },
       }
 
       push(data)
@@ -92,6 +90,7 @@ export function handleEvents(e: PixelMessage) {
           add: {
             products: items.map((sku: any) => ({
               brand: sku.brand,
+              category: sku.category,
               id: sku.skuId,
               name: sku.name,
               price: `${sku.price}`,
@@ -115,6 +114,7 @@ export function handleEvents(e: PixelMessage) {
             products: items.map((sku: any) => ({
               brand: sku.brand,
               id: sku.skuId,
+              category: sku.category,
               name: sku.name,
               price: `${sku.price}`,
               quantity: sku.quantity,
@@ -127,7 +127,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:orderPlaced': {
-      const order = e.data as Order
+      const order = e.data
 
       const ecommerce = {
         purchase: {
@@ -157,10 +157,12 @@ export function handleEvents(e: PixelMessage) {
         let oldImpresionFormat: Record<string, any> | null = null
         if (product != null && position != null) {
           // make it backwards compatible
-          oldImpresionFormat = [getProductImpressionObjectData(list)({
-            product,
-            position,
-          })]
+          oldImpresionFormat = [
+            getProductImpressionObjectData(list)({
+              product,
+              position,
+            }),
+          ]
         }
 
         const parsedImpressions = (impressions || []).map(
@@ -196,7 +198,7 @@ function getPurchaseObjectData(order: Order) {
 function getProductObjectData(product: ProductOrder) {
   return {
     brand: product.brand,
-    category: product.category,
+    category: product.categoryTree && product.categoryTree.join('/'),
     id: product.sku,
     name: product.name,
     price: product.price,
@@ -210,12 +212,13 @@ function getCategory(rawCategories: string[]) {
     return
   }
 
-  const categories = rawCategories.map(function(categoryPath: string) {
-    const splitedPath = categoryPath.split('/').filter(Boolean)
-    return splitedPath[0]
-  })
+  return removeStartAndEndSlash(rawCategories[0])
+}
 
-  return categories ? categories[0] : categories
+// Transform this: "/Apparel & Accessories/Clothing/Tops/"
+// To this: "Apparel & Accessories/Clothing/Tops"
+function removeStartAndEndSlash(category: string) {
+  return category && category.replace(/^\/|\/$/g, '')
 }
 
 const getProductImpressionObjectData = (list: string) => ({

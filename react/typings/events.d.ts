@@ -26,13 +26,13 @@ export interface PageViewData extends EventData {
 export interface AddToCartData extends EventData {
   event: 'addToCart'
   eventName: 'vtex:addToCart'
-  items: any[]
+  items: CartItem[]
 }
 
 export interface RemoveToCartData extends EventData {
   event: 'removeFromCart'
   eventName: 'vtex:removeFromCart'
-  items: any[]
+  items: CartItem[]
 }
 
 export interface OrderPlacedData extends Order, EventData {
@@ -59,6 +59,17 @@ export interface ProductImpressionData extends EventData {
   product?: Product // deprecated, use impressions list!
   position?: number // deprecated, use impressions list!
   list: string
+}
+
+interface CartItem {
+  skuId: string
+  variant: string
+  price: number
+  name: string
+  quantity: number
+  productRefId: string
+  brand: string
+  category: string
 }
 
 export interface Order {
@@ -112,6 +123,9 @@ interface ProductOrder {
   sku: string
   skuRefId: string
   skuName: string
+  productRefId: string
+  ean: string
+  slug: string
   brand: string
   brandId: string
   seller: string
