@@ -157,10 +157,12 @@ export function handleEvents(e: PixelMessage) {
         let oldImpresionFormat: Record<string, any> | null = null
         if (product != null && position != null) {
           // make it backwards compatible
-          oldImpresionFormat = [getProductImpressionObjectData(list)({
-            product,
-            position,
-          })]
+          oldImpresionFormat = [
+            getProductImpressionObjectData(list)({
+              product,
+              position,
+            }),
+          ]
         }
 
         const parsedImpressions = (impressions || []).map(
