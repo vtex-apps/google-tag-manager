@@ -39,7 +39,7 @@ export function handleEvents(e: PixelMessage) {
             products: [
               {
                 brand,
-                category: category && category.replace(/^\/|\/$/g, ''),
+                category: removeStartAndEndSlash(category),
                 id: productId,
                 name: productName,
                 price,
@@ -129,7 +129,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:orderPlaced': {
-      const order = e.data as Order
+      const order = e.data
 
       const ecommerce = {
         purchase: {
@@ -200,7 +200,7 @@ function getPurchaseObjectData(order: Order) {
 function getProductObjectData(product: ProductOrder) {
   return {
     brand: product.brand,
-    category: product.category,
+    category: product.categoryTree && product.categoryTree.join('/'),
     id: product.sku,
     name: product.name,
     price: product.price,
