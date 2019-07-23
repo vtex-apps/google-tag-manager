@@ -214,12 +214,13 @@ function getCategory(rawCategories: string[]) {
     return
   }
 
-  const categories = rawCategories.map(function(categoryPath: string) {
-    const splitedPath = categoryPath.split('/').filter(Boolean)
-    return splitedPath[0]
-  })
+  return removeStartAndEndSlash(rawCategories[0])
+}
 
-  return categories ? categories[0] : categories
+// Transform this: "/Apparel & Accessories/Clothing/Tops/"
+// To this: "Apparel & Accessories/Clothing/Tops"
+function removeStartAndEndSlash(category: string) {
+  return category && category.replace(/^\/|\/$/g, '')
 }
 
 const getProductImpressionObjectData = (list: string) => ({
