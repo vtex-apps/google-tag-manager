@@ -53,6 +53,37 @@ export function handleEvents(e: PixelMessage) {
       push(data)
       return
     }
+    case 'vtex:productClick': {
+      const { productId, productName, brand, categories, sku} = e.data.product
+
+      const category = categories[0] as string
+
+      let price
+      try {
+        price = e.data.product.items[0].sellers[0].commertialOffer.Price
+      } catch {
+        price = undefined
+      }
+
+      const data = {
+        event: 'productClick',
+        ecommerce: {
+          click: {
+            products: [{
+              name: productName,
+              id: productId,
+              price: price,
+              brand: brand,
+              category: category,
+              variant: sku.name,
+            }]
+          }
+        }
+      }
+
+      push(data)
+      return
+    }
     case 'vtex:addToCart': {
       const { items } = e.data
 
