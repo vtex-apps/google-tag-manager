@@ -92,6 +92,7 @@ export function handleEvents(e: PixelMessage) {
           add: {
             products: items.map((sku: any) => ({
               brand: sku.brand,
+              category: sku.category,
               id: sku.skuId,
               name: sku.name,
               price: `${sku.price}`,
@@ -115,6 +116,7 @@ export function handleEvents(e: PixelMessage) {
             products: items.map((sku: any) => ({
               brand: sku.brand,
               id: sku.skuId,
+              category: sku.category,
               name: sku.name,
               price: `${sku.price}`,
               quantity: sku.quantity,
