@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- `category` field in `orderPlaced`, `productImpression`, `addToCart, and `removeFromCart`.
+- `category` field in `orderPlaced`, `productClick`, `productImpression`, `addToCart, and `removeFromCart`.
 
 ## [2.0.7] - 2019-07-23
 ### Added

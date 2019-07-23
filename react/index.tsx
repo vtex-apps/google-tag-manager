@@ -24,8 +24,6 @@ export function handleEvents(e: PixelMessage) {
     case 'vtex:productView': {
       const { productId, productName, brand, categories } = e.data.product
 
-      const category = categories[0] as string
-
       let price
       try {
         price = e.data.product.items[0].sellers[0].commertialOffer.Price
@@ -39,7 +37,7 @@ export function handleEvents(e: PixelMessage) {
             products: [
               {
                 brand,
-                category: removeStartAndEndSlash(category),
+                category: getCategory(categories),
                 id: productId,
                 name: productName,
                 price,
@@ -54,9 +52,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:productClick': {
-      const { productId, productName, brand, categories, sku} = e.data.product
-
-      const category = categories[0] as string
+      const { productId, productName, brand, categories, sku } = e.data.product
 
       let price
       try {
@@ -69,16 +65,18 @@ export function handleEvents(e: PixelMessage) {
         event: 'productClick',
         ecommerce: {
           click: {
-            products: [{
-              name: productName,
-              id: productId,
-              price: price,
-              brand: brand,
-              category: category,
-              variant: sku.name,
-            }]
-          }
-        }
+            products: [
+              {
+                brand,
+                category: getCategory(categories),
+                id: productId,
+                name: productName,
+                variant: sku.name,
+                price,
+              },
+            ],
+          },
+        },
       }
 
       push(data)
