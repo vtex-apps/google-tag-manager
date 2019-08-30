@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.1.0] - 2019-08-30
+
 ## [2.0.8] - 2019-07-23
 ### Fixed
 - `category` field in `orderPlaced`, `productClick`, `productImpression`, `addToCart, and `removeFromCart`.
