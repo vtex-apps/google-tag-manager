@@ -56,7 +56,7 @@ export interface ProductImpressionData extends EventData {
   event: 'productImpression'
   eventName: 'vtex:productImpression'
   impressions: Impression[]
-  product?: Product // deprecated, use impressions list!
+  product?: ProductSummary // deprecated, use impressions list!
   position?: number // deprecated, use impressions list!
   list: string
 }
