@@ -14,3 +14,5 @@ react/__tests__/**
 react/.babelrc
 react/.eslintrc
 react/tests-setup.js
+react/__mocks__
+react/__tests__
