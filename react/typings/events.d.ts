@@ -49,7 +49,7 @@ export interface ProductViewData extends EventData {
 export interface ProductClickData extends EventData {
   event: 'productClick'
   eventName: 'vtex:productClick'
-  product: Product
+  product: ProductDetail
 }
 
 export interface ProductImpressionData extends EventData {
@@ -157,10 +157,13 @@ interface Product {
   categories: string[]
   productId: string
   productName: string
-  selectedSku?: string // inconsistency
   items: Item[]
   sku: Item
   [key: string]: any
+}
+
+interface ProductDetail extends Product {
+  selectedSku: Item
 }
 
 interface Item {
