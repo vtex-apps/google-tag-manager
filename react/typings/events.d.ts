@@ -43,13 +43,13 @@ export interface OrderPlacedData extends Order, EventData {
 export interface ProductViewData extends EventData {
   event: 'productView'
   eventName: 'vtex:productView'
-  product: Product
+  product: ProductDetail
 }
 
 export interface ProductClickData extends EventData {
   event: 'productClick'
   eventName: 'vtex:productClick'
-  product: ProductDetail
+  product: ProductSummary
 }
 
 export interface ProductImpressionData extends EventData {
@@ -101,7 +101,7 @@ export interface Order {
 }
 
 export interface Impression {
-  product: Product
+  product: ProductSummary
   position: number
 }
 
@@ -158,8 +158,11 @@ interface Product {
   productId: string
   productName: string
   items: Item[]
-  sku: Item
   [key: string]: any
+}
+
+interface ProductSummary extends Product {
+  sku: Item
 }
 
 interface ProductDetail extends Product {
