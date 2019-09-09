@@ -43,20 +43,20 @@ export interface OrderPlacedData extends Order, EventData {
 export interface ProductViewData extends EventData {
   event: 'productView'
   eventName: 'vtex:productView'
-  product: Product
+  product: ProductDetail
 }
 
 export interface ProductClickData extends EventData {
   event: 'productClick'
   eventName: 'vtex:productClick'
-  product: Product
+  product: ProductSummary
 }
 
 export interface ProductImpressionData extends EventData {
   event: 'productImpression'
   eventName: 'vtex:productImpression'
   impressions: Impression[]
-  product?: Product // deprecated, use impressions list!
+  product?: ProductSummary // deprecated, use impressions list!
   position?: number // deprecated, use impressions list!
   list: string
 }
@@ -101,7 +101,7 @@ export interface Order {
 }
 
 export interface Impression {
-  product: Product
+  product: ProductSummary
   position: number
 }
 
@@ -157,10 +157,16 @@ interface Product {
   categories: string[]
   productId: string
   productName: string
-  selectedSku?: string // inconsistency
   items: Item[]
-  sku: Item
   [key: string]: any
+}
+
+interface ProductSummary extends Product {
+  sku: Item
+}
+
+interface ProductDetail extends Product {
+  selectedSku: Item
 }
 
 interface Item {

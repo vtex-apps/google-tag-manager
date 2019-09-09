@@ -2,679 +2,388 @@
 import { ProductImpressionData } from '../typings/events'
 
 const productImpression: ProductImpressionData = {
-  currency: 'USD',
-  eventName: 'vtex:productImpression',
-  event: 'productImpression',
-  list: 'Shelf',
-  impressions: [
+  "currency": "USD",
+  "eventName": "vtex:productImpression",
+  "event": "productImpression",
+  "list": "Shelf",
+  "impressions": [
     {
-      position: 3,
-      product: {
-        cacheId: 'long-sleeve-shirt',
-        productId: '2000005',
-        productName: 'Long Sleeve Shirt - Regular',
-        description:
-          'Everything looks good on this trendy color. Even long sleeve shirts.',
-        categories: ['/Clothing/Shirts/', '/Clothing/'],
-        categoryTree: [
-          {
-            name: 'Clothing',
-            href: '/clothing/d',
-            __typename: 'vtex_storegraphql_2_76_0_Category',
-          },
-          {
-            name: 'Shirts',
-            href: '/clothing/shirts',
-            __typename: 'vtex_storegraphql_2_76_0_Category',
-          },
+      "product": {
+        "cacheId": "classic-shoes",
+        "productId": "16",
+        "productName": "Classic Shoes Top",
+        "productReference": "12531",
+        "description": "If you go classic, you can't go wrong.",
+        "categories": [
+          "/Apparel & Accessories/Shoes/",
+          "/Apparel & Accessories/"
         ],
-        link: 'https://portal.vtexcommercestable.com.br/long-sleeve-shirt/p',
-        linkText: 'long-sleeve-shirt',
-        brand: 'Apple',
-        items: [
+        "link": "https://portal.vtexcommercestable.com.br/classic-shoes/p",
+        "linkText": "classic-shoes",
+        "brand": "Mizuno",
+        "brandId": 2000010,
+        "items": [
           {
-            name: 'Regular',
-            itemId: '2000539',
-            referenceId: [
+            "name": "Classic Pink",
+            "itemId": "35",
+            "measurementUnit": "un",
+            "unitMultiplier": 1,
+            "referenceId": [
               {
-                Value: '98123719',
-                __typename: 'vtex_storegraphql_2_76_0_Reference',
-              },
+                "Value": "12531",
+                "__typename": "Reference"
+              }
             ],
-            images: [
+            "images": [
               {
-                imageUrl:
-                  'https://storecomponents.vteximg.com.br/arquivos/ids/155487/Frame-7.jpg?v=636793837686400000',
-                imageTag:
-                  '<img src="~/arquivos/ids/155487-#width#-#height#/Frame-7.jpg?v=636793837686400000" width="#width#" height="#height#" alt="Frame-7" id="" />',
-                __typename: 'vtex_storegraphql_2_76_0_Image',
+                "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155470/Frame-11.jpg?v=636793763155730000",
+                "imageTag": "<img src=\"~/arquivos/ids/155470-#width#-#height#/Frame-11.jpg?v=636793763155730000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-11\" id=\"\" />",
+                "imageLabel": "",
+                "__typename": "Image"
               },
-            ],
-            sellers: [
               {
-                sellerId: '1',
-                commertialOffer: {
-                  Installments: [
+                "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155471/Frame-10.jpg?v=637018188181300000",
+                "imageTag": "<img src=\"~/arquivos/ids/155471-#width#-#height#/Frame-10.jpg?v=637018188181300000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-10\" id=\"\" />",
+                "imageLabel": "",
+                "__typename": "Image"
+              }
+            ],
+            "sellers": [
+              {
+                "sellerId": "1",
+                "commertialOffer": {
+                  "Installments": [
                     {
-                      Value: 9450,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 1,
-                      Name: 'American Express à vista',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 9450,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 1,
-                      Name: 'Visa à vista',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 4725,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 2,
-                      Name: 'Visa 2 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 3150,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 3,
-                      Name: 'Visa 3 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 2362.5,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 4,
-                      Name: 'Visa 4 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 1890,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 5,
-                      Name: 'Visa 5 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 1575,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 6,
-                      Name: 'Visa 6 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 9450,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 1,
-                      Name: 'Mastercard à vista',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 4725,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 2,
-                      Name: 'Mastercard 2 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 3150,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 3,
-                      Name: 'Mastercard 3 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 2362.5,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 4,
-                      Name: 'Mastercard 4 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 1890,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 5,
-                      Name: 'Mastercard 5 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 1575,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 6,
-                      Name: 'Mastercard 6 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 9450,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 1,
-                      Name: 'Boleto Bancário à vista',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 9450,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 1,
-                      Name: 'Promissory à vista',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 9450,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 1,
-                      Name: 'Customer Credit à vista',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 4725,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 2,
-                      Name: 'Customer Credit 2 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 3150,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 3,
-                      Name: 'Customer Credit 3 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 2362.5,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 4,
-                      Name: 'Customer Credit 4 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 1890,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 5,
-                      Name: 'Customer Credit 5 vezes sem juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 1861.9,
-                      InterestRate: 5,
-                      TotalValuePlusInterestRate: 11171.4,
-                      NumberOfInstallments: 6,
-                      Name: 'Customer Credit 6 vezes com juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 1771.4,
-                      InterestRate: 10,
-                      TotalValuePlusInterestRate: 14171.2,
-                      NumberOfInstallments: 8,
-                      Name: 'Customer Credit 8 vezes com juros',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
-                    {
-                      Value: 9450,
-                      InterestRate: 0,
-                      TotalValuePlusInterestRate: 9450,
-                      NumberOfInstallments: 1,
-                      Name: 'Free à vista',
-                      __typename: 'vtex_storegraphql_2_76_0_Installment',
-                    },
+                      "Value": 13,
+                      "InterestRate": 0,
+                      "TotalValuePlusInterestRate": 38.9,
+                      "NumberOfInstallments": 3,
+                      "Name": "Customer Credit 3 vezes sem juros",
+                      "__typename": "Installment"
+                    }
                   ],
-                  AvailableQuantity: 2000000,
-                  Price: 9450,
-                  ListPrice: 9450,
-                  __typename: 'vtex_storegraphql_2_76_0_Offer',
+                  "AvailableQuantity": 2000000,
+                  "Price": 38.9,
+                  "ListPrice": 38.9,
+                  "__typename": "Offer"
                 },
-                __typename: 'vtex_storegraphql_2_76_0_Seller',
-              },
+                "__typename": "Seller"
+              }
             ],
-            __typename: 'vtex_storegraphql_2_76_0_SKU',
+            "__typename": "SKU"
           },
-        ],
-        productClusters: [],
-        __typename: 'vtex_storegraphql_2_76_0_Product',
-        sku: {
-          name: 'Regular',
-          itemId: '2000539',
-          referenceId: {
-            Value: '98123719',
-            __typename: 'vtex_storegraphql_2_76_0_Reference',
-          },
-          images: [
-            {
-              imageUrl:
-                'https://storecomponents.vteximg.com.br/arquivos/ids/155487/Frame-7.jpg?v=636793837686400000',
-              imageTag:
-                '<img src="~/arquivos/ids/155487-#width#-#height#/Frame-7.jpg?v=636793837686400000" width="#width#" height="#height#" alt="Frame-7" id="" />',
-              __typename: 'vtex_storegraphql_2_76_0_Image',
-            },
-          ],
-          sellers: [
-            {
-              sellerId: '1',
-              commertialOffer: {
-                Installments: [
-                  {
-                    Value: 9450,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 1,
-                    Name: 'American Express à vista',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 9450,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 1,
-                    Name: 'Visa à vista',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 4725,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 2,
-                    Name: 'Visa 2 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 3150,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 3,
-                    Name: 'Visa 3 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 2362.5,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 4,
-                    Name: 'Visa 4 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 1890,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 5,
-                    Name: 'Visa 5 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 1575,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 6,
-                    Name: 'Visa 6 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 9450,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 1,
-                    Name: 'Mastercard à vista',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 4725,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 2,
-                    Name: 'Mastercard 2 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 3150,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 3,
-                    Name: 'Mastercard 3 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 2362.5,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 4,
-                    Name: 'Mastercard 4 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 1890,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 5,
-                    Name: 'Mastercard 5 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 1575,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 6,
-                    Name: 'Mastercard 6 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 9450,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 1,
-                    Name: 'Boleto Bancário à vista',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 9450,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 1,
-                    Name: 'Promissory à vista',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 9450,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 1,
-                    Name: 'Customer Credit à vista',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 4725,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 2,
-                    Name: 'Customer Credit 2 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 3150,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 3,
-                    Name: 'Customer Credit 3 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 2362.5,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 4,
-                    Name: 'Customer Credit 4 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 1890,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 5,
-                    Name: 'Customer Credit 5 vezes sem juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 1861.9,
-                    InterestRate: 5,
-                    TotalValuePlusInterestRate: 11171.4,
-                    NumberOfInstallments: 6,
-                    Name: 'Customer Credit 6 vezes com juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 1771.4,
-                    InterestRate: 10,
-                    TotalValuePlusInterestRate: 14171.2,
-                    NumberOfInstallments: 8,
-                    Name: 'Customer Credit 8 vezes com juros',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                  {
-                    Value: 9450,
-                    InterestRate: 0,
-                    TotalValuePlusInterestRate: 9450,
-                    NumberOfInstallments: 1,
-                    Name: 'Free à vista',
-                    __typename: 'vtex_storegraphql_2_76_0_Installment',
-                  },
-                ],
-                AvailableQuantity: 2000000,
-                Price: 9450,
-                ListPrice: 9450,
-                __typename: 'vtex_storegraphql_2_76_0_Offer',
+          {
+            "name": "White Slip On",
+            "itemId": "36",
+            "measurementUnit": "un",
+            "unitMultiplier": 1,
+            "referenceId": [
+              {
+                "Value": "12532",
+                "__typename": "Reference"
+              }
+            ],
+            "images": [
+              {
+                "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155472/Frame-3.jpg?v=636793763985400000",
+                "imageTag": "<img src=\"~/arquivos/ids/155472-#width#-#height#/Frame-3.jpg?v=636793763985400000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-3\" id=\"\" />",
+                "imageLabel": "",
+                "__typename": "Image"
               },
-              __typename: 'vtex_storegraphql_2_76_0_Seller',
+              {
+                "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155473/Frame.jpg?v=636793764101900000",
+                "imageTag": "<img src=\"~/arquivos/ids/155473-#width#-#height#/Frame.jpg?v=636793764101900000\" width=\"#width#\" height=\"#height#\" alt=\"Frame\" id=\"\" />",
+                "imageLabel": "",
+                "__typename": "Image"
+              }
+            ],
+            "sellers": [
+              {
+                "sellerId": "1",
+                "commertialOffer": {
+                  "Installments": [
+                    {
+                      "Value": 43.8,
+                      "InterestRate": 0,
+                      "TotalValuePlusInterestRate": 262.5,
+                      "NumberOfInstallments": 6,
+                      "Name": "Mastercard 6 vezes sem juros",
+                      "__typename": "Installment"
+                    }
+                  ],
+                  "AvailableQuantity": 2000000,
+                  "Price": 262.5,
+                  "ListPrice": 262.5,
+                  "__typename": "Offer"
+                },
+                "__typename": "Seller"
+              }
+            ],
+            "__typename": "SKU"
+          },
+          {
+            "name": "Cool Pink",
+            "itemId": "37",
+            "measurementUnit": "un",
+            "unitMultiplier": 1,
+            "referenceId": [
+              {
+                "Value": "12533",
+                "__typename": "Reference"
+              }
+            ],
+            "images": [
+              {
+                "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155474/Frame-1.jpg?v=636793764631500000",
+                "imageTag": "<img src=\"~/arquivos/ids/155474-#width#-#height#/Frame-1.jpg?v=636793764631500000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-1\" id=\"\" />",
+                "imageLabel": "",
+                "__typename": "Image"
+              },
+              {
+                "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155475/Frame-2.jpg?v=636793764763600000",
+                "imageTag": "<img src=\"~/arquivos/ids/155475-#width#-#height#/Frame-2.jpg?v=636793764763600000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-2\" id=\"\" />",
+                "imageLabel": "",
+                "__typename": "Image"
+              }
+            ],
+            "sellers": [
+              {
+                "sellerId": "1",
+                "commertialOffer": {
+                  "Installments": [
+                    {
+                      "Value": 3.5,
+                      "InterestRate": 0,
+                      "TotalValuePlusInterestRate": 10.5,
+                      "NumberOfInstallments": 3,
+                      "Name": "Customer Credit 3 vezes sem juros",
+                      "__typename": "Installment"
+                    }
+                  ],
+                  "AvailableQuantity": 1000000,
+                  "Price": 10.5,
+                  "ListPrice": 10.5,
+                  "__typename": "Offer"
+                },
+                "__typename": "Seller"
+              }
+            ],
+            "__typename": "SKU"
+          }
+        ],
+        "productClusters": [],
+        "properties": [],
+        "__typename": "Product",
+        "sku": {
+          "name": "Classic Pink",
+          "itemId": "35",
+          "measurementUnit": "un",
+          "unitMultiplier": 1,
+          "referenceId": {
+            "Value": "12531",
+            "__typename": "Reference"
+          },
+          "images": [
+            {
+              "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155470/Frame-11.jpg?v=636793763155730000",
+              "imageTag": "<img src=\"~/arquivos/ids/155470-#width#-#height#/Frame-11.jpg?v=636793763155730000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-11\" id=\"\" />",
+              "imageLabel": "",
+              "__typename": "Image"
             },
+            {
+              "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155471/Frame-10.jpg?v=637018188181300000",
+              "imageTag": "<img src=\"~/arquivos/ids/155471-#width#-#height#/Frame-10.jpg?v=637018188181300000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-10\" id=\"\" />",
+              "imageLabel": "",
+              "__typename": "Image"
+            }
           ],
-          __typename: 'vtex_storegraphql_2_76_0_SKU',
-          seller: {
-            sellerId: '1',
-            commertialOffer: {
-              Installments: [
+          "sellers": [
+            {
+              "sellerId": "1",
+              "commertialOffer": {
+                "Installments": [
+                  {
+                    "Value": 13,
+                    "InterestRate": 0,
+                    "TotalValuePlusInterestRate": 38.9,
+                    "NumberOfInstallments": 3,
+                    "Name": "Customer Credit 3 vezes sem juros",
+                    "__typename": "Installment"
+                  }
+                ],
+                "AvailableQuantity": 2000000,
+                "Price": 38.9,
+                "ListPrice": 38.9,
+                "__typename": "Offer"
+              },
+              "__typename": "Seller"
+            }
+          ],
+          "__typename": "SKU",
+          "seller": {
+            "sellerId": "1",
+            "commertialOffer": {
+              "Installments": [
                 {
-                  Value: 9450,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 1,
-                  Name: 'American Express à vista',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 9450,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 1,
-                  Name: 'Visa à vista',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 4725,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 2,
-                  Name: 'Visa 2 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 3150,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 3,
-                  Name: 'Visa 3 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 2362.5,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 4,
-                  Name: 'Visa 4 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 1890,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 5,
-                  Name: 'Visa 5 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 1575,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 6,
-                  Name: 'Visa 6 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 9450,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 1,
-                  Name: 'Mastercard à vista',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 4725,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 2,
-                  Name: 'Mastercard 2 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 3150,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 3,
-                  Name: 'Mastercard 3 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 2362.5,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 4,
-                  Name: 'Mastercard 4 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 1890,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 5,
-                  Name: 'Mastercard 5 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 1575,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 6,
-                  Name: 'Mastercard 6 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 9450,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 1,
-                  Name: 'Boleto Bancário à vista',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 9450,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 1,
-                  Name: 'Promissory à vista',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 9450,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 1,
-                  Name: 'Customer Credit à vista',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 4725,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 2,
-                  Name: 'Customer Credit 2 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 3150,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 3,
-                  Name: 'Customer Credit 3 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 2362.5,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 4,
-                  Name: 'Customer Credit 4 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 1890,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 5,
-                  Name: 'Customer Credit 5 vezes sem juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 1861.9,
-                  InterestRate: 5,
-                  TotalValuePlusInterestRate: 11171.4,
-                  NumberOfInstallments: 6,
-                  Name: 'Customer Credit 6 vezes com juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 1771.4,
-                  InterestRate: 10,
-                  TotalValuePlusInterestRate: 14171.2,
-                  NumberOfInstallments: 8,
-                  Name: 'Customer Credit 8 vezes com juros',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
-                {
-                  Value: 9450,
-                  InterestRate: 0,
-                  TotalValuePlusInterestRate: 9450,
-                  NumberOfInstallments: 1,
-                  Name: 'Free à vista',
-                  __typename: 'vtex_storegraphql_2_76_0_Installment',
-                },
+                  "Value": 13,
+                  "InterestRate": 0,
+                  "TotalValuePlusInterestRate": 38.9,
+                  "NumberOfInstallments": 3,
+                  "Name": "Customer Credit 3 vezes sem juros",
+                  "__typename": "Installment"
+                }
               ],
-              AvailableQuantity: 2000000,
-              Price: 9450,
-              ListPrice: 9450,
-              __typename: 'vtex_storegraphql_2_76_0_Offer',
+              "AvailableQuantity": 2000000,
+              "Price": 38.9,
+              "ListPrice": 38.9,
+              "__typename": "Offer"
             },
-            __typename: 'vtex_storegraphql_2_76_0_Seller',
+            "__typename": "Seller"
           },
-          image: {
-            imageUrl:
-              'https://storecomponents.vteximg.com.br/arquivos/ids/155487-500-auto?width=500&height=auto&aspect=true',
-            imageTag:
-              '<img src="~/arquivos/ids/155487-#width#-#height#/Frame-7.jpg?v=636793837686400000" width="#width#" height="#height#" alt="Frame-7" id="" />',
-            __typename: 'vtex_storegraphql_2_76_0_Image',
-          },
-        },
+          "image": {
+            "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155470-500-auto?width=500&height=auto&aspect=true",
+            "imageTag": "<img src=\"~/arquivos/ids/155470-#width#-#height#/Frame-11.jpg?v=636793763155730000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-11\" id=\"\" />",
+            "imageLabel": "",
+            "__typename": "Image"
+          }
+        }
       },
+      "position": 1
     },
-  ],
+    {
+      "product": {
+        "cacheId": "gorgeous-watch",
+        "productId": "15",
+        "productName": "Gorgeous Top Watch",
+        "productReference": "1234",
+        "description": "A classic and gorgeous watch",
+        "categories": [
+          "/Apparel & Accessories/Watches/",
+          "/Apparel & Accessories/"
+        ],
+        "link": "https://portal.vtexcommercestable.com.br/gorgeous-watch/p",
+        "linkText": "gorgeous-watch",
+        "brand": "Nintendo",
+        "brandId": 2000008,
+        "items": [
+          {
+            "name": "Grey",
+            "itemId": "32",
+            "measurementUnit": "un",
+            "unitMultiplier": 1,
+            "referenceId": [
+              {
+                "Value": "1234",
+                "__typename": "Reference"
+              }
+            ],
+            "images": [
+              {
+                "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155456/Frame-1.jpg?v=636793737258100000",
+                "imageTag": "<img src=\"~/arquivos/ids/155456-#width#-#height#/Frame-1.jpg?v=636793737258100000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-1\" id=\"\" />",
+                "imageLabel": "",
+                "__typename": "Image"
+              }
+            ],
+            "sellers": [
+              {
+                "sellerId": "1",
+                "commertialOffer": {
+                  "Installments": [
+                    {
+                      "Value": 366.7,
+                      "InterestRate": 0,
+                      "TotalValuePlusInterestRate": 2200,
+                      "NumberOfInstallments": 6,
+                      "Name": "Mastercard 6 vezes sem juros",
+                      "__typename": "Installment"
+                    }
+                  ],
+                  "AvailableQuantity": 2000000,
+                  "Price": 2200,
+                  "ListPrice": 2300,
+                  "__typename": "Offer"
+                },
+                "__typename": "Seller"
+              }
+            ],
+            "__typename": "SKU"
+          }
+        ],
+        "productClusters": [],
+        "properties": [],
+        "__typename": "Product",
+        "sku": {
+          "name": "Grey",
+          "itemId": "32",
+          "measurementUnit": "un",
+          "unitMultiplier": 1,
+          "referenceId": {
+            "Value": "1234",
+            "__typename": "Reference"
+          },
+          "images": [
+            {
+              "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155456/Frame-1.jpg?v=636793737258100000",
+              "imageTag": "<img src=\"~/arquivos/ids/155456-#width#-#height#/Frame-1.jpg?v=636793737258100000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-1\" id=\"\" />",
+              "imageLabel": "",
+              "__typename": "Image"
+            }
+          ],
+          "sellers": [
+            {
+              "sellerId": "1",
+              "commertialOffer": {
+                "Installments": [
+                  {
+                    "Value": 366.7,
+                    "InterestRate": 0,
+                    "TotalValuePlusInterestRate": 2200,
+                    "NumberOfInstallments": 6,
+                    "Name": "Mastercard 6 vezes sem juros",
+                    "__typename": "Installment"
+                  }
+                ],
+                "AvailableQuantity": 2000000,
+                "Price": 2200,
+                "ListPrice": 2300,
+                "__typename": "Offer"
+              },
+              "__typename": "Seller"
+            }
+          ],
+          "__typename": "SKU",
+          "seller": {
+            "sellerId": "1",
+            "commertialOffer": {
+              "Installments": [
+                {
+                  "Value": 366.7,
+                  "InterestRate": 0,
+                  "TotalValuePlusInterestRate": 2200,
+                  "NumberOfInstallments": 6,
+                  "Name": "Mastercard 6 vezes sem juros",
+                  "__typename": "Installment"
+                }
+              ],
+              "AvailableQuantity": 2000000,
+              "Price": 2200,
+              "ListPrice": 2300,
+              "__typename": "Offer"
+            },
+            "__typename": "Seller"
+          },
+          "image": {
+            "imageUrl": "https://storecomponents.vteximg.com.br/arquivos/ids/155456-500-auto?width=500&height=auto&aspect=true",
+            "imageTag": "<img src=\"~/arquivos/ids/155456-#width#-#height#/Frame-1.jpg?v=636793737258100000\" width=\"#width#\" height=\"#height#\" alt=\"Frame-1\" id=\"\" />",
+            "imageLabel": "",
+            "__typename": "Image"
+          }
+        }
+      },
+      "position": 2
+    },
+  ]
 }
 
 export default productImpression

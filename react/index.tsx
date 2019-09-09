@@ -22,7 +22,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:productView': {
-      const { productId, productName, brand, categories } = e.data.product
+      const { selectedSku, productName, brand, categories } = e.data.product
 
       let price
       try {
@@ -38,8 +38,9 @@ export function handleEvents(e: PixelMessage) {
               {
                 brand,
                 category: getCategory(categories),
-                id: productId,
+                id: selectedSku.itemId,
                 name: productName,
+                variant: selectedSku.name,
                 price,
               },
             ],
@@ -52,7 +53,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
     case 'vtex:productClick': {
-      const { productId, productName, brand, categories, sku } = e.data.product
+      const { productName, brand, categories, sku } = e.data.product
 
       let price
       try {
@@ -69,7 +70,7 @@ export function handleEvents(e: PixelMessage) {
               {
                 brand,
                 category: getCategory(categories),
-                id: productId,
+                id: sku.itemId,
                 name: productName,
                 variant: sku.name,
                 price,
@@ -227,7 +228,7 @@ const getProductImpressionObjectData = (list: string) => ({
 }: Impression) => ({
   brand: product.brand,
   category: getCategory(product.categories),
-  id: product.productId,
+  id: product.sku.itemId,
   list,
   name: product.productName,
   position,
