@@ -7,12 +7,59 @@ export interface PixelMessage extends MessageEvent {
     | ProductImpressionData
     | AddToCartData
     | RemoveToCartData
+    | CartChangedData
+    | HomePageInfo
+    | ProductPageInfoData
+    | SearchPageInfoData
 }
 
 export interface EventData {
   event: string
   eventName: string
   currency: string
+}
+
+export interface PageInfoData extends EventData {
+  event: 'pageInfo'
+  eventName: 'vtex:pageInfo'
+  accountName: string
+  pageTitle: string
+  pageUrl: string
+}
+
+export interface HomePageInfo extends PageInfoData {
+  eventType: 'homeView'
+}
+
+export interface ProductPageInfoData extends PageInfoData {
+  eventType: 'productView'
+}
+
+export interface SearchPageInfoData extends PageInfoData {
+  eventType:
+    | 'internalSiteSearchView'
+    | 'categoryView'
+    | 'departmentView'
+    | 'emptySearchView'
+  category?: CategoryMetaData
+  department?: DepartmentMetaData
+  search?: SearchMetaData
+}
+
+interface CategoryMetaData {
+  id: string
+  name: string
+}
+
+interface DepartmentMetaData {
+  id: string
+  name: string
+}
+
+interface SearchMetaData {
+  term: string
+  category: CategoryMetaData
+  results: number
 }
 
 export interface PageViewData extends EventData {
@@ -32,6 +79,12 @@ export interface AddToCartData extends EventData {
 export interface RemoveToCartData extends EventData {
   event: 'removeFromCart'
   eventName: 'vtex:removeFromCart'
+  items: CartItem[]
+}
+
+export interface CartChangedData extends EventData {
+  event: 'cartChanged'
+  eventName: 'vtex:cartChanged'
   items: CartItem[]
 }
 
@@ -70,6 +123,8 @@ interface CartItem {
   productRefId: string
   brand: string
   category: string
+  detailUrl: string
+  imageUrl: string
 }
 
 export interface Order {
@@ -105,19 +160,19 @@ export interface Impression {
   position: number
 }
 
-interface PaymentType {
+export interface PaymentType {
   group: string
   paymentSystemName: string
   installments: number
   value: number
 }
 
-interface ShippingMethod {
+export interface ShippingMethod {
   itemId: string
   selectedSla: string
 }
 
-interface ProductOrder {
+export interface ProductOrder {
   id: string
   name: string
   sku: string
@@ -145,7 +200,7 @@ interface ProductOrder {
   unitMultiplier: number
 }
 
-interface PriceTag {
+export interface PriceTag {
   identifier: string
   isPercentual: boolean
   value: number
@@ -153,35 +208,41 @@ interface PriceTag {
 
 interface Product {
   brand: string
-  categoryId?: string // inconsistency
+  brandId: string
   categories: string[]
   productId: string
   productName: string
+  productReference: string
+  linkText: string
   items: Item[]
-  [key: string]: any
 }
 
-interface ProductSummary extends Product {
+export interface ProductSummary extends Product {
   sku: Item
 }
 
-interface ProductDetail extends Product {
+export interface ProductDetail extends Product {
+  categoryId: string
+  categoryTree: { id: string; name: string }[]
   selectedSku: Item
 }
 
-interface Item {
+export interface Item {
   itemId: string
   name: string
+  ean?: string // TODO: provide this info at productImpression
+  referenceId: { Key: string; Value: string }
   seller?: Seller
-  [key: string]: any
+  sellers: Seller[]
 }
 
-interface Seller {
+export interface Seller {
   commertialOffer: CommertialOffer
-  [key: string]: any
+  sellerId: string
 }
 
-interface CommertialOffer {
+export interface CommertialOffer {
   Price: number
-  [key: string]: any
+  ListPrice: number
+  AvailableQuantity: number
 }
