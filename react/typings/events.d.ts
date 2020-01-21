@@ -11,6 +11,7 @@ export interface PixelMessage extends MessageEvent {
     | HomePageInfo
     | ProductPageInfoData
     | SearchPageInfoData
+    | UserData
 }
 
 export interface EventData {
@@ -25,6 +26,18 @@ export interface PageInfoData extends EventData {
   accountName: string
   pageTitle: string
   pageUrl: string
+}
+
+export interface UserData extends PageInfoData {
+  eventType: 'userData'
+  eventName: 'vtex:userData'
+  firstName?: string
+  lastName?: string
+  document?: string
+  id?: string
+  email?: string
+  phone?: string
+  isAuthenticated: boolean
 }
 
 export interface HomePageInfo extends PageInfoData {
