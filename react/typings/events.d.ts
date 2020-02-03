@@ -52,7 +52,7 @@ export interface HomePageInfo extends PageInfoData {
 }
 
 export interface ProductPageInfoData extends PageInfoData {
-  eventType: 'productView'
+  eventType: 'productPageInfo'
 }
 
 export interface SearchPageInfoData extends PageInfoData {
