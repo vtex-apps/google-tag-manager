@@ -12,6 +12,7 @@ export interface PixelMessage extends MessageEvent {
     | ProductPageInfoData
     | SearchPageInfoData
     | UserData
+    | CartIdData
 }
 
 export interface EventData {
@@ -38,6 +39,12 @@ export interface UserData extends PageInfoData {
   email?: string
   phone?: string
   isAuthenticated: boolean
+}
+
+export interface CartIdData extends PageInfoData {
+  eventType: 'cartId'
+  eventName: 'vtex:cartId'
+  cartId: string
 }
 
 export interface HomePageInfo extends PageInfoData {
