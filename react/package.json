@@ -18,5 +18,6 @@
     "eslint-config-vtex": "^10.1.0",
     "prettier": "^1.17.1",
     "typescript": "3.7.3"
-  }
+  },
+  "version": "2.2.1"
 }
