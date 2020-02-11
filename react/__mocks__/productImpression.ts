@@ -1,7 +1,4 @@
-// @ts-ignore
-import { ProductImpressionData } from '../typings/events'
-
-const productImpression: ProductImpressionData = {
+const productImpression = {
   "currency": "USD",
   "eventName": "vtex:productImpression",
   "event": "productImpression",

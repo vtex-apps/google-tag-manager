@@ -1,6 +1,4 @@
-import { ProductViewData } from '../typings/events'
-
-const productDetail: ProductViewData = {
+const productDetail = {
   "currency": "USD",
   "eventName": "vtex:productView",
   "event": "productView",

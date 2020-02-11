@@ -1,6 +1,4 @@
-import { ProductClickData } from '../typings/events'
-
-const productClick: ProductClickData = {
+const productClick = {
   "currency": "USD",
   "eventName": "vtex:productClick",
   "event": "productClick",
