@@ -29,7 +29,7 @@ To create a Variable, click on "Variables" on the menu on the left and then on t
 3. Type "campaignMedium" in "Data Layer Variable Name"
 4. Click Save, and save as "Data Layer Variable - campaignMedium"
 
-Do the same thing for the variables: "campaignName", "campaignSource" and "userId". To know more about how to set up the "userId" variable check this [link](https://support.google.com/analytics/answer/3123666?hl=en&ref_topic=3123660).
+Do the same thing for the variables: "campaignName", "campaignSource" and "userId".
 
 #### Google Analytics Variables
 
@@ -43,7 +43,7 @@ Do the same thing for the variables: "campaignName", "campaignSource" and "userI
 6. Click in "Use data layer"
 7. Click Save, and save as "Google Analytics" 
 
-If you are going to use the "userId" variable then do the following before step 7:
+If you intend to use the [User ID feature of Google Analytics](https://support.google.com/analytics/answer/3123662), you need to set a field using the userId variable previously created:
 
 1. Click in Fields to Set
 2. Add the field:
