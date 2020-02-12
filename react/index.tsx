@@ -179,6 +179,17 @@ export function handleEvents(e: PixelMessage) {
         })
       }
       return
+    case 'vtex:userData': {
+      const data = e.data
+      if (!data.isAuthenticated) {
+        return
+      }
+      push({
+        event: 'userData',
+        userId: data.id,
+      })
+      return
+    }
     default: {
       return
     }
