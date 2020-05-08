@@ -83,7 +83,7 @@ To create a Trigger, click on "Trigger" on the menu on the left and then on the 
 3. Type "addToCart" in Event Name
 4. Click Save, and save as "Custom Event - addToCart"
 
-Repeat the previous steps creating new Triggers for the events: "cart", "email", "orderPlaced", "payment", "productDetail", "productImpression", "profile", "remoFromCart", and "shipping".
+Repeat the previous steps creating new Triggers for the events: "cart", "email", "orderPlaced", "payment", "productDetail", "productImpression", "profile", "remoFromCart", "shipping", and "pageView".
 
 ### Creating Tags
 
@@ -126,6 +126,6 @@ To create a Tag, click on "Tags" on the menu on the left and then on the button 
 1. Click in Tag Configuration
 2. Choose Track Type as "Page View"
 3. In Google Analytics Settings choose "{{Google Analytics}}"
-4. Choose the Triggers: "All Pages"
+4. Choose the Triggers: "Custom Event - pageView"
 5. Save as "Google Analytics - Page View"
 
