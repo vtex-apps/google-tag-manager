@@ -1,131 +1,80 @@
+📢 Use this project, [contribute](https://github.com/vtex-apps/google-tag-manager) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+
 # Google Tag Manager
 
-Open the VTEX APP Store and install the app on your store.
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 
-or
+The VTEX Google Tag Manager app is a first party integration to the [Google Tag Manager solution](https://tagmanager.google.com). 
 
-Run the following command:
+![google-tag-manager-app](https://user-images.githubusercontent.com/52087100/84321347-55e11c80-ab49-11ea-9445-24eec6a07785.png)
 
-```sh
-vtex install vtex.google-tag-manager@2.x
-```
+## Configuration
 
-Next, open the app settings on your admin and fill the form with you GTM id.
+It is possible to install the VTEX native GTM app in your store either by using App Store or the VTEX IO Toolbelt.
 
-## Google Tag Manager Setup
+### Using VTEX App Store
 
-This guide provides instructions to setup all the necessary Tags, Triggers, Variables, and configurations to Google Tag Manager and Google Analytics, so at the end of it you will have all the user and ecommerce analytics available in your Google Analytics dashboard.
+1. Access the **Apps** section in your account's admin page and look for the Google Tag Manager box; 
+2. Then, click on the **Install** button;
+3. You'll see a warning message about needing to enter the necessary configurations. Scroll down and type in your **GTM ID** in the `Google Tag Manager` field.
+4. Click on **Save**.
 
-Open the Google Tag Manager dashboard at https://tagmanager.google.com/.
+:information_source: Access the [Google Tag Manager page](https://tagmanager.google.com/)</a> and login to you account in order to find out what is your account **GTM ID**. The number your should use is the one provided by the `Container ID` column. 
 
-### Creating variables
+### Using VTEX IO Toolbelt
 
-To create a Variable, click on "Variables" on the menu on the left and then on the button New.
+1. [Install](https://vtex.io/docs/recipes/development/installing-an-app/) the `vtex.google-tag-manager@2.x` app. You can confirm that the app has now been installed by running `vtex ls` again. 
+2. Access the **Apps** section in your account's admin page and look for the Google Tag Manager box. Once you find it, click on the box.
+3. Fill in the `Google Tag Manager` field with your **GTM ID**. 
+4. Click on **Save**.
 
-#### Data Layer Variables
+:information_source: Access the [Google Tag Manager page](https://tagmanager.google.com/)</a> and login to you account in order to find out what is your account **GTM ID**. The number your should use is the one provided by the `Container ID` column.
 
-1. Click in Variable Configuration
-2. Choose "Data Layer Variable"
-3. Type "campaignMedium" in "Data Layer Variable Name"
-4. Click Save, and save as "Data Layer Variable - campaignMedium"
+After installing the app, you are ready to use your GTM as usual by accessing your account dashboard directly on the [Google Tag Manager](https://tagmanager.google.com/) page. 
 
-Do the same thing for the variables: "campaignName", "campaignSource" and "userId".
+## Restrictions
 
-#### Google Analytics Variables
+In order to avoid performance problems and unforeseen behavior, our VTEX IO Google Tag Manager solution uses the native GTM **blacklist** feature. You can read more about this feature on the [Google Developer Guide](https://developers.google.com/tag-manager/web/restrict).
 
-##### Default
+We currently blacklist the `html` ID, which automatically blocklists all the tags, variables and triggers of the type `customScripts`. The main consequence of this blocklist is that **Custom HTML tags will not be triggered**. 
 
-1. Click in Variable Configuration
-2. Choose "Google Analytics Settings"
-3. Type your Tracking ID
-4. Click in Ecommerce
-5. Click in "Enable Enhanced Ecommerce Features"
-6. Click in "Use data layer"
-7. Click Save, and save as "Google Analytics" 
+:warning: The HTML blacklist is VTEX Google Tag Manager app's default. At present, it is not possible to disable it.
 
-If you intend to use the [User ID feature of Google Analytics](https://support.google.com/analytics/answer/3123662), you need to set a field using the userId variable previously created:
+Most of the widely used Custom HTML tags are integrations with third party services, like Customer Chat, Analytics, Remarketing and Pixel tags. If your store needs a Custom HTML for one of those cases, the integration should be transformed into a [VTEX IO Pixel App](https://vtex.io/docs/apps/pixel/). If one does not yet exist, you can request the Pixel App creation on the VTEX IO [Store Discussion](https://github.com/vtex-apps/store-discussion) board.
 
-1. Click in Fields to Set
-2. Add the field:
-Field Name | Value
----|---
-userId | {{userId}}
+Check out below the full list of tags and variables that are blocked in VTEX IO Google Tag Manager solution below:
 
-##### Checkout
+### Blocked tags
 
-1. Click in Variable Configuration
-2. Choose "Google Analytics Settings"
-3. Type your Tracking ID
-4. Click in More Settings
-5. Click in Fields to Set
-6. Add the fields:
+- Custom HTML Tag - `html`
+- Eulerian Analytics Tag - `ela`
+- SaleCycle JavaScript Tag  - `scjs`
+- Upsellit Global Footer Tag - `uslt`
+- Upsellit Confirmation Tag - `uspt`
 
-Field Name | Value
----|---
-campaignName | {{Data Layer Variable - campaignName}}
-campaignMedium | {{Data Layer Variable - campaignMedium}}
-campaignSource | {{Data Layer Variable - campaignSource}}
+### Blocked variables
 
-7. Click in More Settings
-8. Click in Ecommerce
-9. Click in "Enable Enhanced Ecommerce Features"
-10. Click in "Use data layer"
-11. Click Save, and save as "Google Analytics - Checkout and Order Placed" 
+- Custom JavaScript Variable - `jsm`
 
-### Creating Triggers
+Check out a list with all the GTM available tags on the [Google Developer Guide](https://developers.google.com/tag-manager/devguide).
 
-To create a Trigger, click on "Trigger" on the menu on the left and then on the button New.
+<!-- DOCS-IGNORE:start -->
 
-#### Custom Events
+## Contributors ✨
 
-1. Click in Trigger Configuration
-2. Choose "Custom Event"
-3. Type "addToCart" in Event Name
-4. Click Save, and save as "Custom Event - addToCart"
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-Repeat the previous steps creating new Triggers for the events: "cart", "email", "orderPlaced", "payment", "productDetail", "productImpression", "profile", "remoFromCart", "shipping", and "pageView".
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
-### Creating Tags
-
-To create a Tag, click on "Tags" on the menu on the left and then on the button New.
-
-#### Google Analytics - Checkout and Order Placed
-
-1. Click in Tag Configuration
-2. Choose "Google Analytics - Universal Analytics"
-3. Choose Track Type as "Event"
-4. Type "Ecommerce" in Category
-5. Type "{{Event}}" in Action
-6. In Google Analytics Settings choose "{{Google Analytics - Checkout and Order Placed}}"
-7. Choose the Triggers: 
-    1. "Custom Event - cart"
-    2. "Custom Event - email"
-    3. "Custom Event - orderPlaced"
-    4. "Custom Event - payment"
-    5. "Custom Event - profile"
-    6. "Custom Event - shipping"
-8. Save as "Google Analytics - Checkout and Order Placed"
-
-#### Google Analytics - Enhanced Ecommerce
-
-1. Click in Tag Configuration
-2. Choose "Google Analytics - Universal Analytics"
-3. Choose Track Type as "Event"
-4. Type "Ecommerce" in Category
-5. Type "{{Event}}" in Action
-6. In Google Analytics Settings choose "{{Google Analytics}}"
-7. Choose the Triggers:
-    1. "Custom Event - addToCart"
-    2. "Custom Event - productDetail"
-    3. "Custom Event - productImpression"
-    4. "Custom Event - removeFromCart"
-8. Save as "Google Analytics - Enhanced Ecommerce"
-
-#### Google Analytics - Page View
-
-1. Click in Tag Configuration
-2. Choose Track Type as "Page View"
-3. In Google Analytics Settings choose "{{Google Analytics}}"
-4. Choose the Triggers: "Custom Event - pageView"
-5. Save as "Google Analytics - Page View"
-
+<!-- DOCS-IGNORE:end -->
