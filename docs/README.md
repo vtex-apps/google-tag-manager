@@ -40,7 +40,7 @@ After installing the app, you are ready to use your GTM as usual by accessing yo
 
 ## Restrictions
 
-In order to avoid performance problems and unforeseen behavior, our VTEX IO Google Tag Manager solution uses the native GTM **blocklist** feature. You can read more about this feature on the [Google Developer Guide](https://developers.google.com/tag-manager/devguide).
+In order to avoid performance problems and unforeseen behavior, our VTEX IO Google Tag Manager solution uses the native GTM **blacklist** feature. You can read more about this feature on the [Google Developer Guide](https://developers.google.com/tag-manager/web/restrict).
 
 We currently blacklist the `html` ID, which automatically blocklists all the tags, variables and triggers of the type `customScripts`. The main consequence of this blocklist is that **Custom HTML tags will not be triggered**. 
 
