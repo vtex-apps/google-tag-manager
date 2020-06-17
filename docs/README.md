@@ -46,7 +46,7 @@ We currently blacklist the `html` ID, which automatically blocklists all the tag
 
 :warning: The HTML blacklist is VTEX Google Tag Manager app's default. At present, it is not possible to disable it.
 
-Most of the widely used Custom HTML tags are integrations with third party services, like Customer Chat, Analytics, Remarketing and Pixel tags. If your store needs a Custom HTML for one of those cases, the integration should be transformed into a VTEX IO Pixel App. If one does not yet exist, you can request the Pixel App creation on the VTEX IO [Store Discussion](https://github.com/vtex-apps/store-discussion) board.
+Most of the widely used Custom HTML tags are integrations with third party services, like Customer Chat, Analytics, Remarketing and Pixel tags. If your store needs a Custom HTML for one of those cases, the integration should be transformed into a [VTEX IO Pixel App](https://vtex.io/docs/apps/pixel/). If one does not yet exist, you can request the Pixel App creation on the VTEX IO [Store Discussion](https://github.com/vtex-apps/store-discussion) board.
 
 Check out below the full list of tags and variables that are blocked in VTEX IO Google Tag Manager solution below:
 
