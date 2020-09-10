@@ -1,7 +1,14 @@
 import { canUseDOM } from 'vtex.render-runtime'
 
 import push from './modules/push'
-import { Order, PixelMessage, ProductOrder, Impression } from './typings/events'
+import {
+  Order,
+  PixelMessage,
+  ProductOrder,
+  Impression,
+  CartItem,
+  AnalyticsEcommerceProduct,
+} from './typings/events'
 
 export default function() {
   return null
@@ -19,12 +26,15 @@ export function handleEvents(e: PixelMessage) {
           title: e.data.pageTitle,
         }),
       })
+
       return
     }
+
     case 'vtex:productView': {
       const { selectedSku, productName, brand, categories } = e.data.product
 
       let price
+
       try {
         price = e.data.product.items[0].sellers[0].commertialOffer.Price
       } catch {
@@ -50,12 +60,15 @@ export function handleEvents(e: PixelMessage) {
       }
 
       push(data)
+
       return
     }
+
     case 'vtex:productClick': {
       const { productName, brand, categories, sku } = e.data.product
 
       let price
+
       try {
         price = e.data.product.items[0].sellers[0].commertialOffer.Price
       } catch {
@@ -81,8 +94,10 @@ export function handleEvents(e: PixelMessage) {
       }
 
       push(data)
+
       return
     }
+
     case 'vtex:addToCart': {
       const { items } = e.data
 
@@ -103,8 +118,10 @@ export function handleEvents(e: PixelMessage) {
         },
         event: 'addToCart',
       })
+
       return
     }
+
     case 'vtex:removeFromCart': {
       const { items } = e.data
 
@@ -125,8 +142,10 @@ export function handleEvents(e: PixelMessage) {
         },
         event: 'removeFromCart',
       })
+
       return
     }
+
     case 'vtex:orderPlaced': {
       const order = e.data
 
@@ -140,6 +159,7 @@ export function handleEvents(e: PixelMessage) {
       }
 
       push({
+        // @ts-ignore
         event: 'orderPlaced',
         ...order,
         ecommerce,
@@ -150,48 +170,74 @@ export function handleEvents(e: PixelMessage) {
         ecommerce,
         event: 'pageLoaded',
       })
+
       return
     }
-    case 'vtex:productImpression':
-      {
-        const { currency, list, impressions, product, position } = e.data
-        let oldImpresionFormat: Record<string, any> | null = null
-        if (product != null && position != null) {
-          // make it backwards compatible
-          oldImpresionFormat = [
-            getProductImpressionObjectData(list)({
-              product,
-              position,
-            }),
-          ]
-        }
 
-        const parsedImpressions = (impressions || []).map(
-          getProductImpressionObjectData(list)
-        )
+    case 'vtex:productImpression': {
+      const { currency, list, impressions, product, position } = e.data
+      let oldImpresionFormat: Record<string, any> | null = null
 
-        push({
-          event: 'productImpression',
-          ecommerce: {
-            currencyCode: currency,
-            impressions: oldImpresionFormat || parsedImpressions,
-          },
-        })
+      if (product != null && position != null) {
+        // make it backwards compatible
+        oldImpresionFormat = [
+          getProductImpressionObjectData(list)({
+            product,
+            position,
+          }),
+        ]
       }
+
+      const parsedImpressions = (impressions || []).map(
+        getProductImpressionObjectData(list)
+      )
+
+      push({
+        event: 'productImpression',
+        ecommerce: {
+          currencyCode: currency,
+          impressions: oldImpresionFormat || parsedImpressions,
+        },
+      })
+
       return
+    }
+
     case 'vtex:userData': {
-      const data = e.data
+      const { data } = e
+
       if (!data.isAuthenticated) {
         return
       }
+
       push({
         event: 'userData',
         userId: data.id,
       })
+
       return
     }
+
+    case 'vtex:cart': {
+      const { orderForm } = e.data
+
+      push({
+        event: 'checkout',
+        ecommerce: {
+          checkout: {
+            actionField: {
+              step: 1,
+            },
+            products: orderForm.items.map(getCheckoutProductObjectData),
+          },
+        },
+      })
+
+      break
+    }
+
     default: {
-      return
+      break
     }
   }
 }
@@ -210,7 +256,7 @@ function getPurchaseObjectData(order: Order) {
 function getProductObjectData(product: ProductOrder) {
   return {
     brand: product.brand,
-    category: product.categoryTree && product.categoryTree.join('/'),
+    category: product.categoryTree?.join('/'),
     id: product.sku,
     name: product.name,
     price: product.price,
@@ -229,23 +275,40 @@ function getCategory(rawCategories: string[]) {
 
 // Transform this: "/Apparel & Accessories/Clothing/Tops/"
 // To this: "Apparel & Accessories/Clothing/Tops"
-function removeStartAndEndSlash(category: string) {
-  return category && category.replace(/^\/|\/$/g, '')
+function removeStartAndEndSlash(category?: string) {
+  return category?.replace(/^\/|\/$/g, '')
 }
 
-const getProductImpressionObjectData = (list: string) => ({
-  product,
-  position,
-}: Impression) => ({
-  brand: product.brand,
-  category: getCategory(product.categories),
-  id: product.sku.itemId,
-  list,
-  name: product.productName,
-  position,
-  price: `${product.sku.seller!.commertialOffer.Price}`,
-  variant: product.sku.name,
-})
+function getProductImpressionObjectData(list: string) {
+  return ({ product, position }: Impression) => ({
+    brand: product.brand,
+    category: getCategory(product.categories),
+    id: product.sku.itemId,
+    list,
+    name: product.productName,
+    position,
+    price: `${product.sku.seller!.commertialOffer.Price}`,
+    variant: product.sku.name,
+  })
+}
+
+function getCheckoutProductObjectData(
+  item: CartItem
+): AnalyticsEcommerceProduct {
+  return {
+    id: item.id,
+    name: item.name,
+    category: Object.keys(item.productCategories ?? {}).reduce(
+      (categories, category) =>
+        categories ? `${categories}/${category}` : category,
+      ''
+    ),
+    brand: item.additionalInfo?.brandName ?? '',
+    variant: item.skuName,
+    price: item.sellingPrice / 100,
+    quantity: item.quantity,
+  }
+}
 
 if (canUseDOM) {
   window.addEventListener('message', handleEvents)

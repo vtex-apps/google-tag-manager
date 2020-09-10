@@ -70,14 +70,14 @@ test('productDetail', () => {
             variant: 'Classic Pink',
           },
         ],
-      }
+      },
     },
   })
 })
 
 test('productClick', () => {
   const message = new MessageEvent('message', {
-    data: productClick
+    data: productClick,
   })
 
   handleEvents(message)
@@ -94,9 +94,9 @@ test('productClick', () => {
             name: 'Classic Shoes Top',
             price: 38.9,
             variant: 'Classic Pink',
-          }
-        ]
-      }
-    }
+          },
+        ],
+      },
+    },
   })
 })

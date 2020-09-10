@@ -14,6 +14,7 @@ export interface PixelMessage extends MessageEvent {
     | SearchPageInfoData
     | UserData
     | CartIdData
+    | CartData
 }
 
 export interface EventData {
@@ -140,19 +141,110 @@ export interface ProductImpressionData extends EventData {
   list: string
 }
 
+export interface CartData extends EventData {
+  event: 'cart'
+  eventName: 'vtex:cart'
+  orderForm: OrderForm
+}
+
+export interface AnalyticsEcommerceProduct {
+  id: string
+  name: string
+  category: string
+  brand: string
+  variant: string
+  price: number
+  quantity: number
+}
+
+interface CartItemAdditionalInfo {
+  brandName: string
+  brandId: string
+}
+
 interface CartItem {
+  id: string
+  productCategories: Record<string, string> | null
+  additionalInfo: CartItemAdditionalInfo | null
   brand: string
   ean: string
   category: string
   detailUrl: string
   imageUrl: string
   name: string
+  skuName: string
   price: number
+  sellingPrice: number
   productId: string
   productRefId: string
   quantity: number
   skuId: string
   variant: string
+}
+
+interface Totalizer {
+  id: string
+  name: string
+  value: number
+}
+
+interface Seller {
+  id: string
+  name: string
+  logo: string
+}
+
+interface ClientProfileData {
+  email: string
+  firstName: string
+  lastName: string
+}
+
+interface Address {
+  addressId: string
+  postalCode: string
+  street: string
+  number: string
+  neighborhood: string
+  complement: string
+  city: string
+  state: string
+}
+
+interface DeliveryOption {
+  id: string
+  price: number
+  estimate: string
+  isSelected: boolean
+}
+
+interface Shipping {
+  selectedAddress: Address
+  deliveryOptions?: DeliveryOption[]
+}
+
+interface MarketingData {
+  coupon: string
+  utmCampaign: string
+  utmSource: string
+  utmMedium: string
+  utmiCampaign: string
+  utmiPage: string
+  utmiPart: string
+}
+
+export interface OrderForm {
+  id: string
+  totalizers: Totalizer[]
+  sellers: Seller[]
+  salesChannel: string
+  items: CartItem[]
+  canEditData: boolean
+  loggedIn: boolean
+  clientProfileData?: ClientProfileData
+  shipping?: Shipping
+  value: number
+  marketingData?: MarketingData
 }
 
 export interface Order {
