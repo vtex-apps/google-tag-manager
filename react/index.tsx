@@ -7,8 +7,8 @@ import {
   ProductOrder,
   Impression,
   CartItem,
-  AnalyticsEcommerceProduct,
 } from './typings/events'
+import { AnalyticsEcommerceProduct } from './typings/gtm'
 
 export default function() {
   return null
