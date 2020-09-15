@@ -141,9 +141,9 @@ export interface ProductImpressionData extends EventData {
   list: string
 }
 
-export interface CartData extends EventData {
-  event: 'cart'
-  eventName: 'vtex:cart'
+export interface CartLoadedData extends EventData {
+  event: 'cartLoaded'
+  eventName: 'vtex:cartLoaded'
   orderForm: OrderForm
 }
 

@@ -218,7 +218,7 @@ export function handleEvents(e: PixelMessage) {
       return
     }
 
-    case 'vtex:cart': {
+    case 'vtex:cartLoaded': {
       const { orderForm } = e.data
 
       push({
