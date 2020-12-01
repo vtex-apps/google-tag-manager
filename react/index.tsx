@@ -236,6 +236,34 @@ export function handleEvents(e: PixelMessage) {
       break
     }
 
+    case 'vtex:promoView': {
+      const { promotions } = e.data
+
+      push({
+        event: 'promoView',
+        ecommerce: {
+          promoView: {
+            promotions: promotions
+          }
+        }
+      })
+      break
+    }
+
+    case 'vtex:promotionClick': {
+      const { promotions } = e.data
+
+      push({
+        event: 'promotionClick',
+        ecommerce: {
+          promoClick: {
+            promotions: promotions
+          }
+        }
+      })
+      break
+    }
+
     default: {
       break
     }
