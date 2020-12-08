@@ -66,6 +66,9 @@ export function handleEvents(e: PixelMessage) {
 
     case 'vtex:productClick': {
       const { productName, brand, categories, sku } = e.data.product
+      const list = e.data.list
+        ? { actionField: { list: e.data.list } }
+        : {}
 
       let price
 
@@ -79,6 +82,7 @@ export function handleEvents(e: PixelMessage) {
         event: 'productClick',
         ecommerce: {
           click: {
+            ...list,
             products: [
               {
                 brand,
