@@ -132,6 +132,7 @@ export interface ProductClickData extends EventData {
   event: 'productClick'
   eventName: 'vtex:productClick'
   product: ProductSummary
+  list?: string
 }
 
 export interface ProductImpressionData extends EventData {
