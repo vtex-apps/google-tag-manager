@@ -4,7 +4,7 @@
     "overview": "O Google Tag Manager é um serviço de rastreamento das atividades dos visitantes do seu ecommerce que pode ser utilizado para avaliar a eficiência de seus anúncios, gerar públicos de remarketing e mapear insights sobre o uso da sua loja.\\n\\n Este app implementa a tag do Google Tag Manager no código de todas as páginas do seu site, permitindo que você rastreie eventos de navegação e conversão dentro dos padrões e boas práticas de analytics do Google. Você precisará inserir o ID da sua conta do GTM na página de configuração do aplicativo.",
     "features": [
       "Configure o Google Tag Manager pelo admin da VTEX",
-      "Faça tracking de eventos como 'product impression', 'product click', 'add to cart', 'checkout' e 'order placed' automaticamente"
+      "Envia todos os eventos do Google Enhanced Ecommerce"
     ],
       "additionalInformation": "A gestão das tags, eventos e triggers é feita diretamente pela platafoma do Google Tag Manager (http://tagmanager.google.com/) após a instalação e configuração do app. Os eventos disponíveis por padrão com a implementação do app podem ser consultados na documentação.",
     "websiteURL": "https://vtex.com/",
