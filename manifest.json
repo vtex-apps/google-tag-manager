@@ -9,11 +9,13 @@
     "postreleasy": "vtex publish --verbose"
   },
   "billingOptions": {
-    "termsURL": "",
+    "type": "free",
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "free": true
+    "availableCountries": [
+      "*"
+    ]
   },
   "builders": {
     "react": "3.x",
