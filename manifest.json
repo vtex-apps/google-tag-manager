@@ -40,6 +40,11 @@
         "title": "Google Tag Manager",
         "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager",
         "type": "string"
+      },
+      "allowCustomHtmlTags": {
+        "title": "Allow Custom HTML tags",
+        "description": "Beware that using Custom HTML tags can drastically impact the store's performance",
+        "type": "boolean"
       }
     }
   },
