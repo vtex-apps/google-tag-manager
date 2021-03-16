@@ -186,6 +186,7 @@ interface CartItem {
   name: string
   skuName: string
   price: number
+  priceIsInt?: boolean
   sellingPrice: number
   productId: string
   productRefId: string
