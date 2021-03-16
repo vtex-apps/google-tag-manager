@@ -6,6 +6,7 @@ import {
   Impression,
   CartItem,
   AddToCartData,
+  RemoveToCartData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 
@@ -107,18 +108,19 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:removeFromCart': {
-      const { items } = e.data
+      const { items } = e.data as RemoveToCartData
 
       push({
         ecommerce: {
           currencyCode: e.data.currency,
           remove: {
-            products: items.map((sku: any) => ({
+            products: items.map(sku => ({
               brand: sku.brand,
               id: sku.skuId,
               category: sku.category,
               name: sku.name,
-              price: `${sku.price}`,
+              price:
+                sku.priceIsInt === true ? `${sku.price / 100}` : `${sku.price}`,
               quantity: sku.quantity,
               variant: sku.variant,
             })),
