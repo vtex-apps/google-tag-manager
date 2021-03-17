@@ -5,6 +5,8 @@ import {
   ProductOrder,
   Impression,
   CartItem,
+  AddToCartData,
+  RemoveToCartData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 
@@ -46,9 +48,7 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:productClick': {
       const { productName, brand, categories, sku } = e.data.product
-      const list = e.data.list
-        ? { actionField: { list: e.data.list } }
-        : {}
+      const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
       let price
 
@@ -83,17 +83,18 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:addToCart': {
-      const { items } = e.data
+      const { items } = e.data as AddToCartData
 
       push({
         ecommerce: {
           add: {
-            products: items.map((sku: any) => ({
+            products: items.map(sku => ({
               brand: sku.brand,
               category: sku.category,
               id: sku.skuId,
               name: sku.name,
-              price: `${sku.price}`,
+              price:
+                sku.priceIsInt === true ? `${sku.price / 100}` : `${sku.price}`,
               quantity: sku.quantity,
               variant: sku.variant,
             })),
@@ -107,18 +108,19 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:removeFromCart': {
-      const { items } = e.data
+      const { items } = e.data as RemoveToCartData
 
       push({
         ecommerce: {
           currencyCode: e.data.currency,
           remove: {
-            products: items.map((sku: any) => ({
+            products: items.map(sku => ({
               brand: sku.brand,
               id: sku.skuId,
               category: sku.category,
               name: sku.name,
-              price: `${sku.price}`,
+              price:
+                sku.priceIsInt === true ? `${sku.price / 100}` : `${sku.price}`,
               quantity: sku.quantity,
               variant: sku.variant,
             })),
@@ -212,9 +214,9 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'promoView',
         ecommerce: {
           promoView: {
-            promotions: promotions
-          }
-        }
+            promotions,
+          },
+        },
       })
       break
     }
@@ -226,9 +228,9 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'promotionClick',
         ecommerce: {
           promoClick: {
-            promotions: promotions
-          }
-        }
+            promotions,
+          },
+        },
       })
       break
     }
@@ -238,7 +240,6 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
   }
 }
-
 
 function getPurchaseObjectData(order: Order) {
   return {
