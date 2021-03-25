@@ -397,6 +397,7 @@ interface ItemSummary {
 export interface Seller {
   commertialOffer: CommertialOffer
   sellerId: string
+  sellerDefault: boolean
 }
 
 export interface CommertialOffer {
