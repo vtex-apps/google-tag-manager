@@ -7,18 +7,35 @@ import {
   CartItem,
   AddToCartData,
   RemoveToCartData,
+  ProductViewData,
+  Seller,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
+
+function getSeller(sellers: Seller[]) {
+  const defaultSeller = sellers.find(seller => seller.sellerDefault)
+
+  if (!defaultSeller) {
+    return sellers[0]
+  }
+
+  return defaultSeller
+}
 
 export function sendEnhancedEcommerceEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:productView': {
-      const { selectedSku, productName, brand, categories } = e.data.product
+      const {
+        selectedSku,
+        productName,
+        brand,
+        categories,
+      } = (e.data as ProductViewData).product
 
       let price
 
       try {
-        price = e.data.product.items[0].sellers[0].commertialOffer.Price
+        price = getSeller(e.data.product.items[0].sellers).commertialOffer.Price
       } catch {
         price = undefined
       }
