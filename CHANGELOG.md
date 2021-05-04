@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Renamed `ecommerce` event property to `ecommerceV2` to match checkout's property
 - All events are now using the productId as the main product identifier
 - Product name doesn't include the variation anymore
 

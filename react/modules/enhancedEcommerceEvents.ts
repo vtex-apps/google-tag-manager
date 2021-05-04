@@ -46,7 +46,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       }
 
       const data = {
-        ecommerceV2: {
+        ecommerce: {
           detail: {
             ...list,
             products: [
@@ -87,7 +87,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       const data = {
         event: 'productClick',
-        ecommerceV2: {
+        ecommerce: {
           click: {
             ...list,
             position,
@@ -115,7 +115,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       const { items } = e.data as AddToCartData
 
       push({
-        ecommerceV2: {
+        ecommerce: {
           add: {
             products: items.map(item => ({
               brand: item.brand,
@@ -143,7 +143,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       const { items } = e.data as RemoveToCartData
 
       push({
-        ecommerceV2: {
+        ecommerce: {
           currencyCode: e.data.currency,
           remove: {
             products: items.map(item => ({
@@ -183,7 +183,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         // @ts-ignore
         event: 'orderPlaced',
         ...order,
-        ecommerceV2: ecommerce,
+        ecommerce,
       })
 
       // should we keep it?
@@ -217,7 +217,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'productImpression',
-        ecommerceV2: {
+        ecommerce: {
           currencyCode: currency,
           impressions: oldImpresionFormat || parsedImpressions,
         },
@@ -231,7 +231,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'checkout',
-        ecommerceV2: {
+        ecommerce: {
           checkout: {
             actionField: {
               step: 1,
@@ -249,7 +249,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'promoView',
-        ecommerceV2: {
+        ecommerce: {
           promoView: {
             promotions,
           },
@@ -263,7 +263,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'promotionClick',
-        ecommerceV2: {
+        ecommerce: {
           promoClick: {
             promotions,
           },
