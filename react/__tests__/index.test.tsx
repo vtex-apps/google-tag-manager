@@ -27,7 +27,8 @@ test('productImpression', () => {
         {
           brand: 'Mizuno',
           category: 'Apparel & Accessories/Shoes',
-          id: '35',
+          id: '16',
+          skuId: '35',
           list: 'Shelf',
           name: 'Classic Shoes Top',
           position: 1,
@@ -37,7 +38,8 @@ test('productImpression', () => {
         {
           brand: 'Nintendo',
           category: 'Apparel & Accessories/Watches',
-          id: '32',
+          id: '15',
+          skuId: '32',
           list: 'Shelf',
           name: 'Gorgeous Top Watch',
           position: 2,
@@ -64,7 +66,8 @@ test('productDetail', () => {
           {
             brand: 'Mizuno',
             category: 'Apparel & Accessories/Shoes',
-            id: '35',
+            id: '16',
+            skuId: '35',
             name: 'Classic Shoes Top',
             price: 38.9,
             variant: 'Classic Pink',
@@ -90,7 +93,8 @@ test('productClick', () => {
           {
             brand: 'Mizuno',
             category: 'Apparel & Accessories/Shoes',
-            id: '35',
+            id: '16',
+            skuId: '35',
             name: 'Classic Shoes Top',
             price: 38.9,
             variant: 'Classic Pink',
