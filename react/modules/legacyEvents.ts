@@ -1,9 +1,7 @@
 import push from './push'
-import {
-  PixelMessage, SearchPageInfoData,
-} from '../typings/events'
+import { PixelMessage, SearchPageInfoData } from '../typings/events'
 
-export function sendLegacyEvents(e: PixelMessage) {
+export async function sendLegacyEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:pageInfo': {
       const { eventType } = e.data
@@ -41,6 +39,8 @@ export function sendLegacyEvents(e: PixelMessage) {
         }
 
         case 'emptySearchView':
+
+        // eslint-disable-next-line no-fallthrough
         case 'internalSiteSearchView': {
           const data = e.data as SearchPageInfoData
 
@@ -51,6 +51,7 @@ export function sendLegacyEvents(e: PixelMessage) {
             siteSearchCategory: data.search?.category?.id,
             siteSearchResults: data.search?.results,
           })
+
           break
         }
 
@@ -69,7 +70,11 @@ export function sendLegacyEvents(e: PixelMessage) {
         }
       }
 
-      return
+      break
+    }
+
+    default: {
+      break
     }
   }
 }

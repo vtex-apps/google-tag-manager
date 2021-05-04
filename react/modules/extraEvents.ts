@@ -1,9 +1,7 @@
 import push from './push'
-import {
-  PixelMessage,
-} from '../typings/events'
+import { PixelMessage } from '../typings/events'
 
-export function sendExtraEvents(e: PixelMessage) {
+export async function sendExtraEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:pageView': {
       push({
@@ -31,7 +29,11 @@ export function sendExtraEvents(e: PixelMessage) {
         userId: data.id,
       })
 
-      return
+      break
+    }
+
+    default: {
+      break
     }
   }
 }

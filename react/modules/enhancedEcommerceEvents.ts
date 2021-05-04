@@ -9,6 +9,7 @@ import {
   RemoveToCartData,
   ProductViewData,
   Seller,
+  ProductClickData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 
@@ -22,15 +23,19 @@ function getSeller(sellers: Seller[]) {
   return defaultSeller
 }
 
-export function sendEnhancedEcommerceEvents(e: PixelMessage) {
+export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:productView': {
       const {
+        productId,
         selectedSku,
         productName,
         brand,
         categories,
       } = (e.data as ProductViewData).product
+
+      // Product summary list title. Ex: 'List of products'
+      const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
       let price
 
@@ -41,13 +46,15 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
       }
 
       const data = {
-        ecommerce: {
+        ecommerceV2: {
           detail: {
+            ...list,
             products: [
               {
                 brand,
                 category: getCategory(categories),
-                id: selectedSku.itemId,
+                id: productId,
+                skuId: selectedSku.itemId,
                 name: productName,
                 variant: selectedSku.name,
                 price,
@@ -64,27 +71,32 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productClick': {
-      const { productName, brand, categories, sku } = e.data.product
+      const { product, position } = e.data as ProductClickData
+      const { productName, brand, categories, sku, productId } = product
+
+      // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
       let price
 
       try {
-        price = e.data.product.items[0].sellers[0].commertialOffer.Price
+        price = getSeller(product.items[0].sellers).commertialOffer.Price
       } catch {
         price = undefined
       }
 
       const data = {
         event: 'productClick',
-        ecommerce: {
+        ecommerceV2: {
           click: {
             ...list,
+            position,
             products: [
               {
                 brand,
                 category: getCategory(categories),
-                id: sku.itemId,
+                id: productId,
+                skuId: sku.itemId,
                 name: productName,
                 variant: sku.name,
                 price,
@@ -103,17 +115,20 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
       const { items } = e.data as AddToCartData
 
       push({
-        ecommerce: {
+        ecommerceV2: {
           add: {
-            products: items.map(sku => ({
-              brand: sku.brand,
-              category: sku.category,
-              id: sku.skuId,
-              name: sku.name,
+            products: items.map(item => ({
+              brand: item.brand,
+              category: item.category,
+              id: item.productId,
+              skuId: item.skuId,
+              name: item.name, // Product name
               price:
-                sku.priceIsInt === true ? `${sku.price / 100}` : `${sku.price}`,
-              quantity: sku.quantity,
-              variant: sku.variant,
+                item.priceIsInt === true
+                  ? `${item.price / 100}`
+                  : `${item.price}`,
+              quantity: item.quantity,
+              variant: item.variant, // SKU name (variant)
             })),
           },
           currencyCode: e.data.currency,
@@ -128,18 +143,21 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
       const { items } = e.data as RemoveToCartData
 
       push({
-        ecommerce: {
+        ecommerceV2: {
           currencyCode: e.data.currency,
           remove: {
-            products: items.map(sku => ({
-              brand: sku.brand,
-              id: sku.skuId,
-              category: sku.category,
-              name: sku.name,
+            products: items.map(item => ({
+              brand: item.brand,
+              category: item.category,
+              id: item.productId,
+              skuId: item.skuId,
+              name: item.name, // Product name
               price:
-                sku.priceIsInt === true ? `${sku.price / 100}` : `${sku.price}`,
-              quantity: sku.quantity,
-              variant: sku.variant,
+                item.priceIsInt === true
+                  ? `${item.price / 100}`
+                  : `${item.price}`,
+              quantity: item.quantity,
+              variant: item.variant, // SKU name (variant)
             })),
           },
         },
@@ -165,9 +183,10 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
         // @ts-ignore
         event: 'orderPlaced',
         ...order,
-        ecommerce,
+        ecommerceV2: ecommerce,
       })
 
+      // should we keep it?
       // Backwards compatible event
       push({
         ecommerce,
@@ -181,6 +200,7 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
       const { currency, list, impressions, product, position } = e.data
       let oldImpresionFormat: Record<string, any> | null = null
 
+      // should we keep it?
       if (product != null && position != null) {
         // make it backwards compatible
         oldImpresionFormat = [
@@ -197,7 +217,7 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'productImpression',
-        ecommerce: {
+        ecommerceV2: {
           currencyCode: currency,
           impressions: oldImpresionFormat || parsedImpressions,
         },
@@ -211,7 +231,7 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'checkout',
-        ecommerce: {
+        ecommerceV2: {
           checkout: {
             actionField: {
               step: 1,
@@ -229,7 +249,7 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'promoView',
-        ecommerce: {
+        ecommerceV2: {
           promoView: {
             promotions,
           },
@@ -243,7 +263,7 @@ export function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       push({
         event: 'promotionClick',
-        ecommerce: {
+        ecommerceV2: {
           promoClick: {
             promotions,
           },
@@ -273,11 +293,12 @@ function getProductObjectData(product: ProductOrder) {
   return {
     brand: product.brand,
     category: product.categoryTree?.join('/'),
-    id: product.sku,
-    name: product.name,
+    id: product.id, // Product id
+    skuId: product.sku, // SKU id
+    name: product.name, // Product name
     price: product.price,
     quantity: product.quantity,
-    variant: product.skuName,
+    variant: product.skuName, // SKU name (only variant)
   }
 }
 
@@ -299,21 +320,25 @@ function getProductImpressionObjectData(list: string) {
   return ({ product, position }: Impression) => ({
     brand: product.brand,
     category: getCategory(product.categories),
-    id: product.sku.itemId,
+    id: product.productId, // Product id
+    skuId: product.sku.itemId, // SKU id
     list,
     name: product.productName,
     position,
-    price: `${product.sku.seller!.commertialOffer.Price}`,
-    variant: product.sku.name,
+    price: `${product.sku.seller.commertialOffer.Price}`,
+    variant: product.sku.name, // SKU name (variation only)
   })
 }
 
 function getCheckoutProductObjectData(
   item: CartItem
 ): AnalyticsEcommerceProduct {
+  const productName = getProductNameWithoutVariant(item.name, item.skuName)
+
   return {
-    id: item.id,
-    name: item.name,
+    id: item.productId, // Product id
+    skuId: item.id, // SKU id
+    name: productName, // Product name without variant
     category: Object.keys(item.productCategories ?? {}).reduce(
       (categories, category) =>
         categories ? `${categories}/${category}` : category,
@@ -324,4 +349,17 @@ function getCheckoutProductObjectData(
     price: item.sellingPrice / 100,
     quantity: item.quantity,
   }
+}
+
+function getProductNameWithoutVariant(
+  productNameWithVariant: string,
+  variant: string
+) {
+  const indexOfVariant = productNameWithVariant.lastIndexOf(variant)
+
+  if (indexOfVariant === -1 || indexOfVariant === 0) {
+    return productNameWithVariant
+  }
+
+  return productNameWithVariant.substring(0, indexOfVariant - 1) // Removes the variant and the whitespace
 }

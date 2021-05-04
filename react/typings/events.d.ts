@@ -126,12 +126,14 @@ export interface ProductViewData extends EventData {
   event: 'productView'
   eventName: 'vtex:productView'
   product: Product
+  list?: string
 }
 
 export interface ProductClickData extends EventData {
   event: 'productClick'
   eventName: 'vtex:productClick'
   product: ProductSummary
+  position: number
   list?: string
 }
 
