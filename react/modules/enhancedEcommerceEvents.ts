@@ -186,30 +186,11 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         ecommerce,
       })
 
-      // should we keep it?
-      // Backwards compatible event
-      push({
-        ecommerce,
-        event: 'pageLoaded',
-      })
-
       return
     }
 
     case 'vtex:productImpression': {
-      const { currency, list, impressions, product, position } = e.data
-      let oldImpresionFormat: Record<string, any> | null = null
-
-      // should we keep it?
-      if (product != null && position != null) {
-        // make it backwards compatible
-        oldImpresionFormat = [
-          getProductImpressionObjectData(list)({
-            product,
-            position,
-          }),
-        ]
-      }
+      const { currency, list, impressions } = e.data
 
       const parsedImpressions = (impressions || []).map(
         getProductImpressionObjectData(list)
@@ -219,7 +200,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'productImpression',
         ecommerce: {
           currencyCode: currency,
-          impressions: oldImpresionFormat || parsedImpressions,
+          impressions: parsedImpressions,
         },
       })
 

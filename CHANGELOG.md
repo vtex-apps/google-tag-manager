@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - `productClick` now considers the default seller when getting the item's price
 
+### Removed
+- Old backwards compatible `pageLoaded` and `productImpression` events
+
 ## [2.9.2] - 2021-03-30
 ### Fixed
 - Use sellerDefault to select the default seller.
