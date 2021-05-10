@@ -24,6 +24,11 @@ function getSeller(sellers: Seller[]) {
 }
 
 export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
+  if (e.data.eventName.startsWith('vtex')) {
+    // eslint-disable-next-line no-console
+    console.log(e.data)
+  }
+
   switch (e.data.eventName) {
     case 'vtex:productView': {
       const {
@@ -90,7 +95,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         ecommerce: {
           click: {
             ...list,
-            position,
             products: [
               {
                 brand,
@@ -100,6 +104,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 name: productName,
                 variant: sku.name,
                 price,
+                position,
               },
             ],
           },
