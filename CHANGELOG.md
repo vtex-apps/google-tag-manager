@@ -9,11 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - All events are now using the productId as the main product identifier
 - Product name doesn't include the variation anymore
+- `variant` property now contains the SKU Id
 
 ### Added
 - SKU id field to all events that contains product ids
 - `list` property to `productView` (`productDetail`) event
 - `position` property to `productClick` event
+- `dimension1` property pointing to Product Reference Id
+- `dimension2` property pointing to SKU Reference Id
+- `dimension3` property pointing to SKU Name (previous variat)
 
 ### Fixed
 - `productClick` now considers the default seller when getting the item's price

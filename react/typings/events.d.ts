@@ -194,6 +194,7 @@ interface CartItem {
   productRefId: string
   quantity: number
   skuId: string
+  referenceId: string // SKU reference id
   variant: string
 }
 
@@ -407,3 +408,5 @@ export interface CommertialOffer {
   ListPrice: number
   AvailableQuantity: number
 }
+
+export type ProductViewReferenceId = Array<Item['referenceId']>

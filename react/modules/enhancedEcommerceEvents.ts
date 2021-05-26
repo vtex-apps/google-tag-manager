@@ -10,6 +10,7 @@ import {
   ProductViewData,
   Seller,
   ProductClickData,
+  ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 
@@ -23,16 +24,14 @@ function getSeller(sellers: Seller[]) {
   return defaultSeller
 }
 
-export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
-  if (e.data.eventName.startsWith('vtex')) {
-    // eslint-disable-next-line no-console
-    console.log(e.data)
-  }
+const defaultReference = { Value: '' }
 
+export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
   switch (e.data.eventName) {
     case 'vtex:productView': {
       const {
         productId,
+        productReference,
         selectedSku,
         productName,
         brand,
@@ -41,6 +40,13 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
+
+      // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
+      // Doing that there could possibly break some apps or stores, so it's better doing it here
+      const skuReferenceId = (
+        ((selectedSku.referenceId as unknown) as ProductViewReferenceId)?.[0] ??
+        defaultReference
+      ).Value
 
       let price
 
@@ -59,9 +65,11 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 brand,
                 category: getCategory(categories),
                 id: productId,
-                skuId: selectedSku.itemId,
+                variant: selectedSku.itemId,
                 name: productName,
-                variant: selectedSku.name,
+                dimension1: productReference,
+                dimension2: skuReferenceId,
+                dimension3: selectedSku.name,
                 price,
               },
             ],
@@ -77,7 +85,14 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:productClick': {
       const { product, position } = e.data as ProductClickData
-      const { productName, brand, categories, sku, productId } = product
+      const {
+        productName,
+        brand,
+        categories,
+        sku,
+        productId,
+        productReference,
+      } = product
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
@@ -100,9 +115,11 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 brand,
                 category: getCategory(categories),
                 id: productId,
-                skuId: sku.itemId,
+                variant: sku.itemId,
                 name: productName,
-                variant: sku.name,
+                dimension1: productReference,
+                dimension2: sku.referenceId.Value,
+                dimension3: sku.name,
                 price,
                 position,
               },
@@ -126,14 +143,16 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
               brand: item.brand,
               category: item.category,
               id: item.productId,
-              skuId: item.skuId,
+              variant: item.skuId,
               name: item.name, // Product name
               price:
                 item.priceIsInt === true
                   ? `${item.price / 100}`
                   : `${item.price}`,
               quantity: item.quantity,
-              variant: item.variant, // SKU name (variant)
+              dimension1: item.productRefId,
+              dimension2: item.referenceId, // SKU reference id
+              dimension3: item.variant, // SKU name (variant)
             })),
           },
           currencyCode: e.data.currency,
@@ -155,14 +174,16 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
               brand: item.brand,
               category: item.category,
               id: item.productId,
-              skuId: item.skuId,
+              variant: item.skuId,
               name: item.name, // Product name
               price:
                 item.priceIsInt === true
                   ? `${item.price / 100}`
                   : `${item.price}`,
               quantity: item.quantity,
-              variant: item.variant, // SKU name (variant)
+              dimension1: item.productRefId,
+              dimension2: item.referenceId, // SKU reference id
+              dimension3: item.variant, // SKU name (variant)
             })),
           },
         },
@@ -280,11 +301,13 @@ function getProductObjectData(product: ProductOrder) {
     brand: product.brand,
     category: product.categoryTree?.join('/'),
     id: product.id, // Product id
-    skuId: product.sku, // SKU id
+    variant: product.sku, // SKU id
     name: product.name, // Product name
     price: product.price,
     quantity: product.quantity,
-    variant: product.skuName, // SKU name (only variant)
+    dimension1: product.productRefId,
+    dimension2: product.skuRefId,
+    dimension3: product.skuName, // SKU name (only variant)
   }
 }
 
@@ -307,12 +330,14 @@ function getProductImpressionObjectData(list: string) {
     brand: product.brand,
     category: getCategory(product.categories),
     id: product.productId, // Product id
-    skuId: product.sku.itemId, // SKU id
+    variant: product.sku.itemId, // SKU id
     list,
     name: product.productName,
     position,
     price: `${product.sku.seller.commertialOffer.Price}`,
-    variant: product.sku.name, // SKU name (variation only)
+    dimension1: product.productReference,
+    dimension2: product.sku.referenceId.Value,
+    dimension3: product.sku.name, // SKU name (variation only)
   })
 }
 
@@ -323,7 +348,7 @@ function getCheckoutProductObjectData(
 
   return {
     id: item.productId, // Product id
-    skuId: item.id, // SKU id
+    variant: item.id, // SKU id
     name: productName, // Product name without variant
     category: Object.keys(item.productCategories ?? {}).reduce(
       (categories, category) =>
@@ -331,9 +356,11 @@ function getCheckoutProductObjectData(
       ''
     ),
     brand: item.additionalInfo?.brandName ?? '',
-    variant: item.skuName,
     price: item.sellingPrice / 100,
     quantity: item.quantity,
+    dimension1: item.productRefId,
+    dimension2: item.referenceId, // SKU reference id
+    dimension3: item.skuName,
   }
 }
 
