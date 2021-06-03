@@ -67,8 +67,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 id: productId,
                 variant: selectedSku.itemId,
                 name: productName,
-                dimension1: productReference,
-                dimension2: skuReferenceId,
+                dimension1: productReference ?? '',
+                dimension2: skuReferenceId ?? '',
                 dimension3: selectedSku.name,
                 price,
               },
@@ -118,8 +118,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 id: productId,
                 variant: sku.itemId,
                 name: productName,
-                dimension1: productReference,
-                dimension2: sku.referenceId.Value,
+                dimension1: productReference ?? '',
+                dimension2: sku.referenceId.Value ?? '',
                 dimension3: sku.name,
                 price,
                 position,
@@ -151,8 +151,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                   ? `${item.price / 100}`
                   : `${item.price}`,
               quantity: item.quantity,
-              dimension1: item.productRefId,
-              dimension2: item.referenceId, // SKU reference id
+              dimension1: item.productRefId ?? '',
+              dimension2: item.referenceId ?? '', // SKU reference id
               dimension3: item.variant, // SKU name (variant)
             })),
           },
@@ -182,8 +182,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                   ? `${item.price / 100}`
                   : `${item.price}`,
               quantity: item.quantity,
-              dimension1: item.productRefId,
-              dimension2: item.referenceId, // SKU reference id
+              dimension1: item.productRefId ?? '',
+              dimension2: item.referenceId ?? '', // SKU reference id
               dimension3: item.variant, // SKU name (variant)
             })),
           },
@@ -306,8 +306,8 @@ function getProductObjectData(product: ProductOrder) {
     name: product.name, // Product name
     price: product.price,
     quantity: product.quantity,
-    dimension1: product.productRefId,
-    dimension2: product.skuRefId,
+    dimension1: product.productRefId ?? '',
+    dimension2: product.skuRefId ?? '',
     dimension3: product.skuName, // SKU name (only variant)
   }
 }
@@ -336,8 +336,8 @@ function getProductImpressionObjectData(list: string) {
     name: product.productName,
     position,
     price: `${product.sku.seller.commertialOffer.Price}`,
-    dimension1: product.productReference,
-    dimension2: product.sku.referenceId.Value,
+    dimension1: product.productReference ?? '',
+    dimension2: product.sku.referenceId.Value ?? '',
     dimension3: product.sku.name, // SKU name (variation only)
   })
 }
@@ -359,8 +359,8 @@ function getCheckoutProductObjectData(
     brand: item.additionalInfo?.brandName ?? '',
     price: item.sellingPrice / 100,
     quantity: item.quantity,
-    dimension1: item.productRefId,
-    dimension2: item.referenceId, // SKU reference id
+    dimension1: item.productRefId ?? '',
+    dimension2: item.referenceId ?? '', // SKU reference id
     dimension3: item.skuName,
   }
 }
