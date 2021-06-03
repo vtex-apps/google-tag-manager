@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `dimension3` property pointing to SKU Name (previous variat)
 
 ### Fixed
+- `productClick` and `productDetail` now considers the selected item then getting the product price
 - `productClick` now considers the default seller when getting the item's price
 
 ### Removed

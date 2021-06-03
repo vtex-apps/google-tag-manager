@@ -51,7 +51,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       let price
 
       try {
-        price = getSeller(e.data.product.items[0].sellers).commertialOffer.Price
+        price = getSeller(selectedSku.sellers).commertialOffer.Price
       } catch {
         price = undefined
       }
@@ -100,7 +100,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       let price
 
       try {
-        price = getSeller(product.items[0].sellers).commertialOffer.Price
+        price = getSeller(sku?.sellers ?? product.items[0].sellers)
+          .commertialOffer.Price
       } catch {
         price = undefined
       }
