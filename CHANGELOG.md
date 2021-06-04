@@ -17,10 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `position` property to `productClick` event
 - `dimension1` property pointing to Product Reference Id
 - `dimension2` property pointing to SKU Reference Id
-- `dimension3` property pointing to SKU Name (previous variat)
+- `dimension3` property pointing to SKU Name (previous variant)
 
 ### Fixed
-- `productClick` and `productDetail` now considers the selected item then getting the product price
+- `productClick` and `productDetail` now considers the selected item when getting the product price
 - `productClick` now considers the default seller when getting the item's price
 
 ### Removed
