@@ -21,7 +21,7 @@ const productClick = {
         unitMultiplier: 1,
         referenceId: [
           {
-            Value: '12531',
+            Value: '',
             __typename: 'Reference',
           },
         ],
@@ -183,7 +183,7 @@ const productClick = {
       measurementUnit: 'un',
       unitMultiplier: 1,
       referenceId: {
-        Value: '12531',
+        Value: '',
         __typename: 'Reference',
       },
       images: [

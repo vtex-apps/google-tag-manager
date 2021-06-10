@@ -27,7 +27,7 @@ const productImpression = {
             unitMultiplier: 1,
             referenceId: [
               {
-                Value: '12531',
+                Value: '232344',
                 __typename: 'Reference',
               },
             ],
@@ -189,7 +189,7 @@ const productImpression = {
           measurementUnit: 'un',
           unitMultiplier: 1,
           referenceId: {
-            Value: '12531',
+            Value: '232344',
             __typename: 'Reference',
           },
           images: [
@@ -270,7 +270,7 @@ const productImpression = {
         cacheId: 'gorgeous-watch',
         productId: '15',
         productName: 'Gorgeous Top Watch',
-        productReference: '1234',
+        productReference: null,
         description: 'A classic and gorgeous watch',
         categories: [
           '/Apparel & Accessories/Watches/',
@@ -286,12 +286,7 @@ const productImpression = {
             itemId: '32',
             measurementUnit: 'un',
             unitMultiplier: 1,
-            referenceId: [
-              {
-                Value: '1234',
-                __typename: 'Reference',
-              },
-            ],
+            referenceId: null,
             images: [
               {
                 imageUrl:
@@ -335,10 +330,7 @@ const productImpression = {
           itemId: '32',
           measurementUnit: 'un',
           unitMultiplier: 1,
-          referenceId: {
-            Value: '1234',
-            __typename: 'Reference',
-          },
+          referenceId: null,
           images: [
             {
               imageUrl:
