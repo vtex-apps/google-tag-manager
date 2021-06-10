@@ -119,7 +119,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 variant: sku.itemId,
                 name: productName,
                 dimension1: productReference ?? '',
-                dimension2: sku.referenceId.Value ?? '',
+                dimension2: sku.referenceId?.Value ?? '',
                 dimension3: sku.name,
                 price,
                 position,
@@ -337,7 +337,7 @@ function getProductImpressionObjectData(list: string) {
     position,
     price: `${product.sku.seller.commertialOffer.Price}`,
     dimension1: product.productReference ?? '',
-    dimension2: product.sku.referenceId.Value ?? '',
+    dimension2: product.sku.referenceId?.Value ?? '',
     dimension3: product.sku.name, // SKU name (variation only)
   })
 }
