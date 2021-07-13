@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- All events are now using the productId as the main product identifier
+- Product name doesn't include the variation anymore
+- `variant` property now contains the SKU Id
+
+### Added
+- SKU id field to all events that contains product ids
+- `list` property to `productView` (`productDetail`) event
+- `position` property to `productClick` event
+- `dimension1` property pointing to Product Reference Id
+- `dimension2` property pointing to SKU Reference Id
+- `dimension3` property pointing to SKU Name (previous variant)
+
+### Fixed
+- `productClick` and `productDetail` now considers the selected item when getting the product price
+- `productClick` now considers the default seller when getting the item's price
+
+### Removed
+- Old backwards compatible `pageLoaded` and `productImpression` events
 
 ## [2.9.2] - 2021-03-30
 ### Fixed
