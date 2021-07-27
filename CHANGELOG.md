@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added 
+-`isAvailable` flag to the productDataLayer
+
 ## [3.0.0] - 2021-07-13
 ### Changed
 - All events are now using the productId as the main product identifier
