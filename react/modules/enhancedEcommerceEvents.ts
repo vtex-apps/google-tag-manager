@@ -38,6 +38,10 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         categories,
       } = (e.data as ProductViewData).product
 
+      const productAvailableQuantity = getSeller(selectedSku.sellers)
+        .commertialOffer.AvailableQuantity
+      const isAvailable = productAvailableQuantity > 0
+
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
@@ -71,6 +75,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension2: skuReferenceId ?? '',
                 dimension3: selectedSku.name,
                 price,
+                isAvailable,
               },
             ],
           },
