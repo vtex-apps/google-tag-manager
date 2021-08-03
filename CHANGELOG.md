@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added 
 -`isAvailable` flag to the productDataLayer
+## [3.0.1] - 2021-07-29
+### Fixed
+- Add originalLocation variable to dataLayer
 
 ## [3.0.0] - 2021-07-13
 ### Changed
