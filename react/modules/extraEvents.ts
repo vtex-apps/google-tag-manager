@@ -8,11 +8,13 @@ export async function sendExtraEvents(e: PixelMessage) {
         event: 'pageView',
         location: e.data.pageUrl,
         page: e.data.pageUrl.replace(e.origin, ''),
-        referrer: e.data.referrer,
+        referrer: e.data.referrer ? e.data.referrer : sessionStorage.getItem('gtmRefferer') ? sessionStorage.getItem('gtmRefferer') : '',
         ...(e.data.pageTitle && {
           title: e.data.pageTitle,
         }),
       })
+
+      sessionStorage.setItem('gtmRefferer', e.data.pageUrl);
 
       return
     }
