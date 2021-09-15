@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Fix refferer
+- `pageView` event's `referrer` property would always be empty after user navigation. 
 
 ## [3.0.1] - 2021-07-29
 ### Fixed
