@@ -15,7 +15,7 @@ import {
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 
 function getSeller(sellers: Seller[]) {
-  const defaultSeller = sellers.find(seller => seller.sellerDefault)
+  const defaultSeller = sellers.find((seller) => seller.sellerDefault)
 
   if (!defaultSeller) {
     return sellers[0]
@@ -145,7 +145,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       push({
         ecommerce: {
           add: {
-            products: items.map(item => ({
+            products: items.map((item) => ({
               brand: item.brand,
               category: item.category,
               id: item.productId,
@@ -176,7 +176,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         ecommerce: {
           currencyCode: e.data.currency,
           remove: {
-            products: items.map(item => ({
+            products: items.map((item) => ({
               brand: item.brand,
               category: item.category,
               id: item.productId,
