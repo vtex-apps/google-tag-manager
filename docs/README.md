@@ -10,33 +10,74 @@
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 
-The VTEX Google Tag Manager app is a first party integration to the [Google Tag Manager solution](https://tagmanager.google.com).
+The VTEX Google Tag Manager (GTM) app is a first party integration to the [Google Tag Manager solution](https://tagmanager.google.com).
 
 ![google-tag-manager-app](https://user-images.githubusercontent.com/52087100/84321347-55e11c80-ab49-11ea-9445-24eec6a07785.png)
 
-## Configuration
-
-It is possible to install the VTEX native GTM app in your store either by using App Store or the VTEX IO Toolbelt.
-
-### Using VTEX App Store
+## Installing Google Tag Manager app
 
 1. Access the **Apps** section in your account's admin page and look for the Google Tag Manager box;
 2. Then, click on the **Install** button;
 3. You'll see a warning message about needing to enter the necessary configurations. Scroll down and type in your **GTM ID** in the `Google Tag Manager` field.
 4. Click on **Save**.
 
-:information_source: Access the [Google Tag Manager page](https://tagmanager.google.com/)</a> and login to you account in order to find out what is your account **GTM ID**. The number your should use is the one provided by the `Container ID` column.
+>ℹ️ *Access the [Google Tag Manager page](https://tagmanager.google.com/)</a> and login to you account in order to find out what is your account **GTM ID**. The number your should use is the one provided by the `Container ID` column.*
 
-### Using VTEX IO Toolbelt
+### Step 2 - Creating Google Analytics variables
+To set up Google Tag Manager in your store, you must create and set up all necessary variables, triggers and tags. Follow the [Setting up Google Tag Manager documentation](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-setting-up-google-tag-manager) to create them.
 
-1. [Install](https://vtex.io/docs/recipes/development/installing-an-app/) the `vtex.google-tag-manager@2.x` app. You can confirm that the app has now been installed by running `vtex ls` again.
-2. Access the **Apps** section in your account's admin page and look for the Google Tag Manager box. Once you find it, click on the box.
-3. Fill in the `Google Tag Manager` field with your **GTM ID**.
-4. Click on **Save**.
+### Step 3 - Persisting campaign data throughout a user session
+To prevent GTM from creating additional session identifiers every time a user navigates the website, you must add the variable `OriginalLocation` to your GTM container and configure your store’s Google Analytics tags. Notice that this is important to persist campaign data throughout a user session and avoid providing inconsistent campaign data to Google Analytics (GA). 
 
-:information_source: Access the [Google Tag Manager page](https://tagmanager.google.com/)</a> and login to you account in order to find out what is your account **GTM ID**. The number your should use is the one provided by the `Container ID` column.
+>⚠️ *The `OriginalLocation` variable is available for VTEX IO Google Tag Manager versions 2.x and 3.x. * 
 
-After installing the app, you are ready to use your GTM as usual by accessing your account dashboard directly on the [Google Tag Manager](https://tagmanager.google.com/) page.
+#### Creating the variable Original Location
+
+1. Log in to your [GTM account](https://tagmanager.google.com) and click on the GTM container you want to work with; 
+![gtm-container](https://user-images.githubusercontent.com/67270558/136798596-cc0add2d-e110-4176-bc8d-665ded39da29.png)
+
+
+2. On the container page, click on **Variables**;
+
+3. In the **Built-In Variables** section, check if the `Page URL` and `Page Path` variables are enabled. Otherwise, click on `Configure` and select `Page URL` and `Page Path` to enable them; 
+
+4. Go to the **User-Defined Variables** section and click on `New`. A side popup will open;
+
+5. Replace the `Untitled Variable` value with `Original Location`;
+6. Click on **Variable Configuration**;
+7. On **Page Variables**, click on **Data Layer Variable**;
+8. In the `Data Layer Variable Name` field, type `OriginalLocation`;
+9. Enable the `Set Default Value` option and fill in the `Default Value` field with the following value:
+
+```
+{{Page URL}}
+
+```
+
+![gtm-configuration](https://user-images.githubusercontent.com/67270558/136799012-4aaf589b-bf3d-4e2a-9da3-cc806a47fdf8.gif)
+10. Click on `Save`.
+
+#### Updating Google Analytics Settings variables and tags
+
+Now, let's configure every Google Analytics Settings variable that fires the `OriginalLocation` variable.
+
+1. Go to the **Variables** section; 
+2. On **User-Defined Variables**, click on the name of one of the Google Analytics Settings variables
+
+![ga-variables](https://user-images.githubusercontent.com/67270558/136799579-f1bb7e68-ec4c-4deb-beb2-0dfedb88de10.png)
+
+3. Click on the **Variable Configuration** box;
+4. Go to**More Settings > Fields to Set**;
+5. Click on `Add Field`;
+6. Set the `Field Name` field as `location` and `Value` as `{{Original Location}}`;
+7. Click on `Save`.
+
+If you have any Google Analytics tags using the Google Analytics Settings variables you have changed, apply the same changes above directly on the tags that need it.
+
+#### Publishing your changes
+
+Once you have set up the Google Analytics variables and tags, follow Google's official guide on [how to submit and publish your store’s container](https://support.google.com/tagmanager/answer/6107163).
+
 
 ## Restrictions
 
