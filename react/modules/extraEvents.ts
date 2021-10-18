@@ -27,6 +27,11 @@ export async function sendExtraEvents(e: PixelMessage) {
       push({
         event: 'userData',
         userId: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        fullName: `${data.firstName} ${data.lastName}`,
+        email: data.email,
+        phone: data.phone
       })
 
       break
