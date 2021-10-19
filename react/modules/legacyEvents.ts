@@ -55,13 +55,6 @@ export async function sendLegacyEvents(e: PixelMessage) {
           break
         }
 
-        case 'productView': {
-          push({
-            event: 'productView',
-          })
-          break
-        }
-
         default: {
           push({
             event: 'otherView',
@@ -71,6 +64,14 @@ export async function sendLegacyEvents(e: PixelMessage) {
       }
 
       break
+    }
+
+    case 'vtex:productView': {
+        push({
+          event: 'productView',
+          product: e.data.product
+        })
+     break
     }
 
     default: {

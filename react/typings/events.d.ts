@@ -17,6 +17,8 @@ export interface PixelMessage extends MessageEvent {
     | CartData
     | PromoViewData
     | PromotionClickData
+    | SortProductsData
+    | FilterProductsData
 }
 
 export interface EventData {
@@ -162,6 +164,18 @@ export interface PromotionClickData extends EventData {
   event: 'promotionClick'
   eventType: 'vtex:promotionClick'
   promotions: Promotion[]
+}
+
+export interface SortProductsData {
+  event: 'sortProducts'
+  eventName: 'vtex:sortProducts'
+  value: string
+}
+
+export interface FilterProductsData {
+  event: 'filterProducts'
+  eventName: 'vtex:filterProducts'
+  values: FilterProductsValues[]
 }
 
 interface Promotion {
@@ -365,6 +379,12 @@ export interface Product {
   productName: string
   productReference: string
   selectedSku: Item
+  properties: ProductProperties[]
+}
+
+interface ProductProperties {
+  name: string
+  values: string[]
 }
 
 export interface Item {
@@ -407,6 +427,25 @@ export interface CommertialOffer {
   Price: number
   ListPrice: number
   AvailableQuantity: number
+}
+
+
+interface FilterProductsValues {
+  children: string | null
+  hidden: boolean
+  href: string
+  id: string
+  key: string
+  link: string | null
+  linkEncoded: string | null
+  map: string
+  name: string
+  newQuerySegment: string
+  quantity: number
+  range: string | null
+  selected: boolean
+  title: string
+  value: string
 }
 
 export type ProductViewReferenceId = Array<Item['referenceId']>

@@ -1,5 +1,5 @@
 import push from './push'
-import { PixelMessage } from '../typings/events'
+import { PixelMessage, FilterProductsData } from '../typings/events'
 
 export async function sendExtraEvents(e: PixelMessage) {
   switch (e.data.eventName) {
@@ -34,6 +34,23 @@ export async function sendExtraEvents(e: PixelMessage) {
         phone: data.phone
       })
 
+      break
+    }
+
+    case 'vtex:sortProducts': {
+      push({
+        event: 'sortProducts',
+        value: e.data.value
+      })
+      break
+    }
+
+    case 'vtex:filterProducts': {
+      const { values } = e.data as FilterProductsData
+      push({
+        event: 'filterProducts',
+        values: values
+      })
       break
     }
 

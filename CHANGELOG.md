@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `firstName`, `lastName`, `fullName`, `email`, `phone` on dataLayer for userData event
+- New events: `sortProducts`, `filterProducts`
+- Information about product on `productView` event
 
 ## [3.0.2] - 2021-10-11
 ### Added
