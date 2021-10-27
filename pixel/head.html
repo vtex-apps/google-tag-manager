@@ -6,12 +6,6 @@
     } else {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ 'gtm.blacklist': {{ blacklist }} });
-      window.dataLayer.push({
-        originalLocation: document.location.protocol + '//' +
-                          document.location.hostname +
-                          document.location.pathname +
-                          document.location.search
-      });
       // GTM script snippet. Taken from: https://developers.google.com/tag-manager/quickstart
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
