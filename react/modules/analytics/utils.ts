@@ -26,11 +26,6 @@ export const analyticsURLParams = [
   'utm_id',
 ] as const
 
-// Default referrer utm_medium attributed by GTM when there's no utm_medium and a user navigates from another website
-const REFERRER_UTM_MEDIUM = 'referral'
-
-const REFERRER_WWW_PREFIX = 'www.'
-
 export const keyValueToParam = (key: string, value: string) => `${key}=${value}`
 
 export function shouldInvalidateCurrentCampaign(
@@ -52,35 +47,6 @@ export function shouldInvalidateCurrentCampaign(
       locationParam.startsWith(`${campaignParam}=`)
     )
   })
-}
-
-export function getUTMWithReferral(
-  location: Location,
-  referrer: string | undefined
-) {
-  if (!referrer) {
-    return location.search
-  }
-
-  const referrerURL = new URL(referrer)
-
-  if (shouldInvalidateCurrentCampaign(location, referrer)) {
-    return location.search
-  }
-
-  // Mimics how GTM does it
-  const referrerUtmSource = referrerURL.hostname.replace(
-    REFERRER_WWW_PREFIX,
-    ''
-  )
-
-  const separator = location.search ? '&' : '?'
-
-  // Appends referral utm params to url
-  return `${location.search}${separator}${keyValueToParam(
-    UTM_SOURCE_PARAM,
-    referrerUtmSource
-  )}&${keyValueToParam(UTM_MEDIUM_PARAM, REFERRER_UTM_MEDIUM)}`
 }
 
 const STORAGE_KEY_ANALYTICS_DATA = 'analytics:session'
