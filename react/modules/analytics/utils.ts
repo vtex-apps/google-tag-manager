@@ -26,8 +26,6 @@ export const analyticsURLParams = [
   'utm_id',
 ] as const
 
-export const keyValueToParam = (key: string, value: string) => `${key}=${value}`
-
 export function shouldInvalidateCurrentCampaign(
   location: Location,
   referrer: string
