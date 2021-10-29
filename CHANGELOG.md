@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed:
+- The variable name `OriginalLocation` to `originalLocation`.
+
 ## [3.0.2] - 2021-10-11
 ### Added
 - Step on how to add the variable OriginalLocation to your Google Tag Manager (GTM) container and configure your store’s Google Analytics tags, to persist campaign data throughout a user session and avoid providing inconsistent campaign data to Google Analytics.
