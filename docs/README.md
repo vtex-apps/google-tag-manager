@@ -27,13 +27,14 @@ The VTEX Google Tag Manager (GTM) app is a first party integration to the [Googl
 To set up Google Tag Manager in your store, you must create and set up all necessary variables, triggers and tags. Follow the [Setting up Google Tag Manager documentation](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-setting-up-google-tag-manager) to create them.
 
 ### Step 3 - Persisting campaign data throughout a user session
-To prevent GTM from creating additional session identifiers every time a user navigates the website, you must add the variable `OriginalLocation` to your GTM container and configure your store’s Google Analytics tags. Notice that this is important to persist campaign data throughout a user session and avoid providing inconsistent campaign data to Google Analytics (GA). 
+To prevent GTM from creating additional session identifiers every time a user navigates the website, you must add the variable `originalLocation` to your GTM container and configure your store’s Google Analytics tags. Notice that this is important to persist campaign data throughout a user session and avoid providing inconsistent campaign data to Google Analytics (GA). 
 
->⚠️ *The `OriginalLocation` variable is available for VTEX IO Google Tag Manager versions 2.x and 3.x. * 
+>⚠️ *The `originalLocation` variable is available for VTEX IO Google Tag Manager versions 2.x and 3.x. * 
 
 #### Creating the variable Original Location
 
 1. Log in to your [GTM account](https://tagmanager.google.com) and click on the GTM container you want to work with; 
+
 ![gtm-container](https://user-images.githubusercontent.com/67270558/136798596-cc0add2d-e110-4176-bc8d-665ded39da29.png)
 
 
@@ -46,7 +47,7 @@ To prevent GTM from creating additional session identifiers every time a user na
 5. Replace the `Untitled Variable` value with `Original Location`;
 6. Click on **Variable Configuration**;
 7. On **Page Variables**, click on **Data Layer Variable**;
-8. In the `Data Layer Variable Name` field, type `OriginalLocation`;
+8. In the `Data Layer Variable Name` field, type `originalLocation`;
 9. Enable the `Set Default Value` option and fill in the `Default Value` field with the following value:
 
 ```
@@ -54,12 +55,13 @@ To prevent GTM from creating additional session identifiers every time a user na
 
 ```
 
-![gtm-configuration](https://user-images.githubusercontent.com/67270558/136799012-4aaf589b-bf3d-4e2a-9da3-cc806a47fdf8.gif)
+![gtm-variable](https://user-images.githubusercontent.com/67270558/139482165-21f93c6a-48e5-421a-8e06-c942bda01974.gif)
+
 10. Click on `Save`.
 
 #### Updating Google Analytics Settings variables and tags
 
-Now, let's configure every Google Analytics Settings variable that fires the `OriginalLocation` variable.
+Now, let's configure every Google Analytics Settings variable that fires the `originalLocation` variable.
 
 1. Go to the **Variables** section; 
 2. On **User-Defined Variables**, click on the name of one of the Google Analytics Settings variables
