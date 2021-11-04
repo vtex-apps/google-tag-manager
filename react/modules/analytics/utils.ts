@@ -33,7 +33,7 @@ export function shouldInvalidateCurrentCampaign(
   const referrerURL = referrer ? new URL(referrer) : null
 
   // if user comes from a referring website
-  if (referrerURL && referrerURL.host !== location.host) {
+  if (referrerURL?.host !== location.host) {
     return true
   }
 
@@ -84,7 +84,7 @@ export function currentDateInSeconds() {
   return Math.floor(Date.now() / 1000)
 }
 
-export const THIRTY_MIN_IN_SECONDS = 1800
+export const THIRTY_MIN_IN_SECONDS = 30 * 60
 
 export function isStorageExpired(expiresIn: number, now: number) {
   return now - expiresIn > 0
