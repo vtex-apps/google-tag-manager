@@ -33,7 +33,7 @@ export function shouldInvalidateCurrentCampaign(
   const referrerURL = referrer ? new URL(referrer) : null
 
   // if user comes from a referring website
-  if (referrerURL?.host !== location.host) {
+  if (referrerURL && referrerURL.host !== location.host) {
     return true
   }
 
