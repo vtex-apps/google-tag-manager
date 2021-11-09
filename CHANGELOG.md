@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [3.1.0] - 2021-11-09
+### Added
+- `originalReferrer` variable to events
+
+### Changed
+- Added mechanism to avoid losing campaign attribuiton. `originalLocation` variable is now dinamic and consider Google's session expiration rules.
 
 ## [3.0.3] - 2021-10-29
 
