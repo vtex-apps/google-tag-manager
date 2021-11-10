@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- First event push is now detected correctly, considering that there may be GTM native events on the `dataLayer` array before the first push happens
 
 ## [3.1.0] - 2021-11-09
 ### Added
