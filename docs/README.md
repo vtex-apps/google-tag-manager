@@ -92,7 +92,7 @@ Now, let's configure every Google Analytics Settings variable that fires the `or
 4. Go to **More Settings > Fields to Set**;
 5. Click on `Add Field`;
 6. Set the `Field Name` field as `location` and `Value` as `{{Original Location}}`;
-7. The, click on `Add Field` again;
+7. Then, click on `Add Field` again;
 6. Set the `Field Name` field as `referrer` and `Value` as `{{Original Referrer}}`;
 8. Click on `Save`.
 
