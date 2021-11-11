@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - First event push is now detected correctly, considering that there may be GTM native events on the `dataLayer` array before the first push happens
+- Current campaign is no longer invalidated when the browser referrer matches the storage referrer
 
 ## [3.1.0] - 2021-11-09
 ### Added

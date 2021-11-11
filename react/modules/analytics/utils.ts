@@ -28,12 +28,17 @@ export const analyticsURLParams = [
 
 export function shouldInvalidateCurrentCampaign(
   location: Location,
-  referrer: string
+  referrer: string,
+  storageReferrer: string
 ) {
   const referrerURL = referrer ? new URL(referrer) : null
 
   // if user comes from a referring website
-  if (referrerURL && referrerURL.host !== location.host) {
+  if (
+    referrerURL &&
+    referrer !== storageReferrer &&
+    referrerURL.host !== location.host
+  ) {
     return true
   }
 
