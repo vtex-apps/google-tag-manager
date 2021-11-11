@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Added mechanism to avoid losing campaign attributon. `originalLocation` variable is now dynamic and consider Google's session expiration rules.
+- Added mechanism to avoid losing campaign attribution. `originalLocation` variable is now dynamic and considers Google's session expiration rules.
 
 ### Added
 - `originalReferrer` variable to dataLayer.
