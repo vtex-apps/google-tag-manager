@@ -29,7 +29,11 @@ function getAnalyticsData(): AnalyticsData | null {
   if (
     !analyticsFromStorage ||
     isStorageExpired(analyticsFromStorage.expires, currentDateInSeconds()) ||
-    shouldInvalidateCurrentCampaign(window.location, document.referrer)
+    shouldInvalidateCurrentCampaign(
+      window.location,
+      document.referrer,
+      analyticsFromStorage.referrer
+    )
   ) {
     return null
   }
