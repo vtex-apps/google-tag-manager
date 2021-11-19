@@ -2,6 +2,8 @@ import { createOrGetAnalyticsData } from './analytics'
 
 window.dataLayer = window.dataLayer || []
 
+let isFirstPush = true
+
 export default function push(rawEvent: Record<string, unknown>) {
   const {
     location: originalLocation,
@@ -11,7 +13,9 @@ export default function push(rawEvent: Record<string, unknown>) {
 
   let event = rawEvent
 
-  if (window.dataLayer.length === 0 || origin === 'fresh') {
+  if (isFirstPush || origin === 'fresh') {
+    isFirstPush = false
+
     event = {
       ...rawEvent,
       originalLocation,
