@@ -298,12 +298,17 @@ function getPurchaseObjectData(order: Order) {
 }
 
 function getProductObjectData(product: ProductOrder) {
+  const productName = getProductNameWithoutVariant(
+    product.name,
+    product.skuName
+  )
+
   return {
     brand: product.brand,
     category: product.categoryTree?.join('/'),
     id: product.id, // Product id
     variant: product.sku, // SKU id
-    name: product.name, // Product name
+    name: productName, // Product name
     price: product.price,
     quantity: product.quantity,
     dimension1: product.productRefId ?? '',
