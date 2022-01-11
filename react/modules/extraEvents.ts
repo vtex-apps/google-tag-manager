@@ -2,6 +2,15 @@ import push from './push'
 import { PixelMessage } from '../typings/events'
 
 export async function sendExtraEvents(e: PixelMessage) {
+
+  async function digestMessage(message:string) {
+    const msgUint8 = new TextEncoder().encode(message);                           
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+  }
+
   switch (e.data.eventName) {
     case 'vtex:pageView': {
       push({
@@ -20,6 +29,8 @@ export async function sendExtraEvents(e: PixelMessage) {
     case 'vtex:userData': {
       const { data } = e
 
+      const criptoID = await digestMessage(data.email)
+
       if (!data.isAuthenticated) {
         return
       }
@@ -27,6 +38,7 @@ export async function sendExtraEvents(e: PixelMessage) {
       push({
         event: 'userData',
         userId: data.id,
+        criptoID: criptoID 
       })
 
       break
