@@ -77,7 +77,7 @@ test('productDetail', () => {
             dimension1: '',
             dimension2: '12531',
             dimension3: 'Classic Pink',
-            isAvailable: true,
+            dimension4: true,
           },
         ],
       },

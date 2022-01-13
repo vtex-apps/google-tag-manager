@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added 
--`isAvailable` flag to the productDataLayer
+-`dimension4` property to the product data layer on `productView` events, representing the availability of the product
 ## [3.0.1] - 2021-07-29
 ### Fixed
 - Add originalLocation variable to dataLayer
