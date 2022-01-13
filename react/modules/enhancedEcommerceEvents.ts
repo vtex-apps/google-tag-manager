@@ -40,7 +40,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
-      const isAvailable = productAvailableQuantity > 0
+      const isAvailable =
+        productAvailableQuantity > 0 ? 'available' : 'unavailable'
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
