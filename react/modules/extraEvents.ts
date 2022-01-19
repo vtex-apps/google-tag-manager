@@ -29,11 +29,11 @@ export async function sendExtraEvents(e: PixelMessage) {
     case 'vtex:userData': {
       const { data } = e
 
-      const criptoID = await digestMessage(data.email)
-
       if (!data.isAuthenticated) {
         return
       }
+
+      const criptoID = data.email ? await digestMessage(data.email) : undefined
 
       push({
         event: 'userData',
