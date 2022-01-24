@@ -14,7 +14,7 @@ You need a Google account to use Google Tag Manager. If you already use Google p
 
 If you don't have an account for a Google product, create one at [Creating your Google account](https://accounts.google.com/signup/v2/webcreateaccount?service=analytics&continue=https%3A%2F%2Ftagmanager.google.com%2F&dsh=S1158101756%3A1642078409369040&biz=true&flowName=GlifWebSignIn&flowEntry=SignUp&nogm=true). 
 
-Installing Google Tag Manager app
+## Installing Google Tag Manager app
 
 Access your VTEX **Admin** and go to **Account settings > Apps > App Store**
 Search for the Google Tag Manager app and click on `Install`.
@@ -29,7 +29,7 @@ Once you have installed the app, you have to set it up with the variables, trigg
 
 
 
-Restrictions
+## Restrictions
 The VTEX IO Google Tag Manager solution uses the native GTM blocklist feature to avoid performance problems and unpredictable behavior. However, the HTML ID is blocked by default, which automatically blocklists all the tags, variables, and triggers of the`customScripts` type. The main consequence of this blocklist is that Custom HTML tags are not triggered.
 **The HTML blocklist is a VTEX Google Tag Manager app's default.** You can read more about this feature on the [Google Developer Guide](https://developers.google.com/tag-platform/tag-manager/web/restrict). If you want to disable this restriction go to `https://{accountName}.myvtex.com/admin/apps/vtex.google-tag-manager@3.x/setup` and check the toggle below.
 
@@ -42,14 +42,15 @@ The VTEX IO Google Tag Manager solution uses the native GTM blocklist feature to
 Most of the widely used Custom HTML tags are integrations with third-party services, like Customer Chat, Analytics, Remarketing, and Pixel tags. If your store needs a Custom HTML for one of those cases, the integration can be done by disabling the blocklist restriction - as mentioned before - or transforming the tags into a  [VTEX IO Pixel App](https://developers.vtex.com/vtex-developer-docs/docs/pixel-apps).
 Check out below the full list of tags and variables that are blocked in the VTEX IO Google Tag Manager app by default:
 Blocked tags
-Custom HTML Tag - `html`
-Eulerian Analytics Tag - `ela`
-SaleCycle JavaScript Tag - `scjs`
-Upsellit Global Footer Tag - `uslt`
-Upsellit Confirmation Tag - `uspt`
-Blocked variables
-Custom JavaScript Variable - `jsm`
+- Custom HTML Tag - `html`
+- Eulerian Analytics Tag - `ela`
+- SaleCycle JavaScript Tag - `scjs`
+- Upsellit Global Footer Tag - `uslt`
+- Upsellit Confirmation Tag - `uspt`
+- Blocked variables
+- Custom JavaScript Variable - `jsm`
+
 Check out all the GTM available tags on [the Google Developer Guide](https://developers.google.com/tag-platform/tag-manager/web/datalayer).
 
-Next step
+## Next step
 [Setting up Google Tag Manager documentation](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-setting-up-google-tag-manager) 
