@@ -15,7 +15,7 @@ import {
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 
 function getSeller(sellers: Seller[]) {
-  const defaultSeller = sellers.find(seller => seller.sellerDefault)
+  const defaultSeller = sellers.find((seller) => seller.sellerDefault)
 
   if (!defaultSeller) {
     return sellers[0]
@@ -37,6 +37,11 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         brand,
         categories,
       } = (e.data as ProductViewData).product
+
+      const productAvailableQuantity = getSeller(selectedSku.sellers)
+        .commertialOffer.AvailableQuantity
+      const isAvailable =
+        productAvailableQuantity > 0 ? 'available' : 'unavailable'
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
@@ -70,6 +75,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension1: productReference ?? '',
                 dimension2: skuReferenceId ?? '',
                 dimension3: selectedSku.name,
+                dimension4: isAvailable,
                 price,
               },
             ],
@@ -140,7 +146,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       push({
         ecommerce: {
           add: {
-            products: items.map(item => ({
+            products: items.map((item) => ({
               brand: item.brand,
               category: item.category,
               id: item.productId,
@@ -171,7 +177,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         ecommerce: {
           currencyCode: e.data.currency,
           remove: {
-            products: items.map(item => ({
+            products: items.map((item) => ({
               brand: item.brand,
               category: item.category,
               id: item.productId,
