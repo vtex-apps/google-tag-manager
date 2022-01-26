@@ -15,7 +15,7 @@ import {
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 
 function getSeller(sellers: Seller[]) {
-  const defaultSeller = sellers.find((seller) => seller.sellerDefault)
+  const defaultSeller = sellers.find(seller => seller.sellerDefault)
 
   if (!defaultSeller) {
     return sellers[0]
@@ -40,6 +40,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
+
       const isAvailable =
         productAvailableQuantity > 0 ? 'available' : 'unavailable'
 
@@ -146,7 +147,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       push({
         ecommerce: {
           add: {
-            products: items.map((item) => ({
+            products: items.map(item => ({
               brand: item.brand,
               category: item.category,
               id: item.productId,
@@ -177,7 +178,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         ecommerce: {
           currencyCode: e.data.currency,
           remove: {
-            products: items.map((item) => ({
+            products: items.map(item => ({
               brand: item.brand,
               category: item.category,
               id: item.productId,
@@ -216,7 +217,15 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         // @ts-ignore
         event: 'orderPlaced',
         ...order,
+        // The name ecommerceV2 was introduced as a fix, so it is possible that some clients
+        // were using this as it was called before (ecommerce). For that reason,
+        // it will also be sent as ecommerce to the dataLayer.
         ecommerce,
+        // This variable is called ecommerceV2 so it matches the variable name present on the checkout
+        // This way, users can have one single tag for checkout and orderPlaced events
+        ecommerceV2: {
+          ecommerce,
+        },
       })
 
       return
