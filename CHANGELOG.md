@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added a custom field to "userData" dataLayer 
 
+## [3.2.1] - 2022-01-26
+### Fixed 
+- Added `ecommerceV2` property sent on the orderPlaced event to match the checkout dataLayer 
+
+## [3.2.0] - 2022-01-26
+### Added 
+-`dimension4` property to the product data layer on `productView` events, representing the availability of the product
+
 ## [3.1.3] - 2021-12-28
 ### Fixed
 - Product names on orderPlaced events now no longer include SKU name at the end
