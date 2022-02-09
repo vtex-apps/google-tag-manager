@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added a custom field to "userData" dataLayer 
+
 ## [3.2.1] - 2022-01-26
 ### Fixed 
 - Added `ecommerceV2` property sent on the orderPlaced event to match the checkout dataLayer 
