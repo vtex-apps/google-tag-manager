@@ -216,8 +216,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       const hasOrder = await checkHasOrderInMD();
 
-      console.log('hasOrder', { hasOrder });
-
       if(!hasOrder) {
         push({
           // @ts-ignore
