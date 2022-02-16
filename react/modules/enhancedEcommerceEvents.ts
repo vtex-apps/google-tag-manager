@@ -39,6 +39,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         categories,
       } = (e.data as ProductViewData).product
 
+      const productAvailableQuantity = getSeller(selectedSku.sellers)
+        .commertialOffer.AvailableQuantity
+
+      const isAvailable =
+        productAvailableQuantity > 0 ? 'available' : 'unavailable'
+
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
@@ -71,6 +77,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension1: productReference ?? '',
                 dimension2: skuReferenceId ?? '',
                 dimension3: selectedSku.name,
+                dimension4: isAvailable,
                 price,
               },
             ],
@@ -212,13 +219,20 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       console.log('hasOrder', { hasOrder });
 
       if(!hasOrder) {
-        console.log('entrou no if para o push');
         push({
           // @ts-ignore
           event: 'orderPlaced',
           ...order,
+          // The name ecommerceV2 was introduced as a fix, so it is possible that some clients
+          // were using this as it was called before (ecommerce). For that reason,
+          // it will also be sent as ecommerce to the dataLayer.
           ecommerce,
-        });
+          // This variable is called ecommerceV2 so it matches the variable name present on the checkout
+          // This way, users can have one single tag for checkout and orderPlaced events
+          ecommerceV2: {
+            ecommerce,
+          },
+        })
       }
 
       return
