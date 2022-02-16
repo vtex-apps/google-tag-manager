@@ -16,6 +16,8 @@ export function handleEvents(e: PixelMessage) {
   sendLegacyEvents(e)
 }
 
+console.log('gtm[t]');
+
 if (canUseDOM) {
   window.addEventListener('message', handleEvents)
 }

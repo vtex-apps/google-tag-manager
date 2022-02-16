@@ -13,6 +13,7 @@ import {
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
+import { checkHasOrderInMD } from './utils/orderPlaced';
 
 function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -213,20 +214,24 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
-      push({
-        // @ts-ignore
-        event: 'orderPlaced',
-        ...order,
-        // The name ecommerceV2 was introduced as a fix, so it is possible that some clients
-        // were using this as it was called before (ecommerce). For that reason,
-        // it will also be sent as ecommerce to the dataLayer.
-        ecommerce,
-        // This variable is called ecommerceV2 so it matches the variable name present on the checkout
-        // This way, users can have one single tag for checkout and orderPlaced events
-        ecommerceV2: {
+      const hasOrder = await checkHasOrderInMD();
+
+      if(!hasOrder) {
+        push({
+          // @ts-ignore
+          event: 'orderPlaced',
+          ...order,
+          // The name ecommerceV2 was introduced as a fix, so it is possible that some clients
+          // were using this as it was called before (ecommerce). For that reason,
+          // it will also be sent as ecommerce to the dataLayer.
           ecommerce,
-        },
-      })
+          // This variable is called ecommerceV2 so it matches the variable name present on the checkout
+          // This way, users can have one single tag for checkout and orderPlaced events
+          ecommerceV2: {
+            ecommerce,
+          },
+        })
+      }
 
       return
     }
