@@ -21,19 +21,24 @@ The VTEX Google Tag Manager (GTM) app is a first party integration to the [Googl
 3. You'll see a warning message about needing to enter the necessary configurations. Scroll down and type in your **GTM ID** in the `Google Tag Manager` field.
 4. Click on **Save**.
 
->ℹ️ *Access the [Google Tag Manager page](https://tagmanager.google.com/)</a> and login to you account in order to find out what is your account **GTM ID**. The number your should use is the one provided by the `Container ID` column.*
+>ℹ️ **Info**
+>
+> Access the [Google Tag Manager page](https://tagmanager.google.com/)</a> and login to you account in order to find out what is your account **GTM ID**. The number your should use is the one provided by the `Container ID` column.
 
 ### Step 2 - Creating Google Analytics variables
 To set up Google Tag Manager in your store, you must create and set up all necessary variables, triggers and tags. Follow the [Setting up Google Tag Manager documentation](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-setting-up-google-tag-manager) to create them.
 
 ### Step 3 - Persisting campaign data throughout a user session
-To prevent GTM from creating additional session identifiers every time a user navigates the website, you must add the variable `OriginalLocation` to your GTM container and configure your store’s Google Analytics tags. Notice that this is important to persist campaign data throughout a user session and avoid providing inconsistent campaign data to Google Analytics (GA). 
+To prevent GTM from creating additional session identifiers every time a user navigates the website, you must add the variables `originalLocation` and `originalReferrer` to your GTM container and configure your store’s Google Analytics tags. Notice that this is important to persist campaign data throughout a user session and avoid providing inconsistent campaign data to Google Analytics (GA). 
 
->⚠️ *The `OriginalLocation` variable is available for VTEX IO Google Tag Manager versions 2.x and 3.x. * 
+>⚠️ **Warning**
+>
+> The `originalLocation` and `originalReferrer` variables are available for VTEX IO Google Tag Manager versions 2.x and 3.x.  
 
-#### Creating the variable Original Location
+#### Creating the variables Original Location and Original Referrer
 
 1. Log in to your [GTM account](https://tagmanager.google.com) and click on the GTM container you want to work with; 
+
 ![gtm-container](https://user-images.githubusercontent.com/67270558/136798596-cc0add2d-e110-4176-bc8d-665ded39da29.png)
 
 
@@ -46,20 +51,37 @@ To prevent GTM from creating additional session identifiers every time a user na
 5. Replace the `Untitled Variable` value with `Original Location`;
 6. Click on **Variable Configuration**;
 7. On **Page Variables**, click on **Data Layer Variable**;
-8. In the `Data Layer Variable Name` field, type `OriginalLocation`;
+8. In the `Data Layer Variable Name` field, type `originalLocation`;
 9. Enable the `Set Default Value` option and fill in the `Default Value` field with the following value:
 
 ```
 {{Page URL}}
-
 ```
 
-![gtm-configuration](https://user-images.githubusercontent.com/67270558/136799012-4aaf589b-bf3d-4e2a-9da3-cc806a47fdf8.gif)
+![gtm-variable-location](https://user-images.githubusercontent.com/67270558/139482165-21f93c6a-48e5-421a-8e06-c942bda01974.gif)
+
+10. Click on `Save`.
+
+Once you have saved the `originalLocation` variable, create the `originalReferrer` as described on the steps below: 
+
+1. In the **User-Defined Variables** section, click on `New`. A side popup will open;
+2. Replace the `Untitled Variable` value with `Original Referrer`;
+3. Click on **Variable Configuration**;
+4. On **Page Variables**, click on **Data Layer Variable**;
+5. In the `Data Layer Variable Name` field, type `originalReferrer`;
+6. Enable the `Set Default Value` option and fill in the `Default Value` field with the following value:
+
+```
+{{Referrer}}
+```
+
+![gtm-variable-referrer](https://user-images.githubusercontent.com/67270558/141315033-56e6e498-8c44-490d-a6dd-51f226dd6fc9.gif)
+
 10. Click on `Save`.
 
 #### Updating Google Analytics Settings variables and tags
 
-Now, let's configure every Google Analytics Settings variable that fires the `OriginalLocation` variable.
+Now, let's configure every Google Analytics Settings variable that fires the `originalLocation` and `originalReferrer` variables.
 
 1. Go to the **Variables** section; 
 2. On **User-Defined Variables**, click on the name of one of the Google Analytics Settings variables
@@ -67,10 +89,12 @@ Now, let's configure every Google Analytics Settings variable that fires the `Or
 ![ga-variables](https://user-images.githubusercontent.com/67270558/136799579-f1bb7e68-ec4c-4deb-beb2-0dfedb88de10.png)
 
 3. Click on the **Variable Configuration** box;
-4. Go to**More Settings > Fields to Set**;
+4. Go to **More Settings > Fields to Set**;
 5. Click on `Add Field`;
 6. Set the `Field Name` field as `location` and `Value` as `{{Original Location}}`;
-7. Click on `Save`.
+7. Then, click on `Add Field` again;
+6. Set the `Field Name` field as `referrer` and `Value` as `{{Original Referrer}}`;
+8. Click on `Save`.
 
 If you have any Google Analytics tags using the Google Analytics Settings variables you have changed, apply the same changes above directly on the tags that need it.
 
@@ -85,7 +109,9 @@ In order to avoid performance problems and unforeseen behavior, our VTEX IO Goog
 
 We, by default, blacklist the `html` ID, which automatically blocklists all the tags, variables and triggers of the type `customScripts`. The main consequence of this blocklist is that **Custom HTML tags will not be triggered**.
 
-:warning: The HTML blacklist is VTEX Google Tag Manager app's default. If you want to disable this restriction go to `https://{accountName}.myvtex.com/admin/apps/vtex.google-tag-manager@2.x/setup` and check the toggle below.
+>⚠️ **Warning**
+>
+> The HTML blacklist is VTEX Google Tag Manager app's default. If you want to disable this restriction go to `https://{accountName}.myvtex.com/admin/apps/vtex.google-tag-manager@2.x/setup` and check the toggle below.
 
 <img src="https://user-images.githubusercontent.com/11340665/103930428-7c762e80-50fd-11eb-9cab-bc9e542b4dbf.png">
 

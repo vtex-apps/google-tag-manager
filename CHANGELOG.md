@@ -11,6 +11,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New events: `sortProducts`, `filterProducts`
 - Information about product on `productView` event
 
+## [3.3.0] - 2022-02-09
+
+### Added
+- Added a custom field to "userData" dataLayer 
+
+## [3.2.1] - 2022-01-26
+### Fixed 
+- Added `ecommerceV2` property sent on the orderPlaced event to match the checkout dataLayer 
+
+## [3.2.0] - 2022-01-26
+### Added 
+-`dimension4` property to the product data layer on `productView` events, representing the availability of the product
+
+## [3.1.3] - 2021-12-28
+### Fixed
+- Product names on orderPlaced events now no longer include SKU name at the end
+
+## [3.1.2] - 2021-11-19
+### Fixed
+- First event push is now detected correctly, considering that there may be GTM native events on the `dataLayer` array before the first push happens
+- Current campaign is no longer invalidated when the browser referrer matches the storage referrer
+
+## [3.1.1] - 2021-11-16
+### Added
+- `originalReferrer` to the docs
+
+## [3.1.0] - 2021-11-09
+### Added
+- `originalReferrer` variable to events
+
+### Changed
+- Added mechanism to avoid losing campaign attributon. `originalLocation` variable is now dynamic and consider Google's session expiration rules.
+
+## [3.0.3] - 2021-10-29
+
+### Fixed:
+- The variable name `OriginalLocation` to `originalLocation`.
+
 ## [3.0.2] - 2021-10-11
 ### Added
 - Step on how to add the variable OriginalLocation to your Google Tag Manager (GTM) container and configure your store’s Google Analytics tags, to persist campaign data throughout a user session and avoid providing inconsistent campaign data to Google Analytics.
