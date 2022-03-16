@@ -1,5 +1,4 @@
-import updateEcommerce from './updateEcommerce';
-
+import updateEcommerce from './updateEcommerce'
 import {
   Order,
   PixelMessage,
@@ -86,7 +85,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'productDetail',
       }
 
-      updateEcommerce('productDetail', data);
+      updateEcommerce('productDetail', data)
 
       return
     }
@@ -137,7 +136,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
-      updateEcommerce('productClick', data);
+      updateEcommerce('productClick', data)
 
       return
     }
@@ -167,9 +166,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
           currencyCode: e.data.currency,
         },
         event: 'addToCart',
-      };
+      }
 
-      updateEcommerce('addToCart', data);
+      updateEcommerce('addToCart', data)
 
       return
     }
@@ -199,9 +198,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
           },
         },
         event: 'removeFromCart',
-      };
+      }
 
-      updateEcommerce('removeFromCart', data);
+      updateEcommerce('removeFromCart', data)
 
       return
     }
@@ -233,7 +232,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
-      updateEcommerce('orderPlaced', data);
+      updateEcommerce('orderPlaced', data)
 
       return
     }
@@ -253,7 +252,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
-      updateEcommerce('productImpression', data);
+      updateEcommerce('productImpression', data)
 
       return
     }
@@ -271,9 +270,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             products: orderForm.items.map(getCheckoutProductObjectData),
           },
         },
-      };
+      }
 
-      updateEcommerce('checkout', data);
+      updateEcommerce('checkout', data)
 
       break
     }
@@ -288,9 +287,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             promotions,
           },
         },
-      };
+      }
 
-      updateEcommerce('promoView', data);
+      updateEcommerce('promoView', data)
 
       break
     }
@@ -307,7 +306,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
-      updateEcommerce('promotionClick', data);
+      updateEcommerce('promotionClick', data)
 
       break
     }
