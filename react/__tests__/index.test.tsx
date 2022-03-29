@@ -2,14 +2,14 @@ import productImpressionData from '../__mocks__/productImpression'
 import productDetails from '../__mocks__/productDetail'
 import productClick from '../__mocks__/productClick'
 import { handleEvents } from '../index'
-import push from '../modules/push'
+import updateEcommerce from '../modules/updateEcommerce'
 
-jest.mock('../modules/push', () => jest.fn())
+jest.mock('../modules/updateEcommerce', () => jest.fn())
 
-const mockedPush = push as jest.Mock
+const mockedUpdate = updateEcommerce as jest.Mock
 
 beforeEach(() => {
-  mockedPush.mockReset()
+  mockedUpdate.mockReset()
 })
 
 test('productImpression', () => {
@@ -19,7 +19,7 @@ test('productImpression', () => {
 
   handleEvents(message)
 
-  expect(mockedPush).toHaveBeenCalledWith({
+  expect(mockedUpdate).toHaveBeenCalledWith('productImpression', {
     event: 'productImpression',
     ecommerce: {
       currencyCode: 'USD',
@@ -62,7 +62,7 @@ test('productDetail', () => {
 
   handleEvents(message)
 
-  expect(mockedPush).toHaveBeenCalledWith({
+  expect(updateEcommerce).toHaveBeenCalledWith('productDetail', {
     event: 'productDetail',
     ecommerce: {
       detail: {
@@ -92,7 +92,7 @@ test('productClick', () => {
 
   handleEvents(message)
 
-  expect(mockedPush).toHaveBeenCalledWith({
+  expect(mockedUpdate).toHaveBeenCalledWith('productClick', {
     event: 'productClick',
     ecommerce: {
       click: {

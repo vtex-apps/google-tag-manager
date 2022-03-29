@@ -5,7 +5,7 @@ export default function updateEcommerce(
   data: Record<string, unknown>
 ) {
   const eventIndex = window.dataLayer.findIndex(
-    gtmEvent => gtmEvent.event === eventName
+    gtmEvent => gtmEvent.event && gtmEvent.event === eventName
   )
 
   if (eventIndex >= 0) {
