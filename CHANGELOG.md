@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.3.1] - 2022-04-04
+
 ### Fixed
 - Fix `ecommerce` variable firing, pass null to `ecommerce` before pass values again, like google recommend.
 
