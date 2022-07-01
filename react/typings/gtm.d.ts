@@ -4,7 +4,7 @@ export interface AnalyticsEcommerceProduct {
   category: string
   brand: string
   variant: string
-  price: number
+  price: string
   quantity: number
   dimension1: string
   dimension2: string

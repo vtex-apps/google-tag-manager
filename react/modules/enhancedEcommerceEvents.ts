@@ -77,7 +77,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension2: skuReferenceId ?? '',
                 dimension3: selectedSku.name,
                 dimension4: isAvailable,
-                price,
+                price: price ? price.toString() : undefined,
               },
             ],
           },
@@ -128,7 +128,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension1: productReference ?? '',
                 dimension2: sku.referenceId?.Value ?? '',
                 dimension3: sku.name,
-                price,
+                price: price ? price.toString() : undefined,
                 position,
               },
             ],
@@ -340,7 +340,7 @@ function getProductObjectData(product: ProductOrder) {
     id: product.id, // Product id
     variant: product.sku, // SKU id
     name: productName, // Product name
-    price: product.price,
+    price: product.price ? product.price.toString() : undefined,
     quantity: product.quantity,
     dimension1: product.productRefId ?? '',
     dimension2: product.skuRefId ?? '',
