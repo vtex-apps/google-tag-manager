@@ -393,7 +393,7 @@ function getCheckoutProductObjectData(
       ''
     ),
     brand: item.additionalInfo?.brandName ?? '',
-    price: item.sellingPrice / 100,
+    price: `${item.sellingPrice / 100}`,
     quantity: item.quantity,
     dimension1: item.productRefId ?? '',
     dimension2: item.referenceId ?? '', // SKU reference id
