@@ -77,7 +77,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension2: skuReferenceId ?? '',
                 dimension3: selectedSku.name,
                 dimension4: isAvailable,
-                price: price ? price.toString() : undefined,
+                price: price ? price.toFixed(2) : undefined,
               },
             ],
           },
@@ -128,7 +128,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension1: productReference ?? '',
                 dimension2: sku.referenceId?.Value ?? '',
                 dimension3: sku.name,
-                price: price ? price.toString() : undefined,
+                price: price ? price.toFixed(2) : undefined,
                 position,
               },
             ],
@@ -155,8 +155,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
               name: item.name, // Product name
               price:
                 item.priceIsInt === true
-                  ? `${item.price / 100}`
-                  : `${item.price}`,
+                  ? `${(item.price / 100.0).toFixed(2)}`
+                  : `${item.price.toFixed(2)}`,
               quantity: item.quantity,
               dimension1: item.productRefId ?? '',
               dimension2: item.referenceId ?? '', // SKU reference id
@@ -188,8 +188,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
               name: item.name, // Product name
               price:
                 item.priceIsInt === true
-                  ? `${item.price / 100}`
-                  : `${item.price}`,
+                  ? `${(item.price / 100.0).toFixed(2)}`
+                  : `${item.price.toFixed(2)}`,
               quantity: item.quantity,
               dimension1: item.productRefId ?? '',
               dimension2: item.referenceId ?? '', // SKU reference id
@@ -340,7 +340,7 @@ function getProductObjectData(product: ProductOrder) {
     id: product.id, // Product id
     variant: product.sku, // SKU id
     name: productName, // Product name
-    price: product.price ? product.price.toString() : undefined,
+    price: product.price ? product.price.toFixed(2) : undefined,
     quantity: product.quantity,
     dimension1: product.productRefId ?? '',
     dimension2: product.skuRefId ?? '',
@@ -371,7 +371,7 @@ function getProductImpressionObjectData(list: string) {
     list,
     name: product.productName,
     position,
-    price: `${product.sku.seller.commertialOffer.Price}`,
+    price: `${product.sku.seller.commertialOffer.Price.toFixed(2)}`,
     dimension1: product.productReference ?? '',
     dimension2: product.sku.referenceId?.Value ?? '',
     dimension3: product.sku.name, // SKU name (variation only)
@@ -393,7 +393,7 @@ function getCheckoutProductObjectData(
       ''
     ),
     brand: item.additionalInfo?.brandName ?? '',
-    price: `${item.sellingPrice / 100}`,
+    price: `${(item.sellingPrice / 100.0).toFixed(2)}`,
     quantity: item.quantity,
     dimension1: item.productRefId ?? '',
     dimension2: item.referenceId ?? '', // SKU reference id
