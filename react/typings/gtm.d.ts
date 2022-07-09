@@ -10,3 +10,7 @@ export interface AnalyticsEcommerceProduct {
   dimension2: string
   dimension3: string
 }
+
+export interface MaybePrice {
+  price?: number
+}
