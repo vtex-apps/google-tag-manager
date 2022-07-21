@@ -17,6 +17,7 @@ export interface PixelMessage extends MessageEvent {
     | CartData
     | PromoViewData
     | PromotionClickData
+    | FilterProductsData
 }
 
 export interface EventData {
@@ -162,6 +163,12 @@ export interface PromotionClickData extends EventData {
   event: 'promotionClick'
   eventType: 'vtex:promotionClick'
   promotions: Promotion[]
+}
+
+export interface FilterProductsData {
+  event: 'filterProducts'
+  eventName: 'vtex:filterProducts'
+  values: FilterProductsValues[]
 }
 
 interface Promotion {
@@ -365,6 +372,12 @@ export interface Product {
   productName: string
   productReference: string
   selectedSku: Item
+  properties: ProductProperties[]
+}
+
+interface ProductProperties {
+  name: string
+  values: string[]
 }
 
 export interface Item {
@@ -395,6 +408,24 @@ interface ItemSummary {
   referenceId: { Key: string; Value: string }
   seller: Seller
   sellers: Seller[]
+}
+
+interface FilterProductsValues {
+  children: string | null
+  hidden: boolean
+  href: string
+  id: string
+  key: string
+  link: string | null
+  linkEncoded: string | null
+  map: string
+  name: string
+  newQuerySegment: string
+  quantity: number
+  range: string | null
+  selected: boolean
+  title: string
+  value: string
 }
 
 export interface Seller {

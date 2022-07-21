@@ -1,13 +1,12 @@
 import push from './push'
-import { PixelMessage } from '../typings/events'
+import { PixelMessage, FilterProductsData } from '../typings/events'
 
 
 async function emailToHash(email:string) {
-  const msgUint8 = new TextEncoder().encode(email);                           
+  const msgUint8 = new TextEncoder().encode(email);
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex;
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 export async function sendExtraEvents(e: PixelMessage) {
@@ -39,9 +38,31 @@ export async function sendExtraEvents(e: PixelMessage) {
       push({
         event: 'userData',
         userId: data.id,
-        emailHash: emailHash 
+        emailHash: emailHash,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        fullName: `${data.firstName} ${data.lastName}`,
+        email: data.email,
+        phone: data.phone
       })
 
+      break
+    }
+
+    case 'vtex:sortProducts': {
+      push({
+        event: 'sortProducts',
+        value: e.data.value
+      })
+      break
+    }
+
+    case 'vtex:filterProducts': {
+      const { values } = e.data as FilterProductsData
+      push({
+        event: 'filterProducts',
+        values: values
+      })
       break
     }
 
