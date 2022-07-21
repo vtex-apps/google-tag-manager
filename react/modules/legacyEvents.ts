@@ -58,6 +58,7 @@ export async function sendLegacyEvents(e: PixelMessage) {
         case 'productView': {
           push({
             event: 'productView',
+            product: e.data.product
           })
           break
         }
