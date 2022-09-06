@@ -206,7 +206,11 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:orderPlaced': {
-      const order = e.data
+      const unparsedOrder = e.data
+
+      const order = unparsedOrder.transactionProducts.map((product: ProductOrder) => {
+        return { ...product, id: product.productRefId }
+      })
 
       const ecommerce = {
         purchase: {
