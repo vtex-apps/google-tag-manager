@@ -43,6 +43,7 @@ export interface UserData extends PageInfoData {
   email?: string
   phone?: string
   isAuthenticated: boolean
+  isStaff: boolean
 }
 
 export interface CartIdData extends PageInfoData {

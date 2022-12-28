@@ -1,6 +1,8 @@
 import push from './push'
 import { PixelMessage } from '../typings/events'
 
+window.dataLayer = window.dataLayer || []
+
 
 async function emailToHash(email:string) {
   const msgUint8 = new TextEncoder().encode(email);                           
@@ -11,6 +13,9 @@ async function emailToHash(email:string) {
 }
 
 export async function sendExtraEvents(e: PixelMessage) {
+
+  const staffObject = window.dataLayer.find(item => item.hasOwnProperty('is_staff'));
+  const is_Staff = staffObject.is_staff;
 
   switch (e.data.eventName) {
     case 'vtex:pageView': {
@@ -29,6 +34,7 @@ export async function sendExtraEvents(e: PixelMessage) {
 
     case 'vtex:userData': {
       const { data } = e
+      console.log(data, 'data')
 
       if (!data.isAuthenticated) {
         return
@@ -39,7 +45,8 @@ export async function sendExtraEvents(e: PixelMessage) {
       push({
         event: 'userData',
         userId: data.id,
-        emailHash: emailHash 
+        emailHash: emailHash,
+        isStaff: is_Staff,
       })
 
       break
