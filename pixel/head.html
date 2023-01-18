@@ -1,6 +1,13 @@
 <script>
   (function() {
     var gtmId = "{{settings.gtmId}}";
+    var mergeUAEventsValue = "{{settings.mergeUAEvents}}"
+    var mergeUAEvents = mergeUAEventsValue == 'true'
+
+    window.__gtm__ = {
+      mergeUAEvents
+    }
+    
     if (!gtmId) {
       console.error('Warning: No Google Tag Manager ID is defined. Please configure it in the apps admin.');
     } else {
