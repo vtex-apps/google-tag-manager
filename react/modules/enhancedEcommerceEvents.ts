@@ -12,8 +12,8 @@ import {
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
-import { viewItem } from './gaEvents'
-import { getSeller } from './utils'
+import { viewItem, viewItemList } from './gaEvents'
+import { getCategory, getSeller } from './utils'
 
 const defaultReference = { Value: '' }
 
@@ -244,6 +244,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
+      viewItemList(e.data)
       updateEcommerce('productImpression', data)
 
       return
@@ -338,20 +339,6 @@ function getProductObjectData(product: ProductOrder) {
     dimension2: product.skuRefId ?? '',
     dimension3: product.skuName, // SKU name (only variant)
   }
-}
-
-function getCategory(rawCategories: string[]) {
-  if (!rawCategories || !rawCategories.length) {
-    return
-  }
-
-  return removeStartAndEndSlash(rawCategories[0])
-}
-
-// Transform this: "/Apparel & Accessories/Clothing/Tops/"
-// To this: "Apparel & Accessories/Clothing/Tops"
-function removeStartAndEndSlash(category?: string) {
-  return category?.replace(/^\/|\/$/g, '')
 }
 
 function getProductImpressionObjectData(list: string) {

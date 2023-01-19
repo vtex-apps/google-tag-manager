@@ -1,4 +1,4 @@
-import { CategoryTree, Seller } from '../typings/events'
+import { CategoryTree, Impression, Seller } from '../typings/events'
 
 export function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -22,7 +22,7 @@ export function getPrice(seller: Seller) {
   return price
 }
 
-export function getCategoriesWithHierarchy(categoryTree: CategoryTree) {
+export function getCategoriesWithHierarchyFromTree(categoryTree: CategoryTree) {
   if (!categoryTree || !categoryTree.length) return
 
   const categories: { [key: string]: string } = {}
@@ -38,8 +38,76 @@ export function getCategoriesWithHierarchy(categoryTree: CategoryTree) {
   return categories
 }
 
+export function getCategoriesWithHierarchyFromArray(categoriesArray: string[]) {
+  const categoryString = getCategory(categoriesArray)
+  const categories = splitIntoCategories(categoryString)
+
+  if (!categories) return {}
+
+  const categoriesFormatted: { [key: string]: string } = {}
+
+  categories.forEach((category, index) => {
+    const categoryHierarchyNumber = index + 1
+    const isFirstCategory = categoryHierarchyNumber === 1
+    const key = `item_category${isFirstCategory ? '' : categoryHierarchyNumber}`
+
+    categoriesFormatted[key] = category
+  })
+
+  return categoriesFormatted
+}
+
 export function getQuantity(seller: Seller) {
   if (!seller) return 1
 
   return seller.commertialOffer?.AvailableQuantity || 1
+}
+
+export function getImpressions(impressions: Impression[]) {
+  if (!impressions) return []
+
+  const formattedImpressions = impressions.map(impression => {
+    const { product } = impression
+    const { productName, productId, sku, brand, categories } = product
+    const { itemId, seller } = sku
+
+    const price = getPrice(seller)
+    const quantity = getQuantity(seller)
+
+    const categoriesHierarchy = getCategoriesWithHierarchyFromArray(categories)
+
+    return {
+      item_id: productId,
+      item_name: productName,
+      item_variant: itemId,
+      item_brand: brand,
+      price,
+      quantity,
+      ...categoriesHierarchy,
+    }
+  })
+
+  return formattedImpressions
+}
+
+export function getCategory(rawCategories: string[]) {
+  if (!rawCategories || !rawCategories.length) {
+    return
+  }
+
+  return removeStartAndEndSlash(rawCategories[0])
+}
+
+// Transform this: "/Apparel & Accessories/Clothing/Tops/"
+// To this: "Apparel & Accessories/Clothing/Tops"
+export function removeStartAndEndSlash(category?: string) {
+  return category?.replace(/^\/|\/$/g, '')
+}
+
+function splitIntoCategories(category?: string) {
+  if (!category || !category.includes('/')) return
+
+  const splitted = category.split('/')
+
+  return splitted
 }
