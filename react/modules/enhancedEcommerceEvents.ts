@@ -8,21 +8,12 @@ import {
   AddToCartData,
   RemoveToCartData,
   ProductViewData,
-  Seller,
   ProductClickData,
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
-
-function getSeller(sellers: Seller[]) {
-  const defaultSeller = sellers.find(seller => seller.sellerDefault)
-
-  if (!defaultSeller) {
-    return sellers[0]
-  }
-
-  return defaultSeller
-}
+import { viewItem } from './gaEvents'
+import { getSeller } from './utils'
 
 const defaultReference = { Value: '' }
 
@@ -85,6 +76,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'productDetail',
       }
 
+      viewItem(e.data)
       updateEcommerce('productDetail', data)
 
       return
