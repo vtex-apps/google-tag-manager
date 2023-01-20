@@ -58,10 +58,10 @@ export function getQuantity(seller: Seller) {
 }
 
 export function getImpressions(impressions: Impression[]) {
-  if (!impressions) return []
+  if (!impressions || !impressions.length) return []
 
   const formattedImpressions = impressions.map(impression => {
-    const { product } = impression
+    const { product, position } = impression
     const { productName, productId, sku, brand, categories } = product
     const { itemId, seller } = sku
 
@@ -77,6 +77,7 @@ export function getImpressions(impressions: Impression[]) {
       item_brand: brand,
       price,
       quantity,
+      position,
       ...categoriesHierarchy,
     }
   })
