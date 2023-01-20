@@ -1,4 +1,4 @@
-import { CategoryTree, Impression, Seller } from '../typings/events'
+import { Impression, Seller } from '../typings/events'
 
 export function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -22,23 +22,21 @@ export function getPrice(seller: Seller) {
   return price
 }
 
-export function getCategoriesWithHierarchyFromTree(categoryTree: CategoryTree) {
-  if (!categoryTree || !categoryTree.length) return
+function formatCategoriesHierarchy(
+  categories: { [key: string]: string },
+  value: string,
+  index: number
+) {
+  const categoryHierarchyNumber = index + 1
+  const isFirstCategory = categoryHierarchyNumber === 1
+  const key = `item_category${isFirstCategory ? '' : categoryHierarchyNumber}`
 
-  const categories: { [key: string]: string } = {}
-
-  categoryTree.forEach((category, index) => {
-    const categoryHierarchyNumber = index + 1
-    const isFirstCategory = categoryHierarchyNumber === 1
-    const key = `item_category${isFirstCategory ? '' : categoryHierarchyNumber}`
-
-    categories[key] = category.name
-  })
-
-  return categories
+  categories[key] = value
 }
 
-export function getCategoriesWithHierarchyFromArray(categoriesArray: string[]) {
+export function getCategoriesWithHierarchy(categoriesArray: string[]) {
+  if (!categoriesArray || !categoriesArray.length) return
+
   const categoryString = getCategory(categoriesArray)
   const categories = splitIntoCategories(categoryString)
 
@@ -47,11 +45,7 @@ export function getCategoriesWithHierarchyFromArray(categoriesArray: string[]) {
   const categoriesFormatted: { [key: string]: string } = {}
 
   categories.forEach((category, index) => {
-    const categoryHierarchyNumber = index + 1
-    const isFirstCategory = categoryHierarchyNumber === 1
-    const key = `item_category${isFirstCategory ? '' : categoryHierarchyNumber}`
-
-    categoriesFormatted[key] = category
+    formatCategoriesHierarchy(categoriesFormatted, category, index)
   })
 
   return categoriesFormatted
@@ -74,7 +68,7 @@ export function getImpressions(impressions: Impression[]) {
     const price = getPrice(seller)
     const quantity = getQuantity(seller)
 
-    const categoriesHierarchy = getCategoriesWithHierarchyFromArray(categories)
+    const categoriesHierarchy = getCategoriesWithHierarchy(categories)
 
     return {
       item_id: productId,

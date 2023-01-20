@@ -3,7 +3,7 @@ import updateEcommerce from './updateEcommerce'
 import {
   getPrice,
   getSeller,
-  getCategoriesWithHierarchyFromTree,
+  getCategoriesWithHierarchy,
   getQuantity,
   getImpressions,
 } from './utils'
@@ -17,13 +17,13 @@ export function viewItem(eventData: PixelMessage['data']) {
 
   const { currency, product, list } = eventData
 
-  const { selectedSku, productName, productId, categoryTree, brand } = product
+  const { selectedSku, productName, productId, categories, brand } = product
 
   const { name: variant } = selectedSku
 
   const seller = getSeller(selectedSku.sellers)
   const value = getPrice(seller)
-  const categoriesHierarchy = getCategoriesWithHierarchyFromTree(categoryTree)
+  const categoriesHierarchy = getCategoriesWithHierarchy(categories)
   const quantity = getQuantity(seller)
 
   const item = {
