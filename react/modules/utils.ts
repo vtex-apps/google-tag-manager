@@ -40,13 +40,17 @@ export function getCategoriesWithHierarchy(categoriesArray: string[]) {
   const categoryString = getCategory(categoriesArray)
   const categories = splitIntoCategories(categoryString)
 
-  if (!categories) return {}
+  if (!categories || !categoryString) return {}
 
   const categoriesFormatted: { [key: string]: string } = {}
 
-  categories.forEach((category, index) => {
-    formatCategoriesHierarchy(categoriesFormatted, category, index)
-  })
+  if (!categories || !categories.length) {
+    formatCategoriesHierarchy(categoriesFormatted, categoryString, 0)
+  } else {
+    categories.forEach((category, index) => {
+      formatCategoriesHierarchy(categoriesFormatted, category, index)
+    })
+  }
 
   return categoriesFormatted
 }
@@ -66,6 +70,7 @@ export function getImpressions(impressions: Impression[]) {
     const { itemId, seller } = sku
 
     const price = getPrice(seller)
+    const discount = getDiscount(seller)
     const quantity = getQuantity(seller)
 
     const categoriesHierarchy = getCategoriesWithHierarchy(categories)
@@ -75,14 +80,34 @@ export function getImpressions(impressions: Impression[]) {
       item_name: productName,
       item_variant: itemId,
       item_brand: brand,
+      index: position,
+      discount,
       price,
       quantity,
-      position,
       ...categoriesHierarchy,
     }
   })
 
   return formattedImpressions
+}
+
+export function getDiscount(seller: Seller) {
+  if (!seller.commertialOffer.PriceWithoutDiscount) return 0
+
+  const { commertialOffer } = seller
+  const { Price, PriceWithoutDiscount } = commertialOffer
+
+  if (PriceWithoutDiscount <= Price) return 0
+
+  let price
+
+  try {
+    price = PriceWithoutDiscount - Price
+  } catch {
+    price = 0
+  }
+
+  return price
 }
 
 export function getCategory(rawCategories: string[]) {

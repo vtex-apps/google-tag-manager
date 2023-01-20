@@ -6,6 +6,7 @@ import {
   getCategoriesWithHierarchy,
   getQuantity,
   getImpressions,
+  getDiscount,
 } from './utils'
 
 export const shouldMergeUAEvents = () => Boolean(window?.__gtm__?.mergeUAEvents)
@@ -15,7 +16,7 @@ export function viewItem(eventData: PixelMessage['data']) {
 
   const eventName = 'view_item'
 
-  const { currency, product, list } = eventData
+  const { currency, product, list, position } = eventData
 
   const { selectedSku, productName, productId, categories, brand } = product
 
@@ -24,6 +25,7 @@ export function viewItem(eventData: PixelMessage['data']) {
   const seller = getSeller(selectedSku.sellers)
   const value = getPrice(seller)
   const categoriesHierarchy = getCategoriesWithHierarchy(categories)
+  const discount = getDiscount(seller)
   const quantity = getQuantity(seller)
 
   const item = {
@@ -32,6 +34,8 @@ export function viewItem(eventData: PixelMessage['data']) {
     item_list_name: list,
     item_brand: brand,
     item_variant: variant,
+    index: position,
+    discount,
     quantity,
     ...categoriesHierarchy,
   }
@@ -57,6 +61,44 @@ export function viewItemList(eventData: PixelMessage['data']) {
   const data = {
     item_list_name: list,
     items,
+  }
+
+  updateEcommerce(eventName, data)
+}
+
+export function selectItem(eventData: PixelMessage['data']) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'select_item'
+
+  const { product, list, position } = eventData
+
+  const { sku, productName, productId, categories, brand } = product
+
+  const { name: variant } = sku
+
+  const seller = getSeller(sku.sellers)
+  const price = getPrice(seller)
+  const categoriesHierarchy = getCategoriesWithHierarchy(categories)
+  const discount = getDiscount(seller)
+  const quantity = getQuantity(seller)
+
+  const item = {
+    item_id: productId,
+    item_name: productName,
+    item_list_name: list,
+    item_brand: brand,
+    item_variant: variant,
+    index: position,
+    price,
+    quantity,
+    discount,
+    ...categoriesHierarchy,
+  }
+
+  const data = {
+    item_list_name: list,
+    items: [item],
   }
 
   updateEcommerce(eventName, data)
