@@ -1,10 +1,10 @@
 {
   "name": "google-tag-manager",
   "vendor": "vtex",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "title": "Google Tag Manager",
   "description": "Google Tag Manager",
-  "mustUpdateAt": "2019-04-03",
+  "mustUpdateAt": "2023-01-24",
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
@@ -40,6 +40,15 @@
         "title": "Google Tag Manager",
         "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager",
         "type": "string"
+      },
+      "typeScript": {
+        "title": "Script attribute type",
+        "description": "Define whether the type attribute execute script on a secondary thread or not.",
+        "default": "text/javascript",
+        "enum": [
+          "javascript",
+          "partytown"
+        ]
       },
       "allowCustomHtmlTags": {
         "title": "Allow Custom HTML tags",
