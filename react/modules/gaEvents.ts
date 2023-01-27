@@ -102,3 +102,19 @@ export function selectItem(eventData: PixelMessage['data']) {
 
   updateEcommerce(eventName, data)
 }
+
+export function selectPromotion(eventData: PixelMessage['data']) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'select_promotion'
+  const [promotion] = eventData.promotions
+
+  const data = {
+    creative_name: promotion.creative,
+    creative_slot: promotion.position,
+    promotion_id: promotion.id,
+    promotion_name: promotion.name,
+  }
+
+  updateEcommerce(eventName, data)
+}
