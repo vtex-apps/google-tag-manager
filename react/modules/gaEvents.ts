@@ -8,8 +8,7 @@ import {
   getImpressions,
   getDiscount,
 } from './utils'
-
-export const shouldMergeUAEvents = () => Boolean(window?.__gtm__?.mergeUAEvents)
+import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
 
 export function viewItem(eventData: PixelMessage['data']) {
   if (!shouldMergeUAEvents()) return
