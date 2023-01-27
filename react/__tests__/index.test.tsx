@@ -3,6 +3,9 @@ import productDetails from '../__mocks__/productDetail'
 import productClick from '../__mocks__/productClick'
 import { handleEvents } from '../index'
 import updateEcommerce from '../modules/updateEcommerce'
+import shouldMergeUAEvents from '../modules/utils/shouldMergeUAEvents'
+
+jest.mock('../modules/utils/shouldMergeUAEvents')
 
 jest.mock('../modules/updateEcommerce', () => jest.fn())
 
@@ -111,5 +114,15 @@ test('productClick', () => {
         ],
       },
     },
+  })
+})
+
+describe('GA4 events', () => {
+  const mergeUAEvents = true
+  const mockedShouldMergeUAEvents = shouldMergeUAEvents as jest.Mock
+
+  beforeEach(() => {
+    mockedShouldMergeUAEvents.mockReset()
+    mockedShouldMergeUAEvents.mockReturnValue(mergeUAEvents)
   })
 })
