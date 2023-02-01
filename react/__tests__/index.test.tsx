@@ -3,6 +3,10 @@ import productDetails from '../__mocks__/productDetail'
 import productClick from '../__mocks__/productClick'
 import { handleEvents } from '../index'
 import updateEcommerce from '../modules/updateEcommerce'
+import { Promotion, PromotionClickData } from '../typings/events'
+import shouldMergeUAEvents from '../modules/utils/shouldMergeUAEvents'
+
+jest.mock('../modules/utils/shouldMergeUAEvents')
 
 jest.mock('../modules/updateEcommerce', () => jest.fn())
 
@@ -111,5 +115,45 @@ test('productClick', () => {
         ],
       },
     },
+  })
+})
+
+describe('GA4 events', () => {
+  const mergeUAEvents = true
+  const mockedShouldMergeUAEvents = shouldMergeUAEvents as jest.Mock
+
+  beforeEach(() => {
+    mockedShouldMergeUAEvents.mockReset()
+    mockedShouldMergeUAEvents.mockReturnValue(mergeUAEvents)
+  })
+
+  describe('select_promotion', () => {
+    it('sends an event that signifies a promotion was selected from a list', () => {
+      const promotion: Promotion = {
+        id: 'P_12345',
+        name: 'Summer Sale',
+        creative: 'Summer Banner',
+        position: 'featured_app_1',
+      }
+
+      const data: PromotionClickData = {
+        currency: 'USD',
+        event: 'promotionClick',
+        eventName: 'vtex:promotionClick',
+        eventType: 'vtex:promotionClick',
+        promotions: [promotion],
+      }
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('select_promotion', {
+        creative_name: 'Summer Banner',
+        creative_slot: 'featured_app_1',
+        promotion_id: 'P_12345',
+        promotion_name: 'Summer Sale',
+      })
+    })
   })
 })

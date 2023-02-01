@@ -12,7 +12,7 @@ import {
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
-import { selectItem, viewItem, viewItemList } from './gaEvents'
+import { selectItem, selectPromotion, viewItem, viewItemList } from './gaEvents'
 import { getCategory, getSeller } from './utils'
 
 const defaultReference = { Value: '' }
@@ -300,6 +300,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
+      selectPromotion(e.data)
       updateEcommerce('promotionClick', data)
 
       break
