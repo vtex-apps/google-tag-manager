@@ -44,7 +44,7 @@
       "typeScript": {
         "title": "Script attribute type",
         "description": "Define whether the type attribute execute script on a secondary thread or not.",
-        "default": "text/javascript",
+        "default": "javascript",
         "enum": [
           "javascript",
           "partytown"
