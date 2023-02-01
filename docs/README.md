@@ -103,6 +103,24 @@ If you have any Google Analytics tags using the Google Analytics Settings variab
 Once you have set up the Google Analytics variables and tags, follow Google's official guide on [how to submit and publish your store’s container](https://support.google.com/tagmanager/answer/6107163).
 
 
+## How to run third party scripts off the main thread?
+
+To improve the performance of the sites we will work with the [Partytown](https://partytown.builder.io/) library.
+
+### What is [Partytown](https://partytown.builder.io/)? 
+
+Partytown is a lazy-loaded library to help relocate resource intensive scripts into a web worker, and off of the main thread. Its goal is to help speed up sites by dedicating the main thread to your code, and offloading third-party scripts to a web worker.
+
+Before running the GTM application outside of the main thread, it is necessary to install `vtex install vtex.partytown@0.x` in the environment where it is being developed or produced.
+Learn more at [VTEX Partytown](https://github.com/vtex-apps/partytown).
+
+### Enable secondary thread loading
+
+Once the partytown app is installed, simply navigate to `/admin/apps/vtex.google-tag-manager@version/setup/` and select `text/partytown`.
+
+![alt text](https://ibb.co/646qtpb)
+
+Now your 3rd party apps are loaded off the main thread and your site load time is much less.
 ## Restrictions
 
 In order to avoid performance problems and unforeseen behavior, our VTEX IO Google Tag Manager solution uses the native GTM **blacklist** feature. You can read more about this feature on the [Google Developer Guide](https://developers.google.com/tag-manager/web/restrict).
