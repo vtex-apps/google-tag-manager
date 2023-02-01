@@ -2,6 +2,7 @@
   (function() {
     var gtmId = "{{settings.gtmId}}";
     var typeScript = "{{settings.typeScript}}"
+
     if (!gtmId) {
       console.error('Warning: No Google Tag Manager ID is defined. Please configure it in the apps admin.');
     } else {
@@ -16,7 +17,7 @@
     }
   })()
 
-  function validType() {
+  function validType(typeScript) {
     const href = window.location.search
     const [, query] = href.split('?')
     const searchParams = new URLSearchParams(query)
