@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added the `partytown` library to enable shopkeepers to load third party scripts off the main thread.
 
+### Added
+- `type=text/partytown` attribute.
+
 ## [3.3.1] - 2022-04-04
 
 ### Fixed
