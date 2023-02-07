@@ -156,6 +156,9 @@ export interface PromoViewData extends EventData {
   event: 'promoView'
   eventType: 'vtex:promoView'
   promotions: Promotion[]
+  product?: ProductSummary
+  list?: string
+  position?: number
 }
 
 export interface PromotionClickData extends EventData {

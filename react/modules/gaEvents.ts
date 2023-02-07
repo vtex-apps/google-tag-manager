@@ -1,4 +1,4 @@
-import { PixelMessage } from '../typings/events'
+import { PixelMessage, PromoViewData } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
   getPrice,
@@ -114,6 +114,50 @@ export function selectPromotion(eventData: PixelMessage['data']) {
     creative_slot: promotion.position,
     promotion_id: promotion.id,
     promotion_name: promotion.name,
+  }
+
+  updateEcommerce(eventName, data)
+}
+
+export function viewPromotion(eventData: PromoViewData) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'view_promotion'
+
+  const {
+    promotions: [promotion],
+  } = eventData
+
+  let item = {}
+  const { product, list, position } = eventData
+
+  if (product) {
+    const { sku, productName, productId, categories, brand } = product
+    const { name: variant } = sku
+    const seller = getSeller(sku.sellers)
+    const categoriesHierarchy = getCategoriesWithHierarchy(categories)
+    const discount = getDiscount(seller)
+    const quantity = getQuantity(seller)
+
+    item = {
+      item_id: productId,
+      item_name: productName,
+      item_list_name: list,
+      item_brand: brand,
+      item_variant: variant,
+      index: position,
+      discount,
+      quantity,
+      ...categoriesHierarchy,
+    }
+  }
+
+  const data = {
+    creative_name: promotion.creative,
+    creative_slot: promotion.position,
+    promotion_id: promotion.id,
+    promotion_name: promotion.name,
+    items: [item],
   }
 
   updateEcommerce(eventName, data)
