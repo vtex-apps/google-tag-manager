@@ -204,12 +204,6 @@ interface Totalizer {
   value: number
 }
 
-interface Seller {
-  id: string
-  name: string
-  logo: string
-}
-
 interface ClientProfileData {
   email: string
   firstName: string
