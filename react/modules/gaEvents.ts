@@ -1,4 +1,4 @@
-import { PixelMessage } from '../typings/events'
+import { PixelMessage, CartItem } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
   getPrice,
@@ -7,6 +7,7 @@ import {
   getQuantity,
   getImpressions,
   getDiscount,
+  getProductNameWithoutVariant,
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
 
@@ -117,4 +118,40 @@ export function selectPromotion(eventData: PixelMessage['data']) {
   }
 
   updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function addToCart(eventData: PixelMessage['data']) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'add_to_cart'
+  const { currency, items } = eventData
+
+  const formattedPrices = items.map((item: CartItem) =>
+    item.priceIsInt === true ? item.price / 100 : item.price
+  )
+
+  const totalValue = formattedPrices.reduce(
+    (accumulator: number, currentValue: number) => accumulator + currentValue,
+    0
+  )
+
+  const data = {
+    currency,
+    value: totalValue,
+    items: items.map((item: CartItem) => {
+      const productName = getProductNameWithoutVariant(item.name, item.skuName)
+
+      return {
+        item_id: item.productId,
+        item_brand: item.brand,
+        item_name: productName,
+        item_variant: item.skuId,
+        item_category: item.category,
+        quantity: item.quantity,
+        price: item.priceIsInt === true ? item.price / 100 : item.price,
+      }
+    }),
+  }
+
+  updateEcommerce(eventName, data)
 }
