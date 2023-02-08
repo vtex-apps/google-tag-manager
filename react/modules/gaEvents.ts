@@ -1,5 +1,5 @@
 import { PixelMessage } from '../typings/events'
-import updateEcommerce from './updateEcommerce'
+import updateGA4Ecommerce from './gaUpdateEcommerce'
 import {
   getPrice,
   getSeller,
@@ -45,7 +45,7 @@ export function viewItem(eventData: PixelMessage['data']) {
     items: [item],
   }
 
-  updateEcommerce(eventName, data)
+  updateGA4Ecommerce(eventName, data)
 }
 
 export function viewItemList(eventData: PixelMessage['data']) {
@@ -62,7 +62,7 @@ export function viewItemList(eventData: PixelMessage['data']) {
     items,
   }
 
-  updateEcommerce(eventName, data)
+  updateGA4Ecommerce(eventName, data)
 }
 
 export function selectItem(eventData: PixelMessage['data']) {
@@ -100,7 +100,7 @@ export function selectItem(eventData: PixelMessage['data']) {
     items: [item],
   }
 
-  updateEcommerce(eventName, data)
+  updateGA4Ecommerce(eventName, data)
 }
 
 export function selectPromotion(eventData: PixelMessage['data']) {
@@ -116,5 +116,5 @@ export function selectPromotion(eventData: PixelMessage['data']) {
     promotion_name: promotion.name,
   }
 
-  updateEcommerce(eventName, data)
+  updateGA4Ecommerce(eventName, data)
 }
