@@ -137,15 +137,17 @@ export function addToCart(eventData: PixelMessage['data']) {
   const data = {
     currency,
     value: formattedPrice,
-    items: {
-      item_id: item.productId,
-      item_brand: item.brand,
-      item_name: productName,
-      item_variant: item.skuId,
-      item_category: item.category,
-      quantity: item.quantity,
-      price: formattedPrice,
-    },
+    items: [
+      {
+        item_id: item.productId,
+        item_brand: item.brand,
+        item_name: productName,
+        item_variant: item.skuId,
+        item_category: item.category,
+        quantity: item.quantity,
+        price: formattedPrice,
+      },
+    ],
   }
 
   updateEcommerce(eventName, data)
