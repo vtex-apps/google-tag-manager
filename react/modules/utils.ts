@@ -131,3 +131,16 @@ function splitIntoCategories(category?: string) {
 
   return splitted
 }
+
+export function getProductNameWithoutVariant(
+  productNameWithVariant: string,
+  variant: string
+) {
+  const indexOfVariant = productNameWithVariant.lastIndexOf(variant)
+
+  if (indexOfVariant === -1 || indexOfVariant === 0) {
+    return productNameWithVariant
+  }
+
+  return productNameWithVariant.substring(0, indexOfVariant - 1) // Removes the variant and the whitespace
+}
