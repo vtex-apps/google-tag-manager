@@ -154,3 +154,36 @@ export function addToCart(eventData: AddToCartData) {
 
   updateEcommerce(eventName, { ecommerce: data })
 }
+
+export function removeFromCart(eventData: PixelMessage['data']) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'remove_from_cart'
+
+  const {
+    currency,
+    items: [item],
+  } = eventData
+
+  const productName = getProductNameWithoutVariant(item.name, item.skuName)
+  const formattedPrice =
+    item.priceIsInt === true ? item.price / 100 : item.price
+
+  const data = {
+    currency,
+    value: formattedPrice,
+    items: [
+      {
+        item_id: item.productId,
+        item_brand: item.brand,
+        item_name: productName,
+        item_variant: item.skuId,
+        item_category: item.category,
+        quantity: item.quantity,
+        price: formattedPrice,
+      },
+    ],
+  }
+
+  updateEcommerce(eventName, data)
+}
