@@ -130,7 +130,7 @@ export function purchase(eventData: PixelMessage['data']) {
     eventData
   )
 
-  const { transactionProducts } = eventData
+  const { transactionProducts, currency } = eventData
 
   const items = getPurchaseItems(transactionProducts)
 
@@ -141,6 +141,7 @@ export function purchase(eventData: PixelMessage['data']) {
     shipping,
     coupon,
     items,
+    currency,
   }
 
   updateEcommerce(eventName, data)
