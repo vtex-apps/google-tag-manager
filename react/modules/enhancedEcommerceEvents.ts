@@ -1,6 +1,5 @@
 import updateEcommerce from './updateEcommerce'
 import {
-  Order,
   PixelMessage,
   ProductOrder,
   Impression,
@@ -12,8 +11,19 @@ import {
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
-import { selectItem, selectPromotion, viewItem, viewItemList } from './gaEvents'
-import { getCategory, getSeller } from './utils'
+import {
+  purchase,
+  selectItem,
+  selectPromotion,
+  viewItem,
+  viewItemList,
+} from './gaEvents'
+import {
+  getCategory,
+  getProductNameWithoutVariant,
+  getPurchaseObjectData,
+  getSeller,
+} from './utils'
 
 const defaultReference = { Value: '' }
 
@@ -225,6 +235,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
+      purchase(order)
       updateEcommerce('orderPlaced', data)
 
       return
@@ -312,17 +323,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
   }
 }
 
-function getPurchaseObjectData(order: Order) {
-  return {
-    affiliation: order.transactionAffiliation,
-    coupon: order.coupon ? order.coupon : null,
-    id: order.orderGroup,
-    revenue: order.transactionTotal,
-    shipping: order.transactionShipping,
-    tax: order.transactionTax,
-  }
-}
-
 function getProductObjectData(product: ProductOrder) {
   const productName = getProductNameWithoutVariant(
     product.name,
@@ -380,17 +380,4 @@ function getCheckoutProductObjectData(
     dimension2: item.referenceId ?? '', // SKU reference id
     dimension3: item.skuName,
   }
-}
-
-function getProductNameWithoutVariant(
-  productNameWithVariant: string,
-  variant: string
-) {
-  const indexOfVariant = productNameWithVariant.lastIndexOf(variant)
-
-  if (indexOfVariant === -1 || indexOfVariant === 0) {
-    return productNameWithVariant
-  }
-
-  return productNameWithVariant.substring(0, indexOfVariant - 1) // Removes the variant and the whitespace
 }

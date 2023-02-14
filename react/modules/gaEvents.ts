@@ -7,6 +7,8 @@ import {
   getQuantity,
   getImpressions,
   getDiscount,
+  getPurchaseObjectData,
+  getPurchaseItems,
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
 
@@ -114,6 +116,31 @@ export function selectPromotion(eventData: PixelMessage['data']) {
     creative_slot: promotion.position,
     promotion_id: promotion.id,
     promotion_name: promotion.name,
+  }
+
+  updateEcommerce(eventName, data)
+}
+
+export function purchase(eventData: PixelMessage['data']) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'purchase'
+
+  const { id, revenue, tax, shipping, coupon } = getPurchaseObjectData(
+    eventData
+  )
+
+  const { transactionProducts } = eventData
+
+  const items = getPurchaseItems(transactionProducts)
+
+  const data = {
+    transaction_id: id,
+    value: revenue,
+    tax,
+    shipping,
+    coupon,
+    items,
   }
 
   updateEcommerce(eventName, data)

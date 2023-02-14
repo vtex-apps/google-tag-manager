@@ -1,4 +1,4 @@
-import { Impression, Seller } from '../typings/events'
+import { Impression, Order, ProductOrder, Seller } from '../typings/events'
 
 export function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -130,4 +130,52 @@ function splitIntoCategories(category?: string) {
   const splitted = category.split('/')
 
   return splitted
+}
+
+export function getPurchaseObjectData(order: Order) {
+  return {
+    affiliation: order.transactionAffiliation,
+    coupon: order.coupon ? order.coupon : null,
+    id: order.orderGroup,
+    revenue: order.transactionTotal,
+    shipping: order.transactionShipping,
+    tax: order.transactionTax,
+  }
+}
+
+export function getProductNameWithoutVariant(
+  productNameWithVariant: string,
+  variant: string
+) {
+  const indexOfVariant = productNameWithVariant.lastIndexOf(variant)
+
+  if (indexOfVariant === -1 || indexOfVariant === 0) {
+    return productNameWithVariant
+  }
+
+  return productNameWithVariant.substring(0, indexOfVariant - 1) // Removes the variant and the whitespace
+}
+
+function formatPurchaseProduct(product: ProductOrder) {
+  const { name, skuName, id, brand, sku, price, quantity, category } = product
+
+  const productName = getProductNameWithoutVariant(name, skuName)
+
+  const item = {
+    item_id: id,
+    item_name: productName,
+    item_brand: brand,
+    item_variant: sku,
+    price,
+    quantity,
+    item_category: category,
+  }
+
+  return item
+}
+
+export function getPurchaseItems(orderProducts: ProductOrder[]) {
+  return orderProducts.map((product: ProductOrder) =>
+    formatPurchaseProduct(product)
+  )
 }
