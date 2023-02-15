@@ -45,7 +45,7 @@ export function viewItem(eventData: PixelMessage['data']) {
     items: [item],
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function viewItemList(eventData: PixelMessage['data']) {
@@ -62,7 +62,7 @@ export function viewItemList(eventData: PixelMessage['data']) {
     items,
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function selectItem(eventData: PixelMessage['data']) {
@@ -100,7 +100,7 @@ export function selectItem(eventData: PixelMessage['data']) {
     items: [item],
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function selectPromotion(eventData: PixelMessage['data']) {
@@ -116,7 +116,7 @@ export function selectPromotion(eventData: PixelMessage['data']) {
     promotion_name: promotion.name,
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function viewPromotion(eventData: PromoViewData) {
