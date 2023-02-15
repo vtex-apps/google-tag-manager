@@ -160,29 +160,31 @@ export function removeFromCart(eventData: PixelMessage['data']) {
 
   const eventName = 'remove_from_cart'
 
-  const {
-    currency,
-    items: [item],
-  } = eventData
+  const { items: eventDataItems, currency } = eventData
 
-  const productName = getProductNameWithoutVariant(item.name, item.skuName)
-  const formattedPrice =
-    item.priceIsInt === true ? item.price / 100 : item.price
+  let totalValue = 0.0
+  const items = eventDataItems.map((item: CartItem) => {
+    const productName = getProductNameWithoutVariant(item.name, item.skuName)
+    const formattedPrice =
+      item.priceIsInt === true ? item.price / 100 : item.price
+
+    totalValue += formattedPrice
+
+    return {
+      item_id: item.productId,
+      item_brand: item.brand,
+      item_name: productName,
+      item_variant: item.skuId,
+      item_category: item.category,
+      quantity: item.quantity,
+      price: formattedPrice,
+    }
+  })
 
   const data = {
+    items,
     currency,
-    value: formattedPrice,
-    items: [
-      {
-        item_id: item.productId,
-        item_brand: item.brand,
-        item_name: productName,
-        item_variant: item.skuId,
-        item_category: item.category,
-        quantity: item.quantity,
-        price: formattedPrice,
-      },
-    ],
+    value: totalValue,
   }
 
   updateEcommerce(eventName, data)
