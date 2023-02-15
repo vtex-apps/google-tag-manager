@@ -174,7 +174,7 @@ describe('GA4 events', () => {
         | 'productId'
       >
 
-      const cartItem: CartItemMockType = {
+      const cartItem1: CartItemMockType = {
         productId: '200000202',
         skuId: '2000304',
         brand: 'Sony',
@@ -185,11 +185,22 @@ describe('GA4 events', () => {
         quantity: 1,
       }
 
+      const cartItem2: CartItemMockType = {
+        productId: '200000203',
+        skuId: '2000305',
+        brand: 'Sony',
+        name: 'Top Wood 2',
+        skuName: 'top_wood_300',
+        price: 150.9,
+        category: 'Home & Decor',
+        quantity: 1,
+      }
+
       const data: AddToCartData = {
         currency: 'USD',
         event: 'addToCart',
         eventName: 'vtex:addToCart',
-        items: [cartItem as CartItem],
+        items: [cartItem1 as CartItem, cartItem2 as CartItem],
       }
 
       const message = new MessageEvent('message', { data })
@@ -198,7 +209,7 @@ describe('GA4 events', () => {
 
       expect(mockedUpdate).toHaveBeenCalledWith('add_to_cart', {
         currency: 'USD',
-        value: 197.99,
+        value: 348.89,
         items: [
           {
             item_id: '200000202',
@@ -208,6 +219,15 @@ describe('GA4 events', () => {
             item_category: 'Home & Decor',
             quantity: 1,
             price: 197.99,
+          },
+          {
+            item_id: '200000203',
+            item_brand: 'Sony',
+            item_name: 'Top Wood 2',
+            item_variant: '2000305',
+            item_category: 'Home & Decor',
+            quantity: 1,
+            price: 150.9,
           },
         ],
       })
