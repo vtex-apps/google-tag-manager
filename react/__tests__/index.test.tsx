@@ -160,7 +160,9 @@ describe('GA4 events', () => {
         promotion_name: 'Summer Sale',
       })
     })
+  })
 
+  describe('add_to_cart', () => {
     it('sends an event that signifies an item being added to the cart', () => {
       type CartItemMockType = Pick<
         CartItem,
@@ -192,7 +194,7 @@ describe('GA4 events', () => {
         name: 'Top Wood 2',
         skuName: 'top_wood_300',
         price: 150.9,
-        category: 'Home & Decor',
+        category: 'Home & Decor/Tables',
         quantity: 1,
       }
 
@@ -226,6 +228,7 @@ describe('GA4 events', () => {
             item_name: 'Top Wood 2',
             item_variant: '2000305',
             item_category: 'Home & Decor',
+            item_category2: 'Tables',
             quantity: 1,
             price: 150.9,
           },
