@@ -161,7 +161,9 @@ describe('GA4 events', () => {
         promotion_name: 'Summer Sale',
       })
     })
+  })
 
+  describe('remove_from_cart', () => {
     it('sends an event that signifies an item being removed from cart', () => {
       type CartItemMockType = Pick<
         CartItem,
