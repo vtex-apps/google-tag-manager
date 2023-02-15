@@ -125,7 +125,7 @@ export function removeStartAndEndSlash(category?: string) {
 }
 
 function splitIntoCategories(category?: string) {
-  if (!category || !category.includes('/')) return
+  if (!category) return
 
   const splitted = category.split('/')
 

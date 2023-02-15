@@ -1,4 +1,4 @@
-import { PixelMessage, CartItem } from '../typings/events'
+import { PixelMessage, AddToCartData, CartItem } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
   getPrice,
@@ -120,7 +120,7 @@ export function selectPromotion(eventData: PixelMessage['data']) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function addToCart(eventData: PixelMessage['data']) {
+export function addToCart(eventData: AddToCartData) {
   if (!shouldMergeUAEvents()) return
 
   const eventName = 'add_to_cart'
@@ -140,9 +140,9 @@ export function addToCart(eventData: PixelMessage['data']) {
       item_brand: item.brand,
       item_name: productName,
       item_variant: item.skuId,
-      item_category: item.category,
       quantity: item.quantity,
       price: formattedPrice,
+      ...getCategoriesWithHierarchy([item.category]),
     }
   })
 
