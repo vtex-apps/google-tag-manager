@@ -149,10 +149,12 @@ describe('GA4 events', () => {
       handleEvents(message)
 
       expect(mockedUpdate).toHaveBeenCalledWith('select_promotion', {
-        creative_name: 'Summer Banner',
-        creative_slot: 'featured_app_1',
-        promotion_id: 'P_12345',
-        promotion_name: 'Summer Sale',
+        ecommerce: {
+          creative_name: 'Summer Banner',
+          creative_slot: 'featured_app_1',
+          promotion_id: 'P_12345',
+          promotion_name: 'Summer Sale',
+        },
       })
     })
   })
