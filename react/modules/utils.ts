@@ -125,9 +125,22 @@ export function removeStartAndEndSlash(category?: string) {
 }
 
 function splitIntoCategories(category?: string) {
-  if (!category || !category.includes('/')) return
+  if (!category) return
 
   const splitted = category.split('/')
 
   return splitted
+}
+
+export function getProductNameWithoutVariant(
+  productNameWithVariant: string,
+  variant: string
+) {
+  const indexOfVariant = productNameWithVariant.lastIndexOf(variant)
+
+  if (indexOfVariant === -1 || indexOfVariant === 0) {
+    return productNameWithVariant
+  }
+
+  return productNameWithVariant.substring(0, indexOfVariant - 1) // Removes the variant and the whitespace
 }

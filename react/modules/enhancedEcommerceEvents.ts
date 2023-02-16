@@ -12,8 +12,14 @@ import {
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
-import { selectItem, selectPromotion, viewItem, viewItemList } from './gaEvents'
-import { getCategory, getSeller } from './utils'
+import {
+  addToCart,
+  selectItem,
+  selectPromotion,
+  viewItem,
+  viewItemList,
+} from './gaEvents'
+import { getCategory, getSeller, getProductNameWithoutVariant } from './utils'
 
 const defaultReference = { Value: '' }
 
@@ -161,6 +167,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'addToCart',
       }
 
+      addToCart(e.data)
       updateEcommerce('addToCart', data)
 
       return
@@ -380,17 +387,4 @@ function getCheckoutProductObjectData(
     dimension2: item.referenceId ?? '', // SKU reference id
     dimension3: item.skuName,
   }
-}
-
-function getProductNameWithoutVariant(
-  productNameWithVariant: string,
-  variant: string
-) {
-  const indexOfVariant = productNameWithVariant.lastIndexOf(variant)
-
-  if (indexOfVariant === -1 || indexOfVariant === 0) {
-    return productNameWithVariant
-  }
-
-  return productNameWithVariant.substring(0, indexOfVariant - 1) // Removes the variant and the whitespace
 }

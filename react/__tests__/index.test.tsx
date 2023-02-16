@@ -3,7 +3,12 @@ import productDetails from '../__mocks__/productDetail'
 import productClick from '../__mocks__/productClick'
 import { handleEvents } from '../index'
 import updateEcommerce from '../modules/updateEcommerce'
-import { Promotion, PromotionClickData } from '../typings/events'
+import {
+  Promotion,
+  PromotionClickData,
+  AddToCartData,
+  CartItem,
+} from '../typings/events'
 import shouldMergeUAEvents from '../modules/utils/shouldMergeUAEvents'
 
 jest.mock('../modules/utils/shouldMergeUAEvents')
@@ -153,6 +158,81 @@ describe('GA4 events', () => {
         creative_slot: 'featured_app_1',
         promotion_id: 'P_12345',
         promotion_name: 'Summer Sale',
+      })
+    })
+  })
+
+  describe('add_to_cart', () => {
+    it('sends an event that signifies an item being added to the cart', () => {
+      type CartItemMockType = Pick<
+        CartItem,
+        | 'name'
+        | 'brand'
+        | 'price'
+        | 'skuId'
+        | 'skuName'
+        | 'quantity'
+        | 'category'
+        | 'productId'
+      >
+
+      const cartItem1: CartItemMockType = {
+        productId: '200000202',
+        skuId: '2000304',
+        brand: 'Sony',
+        name: 'Top Wood',
+        skuName: 'top_wood_200',
+        price: 197.99,
+        category: 'Home & Decor',
+        quantity: 1,
+      }
+
+      const cartItem2: CartItemMockType = {
+        productId: '200000203',
+        skuId: '2000305',
+        brand: 'Sony',
+        name: 'Top Wood 2',
+        skuName: 'top_wood_300',
+        price: 150.9,
+        category: 'Home & Decor/Tables',
+        quantity: 1,
+      }
+
+      const data: AddToCartData = {
+        currency: 'USD',
+        event: 'addToCart',
+        eventName: 'vtex:addToCart',
+        items: [cartItem1 as CartItem, cartItem2 as CartItem],
+      }
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('add_to_cart', {
+        currency: 'USD',
+        value: 348.89,
+        items: [
+          {
+            item_id: '200000202',
+            item_brand: 'Sony',
+            item_name: 'Top Wood',
+            item_variant: '2000304',
+            item_category: 'Home & Decor',
+            quantity: 1,
+            price: 197.99,
+          },
+          {
+            item_id: '200000203',
+            item_brand: 'Sony',
+            item_name: 'Top Wood 2',
+            item_variant: '2000305',
+            item_category: 'Home & Decor',
+            item_category2: 'Tables',
+            quantity: 1,
+            price: 150.9,
+          },
+        ],
       })
     })
   })
