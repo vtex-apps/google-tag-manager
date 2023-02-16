@@ -1,4 +1,9 @@
-import { PixelMessage } from '../typings/events'
+import {
+  CartItem,
+  PixelMessage,
+  AddToCartData,
+  RemoveFromCartData,
+} from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
   getPrice,
@@ -9,6 +14,7 @@ import {
   getDiscount,
   getPurchaseObjectData,
   getPurchaseItems,
+  getProductNameWithoutVariant,
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
 
@@ -47,7 +53,7 @@ export function viewItem(eventData: PixelMessage['data']) {
     items: [item],
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function viewItemList(eventData: PixelMessage['data']) {
@@ -64,7 +70,7 @@ export function viewItemList(eventData: PixelMessage['data']) {
     items,
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function selectItem(eventData: PixelMessage['data']) {
@@ -102,7 +108,7 @@ export function selectItem(eventData: PixelMessage['data']) {
     items: [item],
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function selectPromotion(eventData: PixelMessage['data']) {
@@ -118,7 +124,77 @@ export function selectPromotion(eventData: PixelMessage['data']) {
     promotion_name: promotion.name,
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function addToCart(eventData: AddToCartData) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'add_to_cart'
+
+  const { items: eventDataItems, currency } = eventData
+
+  let totalValue = 0.0
+  const items = eventDataItems.map((item: CartItem) => {
+    const productName = getProductNameWithoutVariant(item.name, item.skuName)
+    const formattedPrice =
+      item.priceIsInt === true ? item.price / 100 : item.price
+
+    totalValue += formattedPrice
+
+    return {
+      item_id: item.productId,
+      item_brand: item.brand,
+      item_name: productName,
+      item_variant: item.skuId,
+      quantity: item.quantity,
+      price: formattedPrice,
+      ...getCategoriesWithHierarchy([item.category]),
+    }
+  })
+
+  const data = {
+    items,
+    currency,
+    value: totalValue,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function removeFromCart(eventData: RemoveFromCartData) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'remove_from_cart'
+
+  const { items: eventDataItems, currency } = eventData
+
+  let totalValue = 0.0
+  const items = eventDataItems.map((item: CartItem) => {
+    const productName = getProductNameWithoutVariant(item.name, item.skuName)
+    const formattedPrice =
+      item.priceIsInt === true ? item.price / 100 : item.price
+
+    totalValue += formattedPrice
+
+    return {
+      item_id: item.productId,
+      item_brand: item.brand,
+      item_name: productName,
+      item_variant: item.skuId,
+      quantity: item.quantity,
+      price: formattedPrice,
+      ...getCategoriesWithHierarchy([item.category]),
+    }
+  })
+
+  const data = {
+    items,
+    currency,
+    value: totalValue,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function purchase(eventData: PixelMessage['data']) {

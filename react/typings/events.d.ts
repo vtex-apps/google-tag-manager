@@ -7,7 +7,7 @@ export interface PixelMessage extends MessageEvent {
     | PageViewData
     | ProductImpressionData
     | AddToCartData
-    | RemoveToCartData
+    | RemoveFromCartData
     | CartChangedData
     | HomePageInfo
     | ProductPageInfoData
@@ -100,7 +100,7 @@ export interface AddToCartData extends EventData {
   items: CartItem[]
 }
 
-export interface RemoveToCartData extends EventData {
+export interface RemoveFromCartData extends EventData {
   event: 'removeFromCart'
   eventName: 'vtex:removeFromCart'
   items: CartItem[]

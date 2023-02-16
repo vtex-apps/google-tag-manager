@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
     - master
+    - feat/settings-merge-ua-events # TODO: Remove once we're done.
 
 jobs:
   build:
