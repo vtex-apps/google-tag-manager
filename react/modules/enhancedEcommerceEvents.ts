@@ -6,18 +6,19 @@ import {
   Impression,
   CartItem,
   AddToCartData,
-  RemoveToCartData,
+  RemoveFromCartData,
   ProductViewData,
   ProductClickData,
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
-  addToCart,
   selectItem,
   selectPromotion,
   viewItem,
   viewItemList,
+  addToCart,
+  removeFromCart,
 } from './gaEvents'
 import { getCategory, getSeller, getProductNameWithoutVariant } from './utils'
 
@@ -174,7 +175,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:removeFromCart': {
-      const { items } = e.data as RemoveToCartData
+      const { items } = e.data as RemoveFromCartData
 
       const data = {
         ecommerce: {
@@ -200,6 +201,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'removeFromCart',
       }
 
+      removeFromCart(e.data)
       updateEcommerce('removeFromCart', data)
 
       return
