@@ -192,5 +192,5 @@ export function removeFromCart(eventData: RemoveFromCartData) {
     value: totalValue,
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
