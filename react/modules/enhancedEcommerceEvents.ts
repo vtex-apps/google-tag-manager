@@ -9,6 +9,7 @@ import {
   ProductViewData,
   ProductClickData,
   ProductViewReferenceId,
+  OrderPlacedData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
@@ -213,7 +214,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:orderPlaced': {
-      const order = e.data
+      const order = e.data as OrderPlacedData
 
       const ecommerce = {
         purchase: {

@@ -168,14 +168,12 @@ function formatPurchaseProduct(product: ProductOrder) {
     item_variant: sku,
     price,
     quantity,
-    item_category: category,
+    ...getCategoriesWithHierarchy([category]),
   }
 
   return item
 }
 
 export function getPurchaseItems(orderProducts: ProductOrder[]) {
-  return orderProducts.map((product: ProductOrder) =>
-    formatPurchaseProduct(product)
-  )
+  return orderProducts.map(formatPurchaseProduct)
 }

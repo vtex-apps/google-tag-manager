@@ -3,6 +3,7 @@ import {
   PixelMessage,
   AddToCartData,
   RemoveFromCartData,
+  OrderPlacedData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -197,7 +198,7 @@ export function removeFromCart(eventData: RemoveFromCartData) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function purchase(eventData: PixelMessage['data']) {
+export function purchase(eventData: OrderPlacedData) {
   if (!shouldMergeUAEvents()) return
 
   const eventName = 'purchase'
@@ -220,5 +221,5 @@ export function purchase(eventData: PixelMessage['data']) {
     currency,
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
