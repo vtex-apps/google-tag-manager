@@ -1,4 +1,10 @@
-import { PixelMessage, PromoViewData } from '../typings/events'
+import {
+  CartItem,
+  PixelMessage,
+  AddToCartData,
+  RemoveFromCartData,
+  PromoViewData,
+} from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
   getPrice,
@@ -7,6 +13,7 @@ import {
   getQuantity,
   getImpressions,
   getDiscount,
+  getProductNameWithoutVariant,
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
 
@@ -161,4 +168,74 @@ export function viewPromotion(eventData: PromoViewData) {
   }
 
   updateEcommerce(eventName, data)
+}
+
+export function addToCart(eventData: AddToCartData) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'add_to_cart'
+
+  const { items: eventDataItems, currency } = eventData
+
+  let totalValue = 0.0
+  const items = eventDataItems.map((item: CartItem) => {
+    const productName = getProductNameWithoutVariant(item.name, item.skuName)
+    const formattedPrice =
+      item.priceIsInt === true ? item.price / 100 : item.price
+
+    totalValue += formattedPrice
+
+    return {
+      item_id: item.productId,
+      item_brand: item.brand,
+      item_name: productName,
+      item_variant: item.skuId,
+      quantity: item.quantity,
+      price: formattedPrice,
+      ...getCategoriesWithHierarchy([item.category]),
+    }
+  })
+
+  const data = {
+    items,
+    currency,
+    value: totalValue,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function removeFromCart(eventData: RemoveFromCartData) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'remove_from_cart'
+
+  const { items: eventDataItems, currency } = eventData
+
+  let totalValue = 0.0
+  const items = eventDataItems.map((item: CartItem) => {
+    const productName = getProductNameWithoutVariant(item.name, item.skuName)
+    const formattedPrice =
+      item.priceIsInt === true ? item.price / 100 : item.price
+
+    totalValue += formattedPrice
+
+    return {
+      item_id: item.productId,
+      item_brand: item.brand,
+      item_name: productName,
+      item_variant: item.skuId,
+      quantity: item.quantity,
+      price: formattedPrice,
+      ...getCategoriesWithHierarchy([item.category]),
+    }
+  })
+
+  const data = {
+    items,
+    currency,
+    value: totalValue,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
 }

@@ -6,7 +6,7 @@ import {
   Impression,
   CartItem,
   AddToCartData,
-  RemoveToCartData,
+  RemoveFromCartData,
   ProductViewData,
   ProductClickData,
   ProductViewReferenceId,
@@ -19,8 +19,10 @@ import {
   viewItem,
   viewItemList,
   viewPromotion,
+  addToCart,
+  removeFromCart,
 } from './gaEvents'
-import { getCategory, getSeller } from './utils'
+import { getCategory, getSeller, getProductNameWithoutVariant } from './utils'
 
 const defaultReference = { Value: '' }
 
@@ -168,13 +170,14 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'addToCart',
       }
 
+      addToCart(e.data)
       updateEcommerce('addToCart', data)
 
       return
     }
 
     case 'vtex:removeFromCart': {
-      const { items } = e.data as RemoveToCartData
+      const { items } = e.data as RemoveFromCartData
 
       const data = {
         ecommerce: {
@@ -200,6 +203,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         event: 'removeFromCart',
       }
 
+      removeFromCart(e.data)
       updateEcommerce('removeFromCart', data)
 
       return
@@ -388,17 +392,4 @@ function getCheckoutProductObjectData(
     dimension2: item.referenceId ?? '', // SKU reference id
     dimension3: item.skuName,
   }
-}
-
-function getProductNameWithoutVariant(
-  productNameWithVariant: string,
-  variant: string
-) {
-  const indexOfVariant = productNameWithVariant.lastIndexOf(variant)
-
-  if (indexOfVariant === -1 || indexOfVariant === 0) {
-    return productNameWithVariant
-  }
-
-  return productNameWithVariant.substring(0, indexOfVariant - 1) // Removes the variant and the whitespace
 }
