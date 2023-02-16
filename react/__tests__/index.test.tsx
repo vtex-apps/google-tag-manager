@@ -306,24 +306,26 @@ describe('GA4 events', () => {
       handleEvents(message)
 
       expect(mockedUpdate).toHaveBeenCalledWith('view_promotion', {
-        creative_name: 'Summer Banner',
-        creative_slot: 'featured_app_1',
-        promotion_id: 'P_12345',
-        promotion_name: 'Summer Sale',
-        items: [
-          {
-            item_id: '16',
-            item_name: 'Classic Shoes Top',
-            discount: 0,
-            index: 1,
-            item_brand: 'Mizuno',
-            item_category: 'Apparel & Accessories',
-            item_category2: 'Shoes',
-            item_list_name: 'Shelf',
-            item_variant: 'Classic Pink',
-            quantity: 2000000,
-          },
-        ],
+        ecommerce: {
+          creative_name: 'Summer Banner',
+          creative_slot: 'featured_app_1',
+          promotion_id: 'P_12345',
+          promotion_name: 'Summer Sale',
+          items: [
+            {
+              item_id: '16',
+              item_name: 'Classic Shoes Top',
+              discount: 0,
+              index: 1,
+              item_brand: 'Mizuno',
+              item_category: 'Apparel & Accessories',
+              item_category2: 'Shoes',
+              item_list_name: 'Shelf',
+              item_variant: 'Classic Pink',
+              quantity: 2000000,
+            },
+          ],
+        },
       })
     })
   })

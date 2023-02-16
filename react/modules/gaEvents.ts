@@ -167,7 +167,7 @@ export function viewPromotion(eventData: PromoViewData) {
     items: [item],
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
 
 export function addToCart(eventData: AddToCartData) {
