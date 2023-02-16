@@ -1,7 +1,7 @@
 {
   "name": "google-tag-manager",
   "vendor": "vtex",
-  "version": "3.3.3-beta.0",
+  "version": "3.4.0-beta.0",
   "title": "Google Tag Manager",
   "description": "Google Tag Manager",
   "mustUpdateAt": "2019-04-03",
