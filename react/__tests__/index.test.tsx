@@ -212,29 +212,31 @@ describe('GA4 events', () => {
       handleEvents(message)
 
       expect(mockedUpdate).toHaveBeenCalledWith('add_to_cart', {
-        currency: 'USD',
-        value: 348.89,
-        items: [
-          {
-            item_id: '200000202',
-            item_brand: 'Sony',
-            item_name: 'Top Wood',
-            item_variant: '2000304',
-            item_category: 'Home & Decor',
-            quantity: 1,
-            price: 197.99,
-          },
-          {
-            item_id: '200000203',
-            item_brand: 'Sony',
-            item_name: 'Top Wood 2',
-            item_variant: '2000305',
-            item_category: 'Home & Decor',
-            item_category2: 'Tables',
-            quantity: 1,
-            price: 150.9,
-          },
-        ],
+        ecommerce: {
+          currency: 'USD',
+          value: 348.89,
+          items: [
+            {
+              item_id: '200000202',
+              item_brand: 'Sony',
+              item_name: 'Top Wood',
+              item_variant: '2000304',
+              item_category: 'Home & Decor',
+              quantity: 1,
+              price: 197.99,
+            },
+            {
+              item_id: '200000203',
+              item_brand: 'Sony',
+              item_name: 'Top Wood 2',
+              item_variant: '2000305',
+              item_category: 'Home & Decor',
+              item_category2: 'Tables',
+              quantity: 1,
+              price: 150.9,
+            },
+          ],
+        },
       })
     })
   })
