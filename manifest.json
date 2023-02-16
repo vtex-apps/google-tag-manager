@@ -13,9 +13,7 @@
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "builders": {
     "react": "3.x",
@@ -40,6 +38,12 @@
         "title": "Google Tag Manager",
         "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager",
         "type": "string"
+      },
+      "typeScript": {
+        "title": "Script attribute type",
+        "description": "Define whether the type attribute execute script on a secondary thread or not.",
+        "default": "javascript",
+        "enum": ["javascript", "partytown"]
       },
       "allowCustomHtmlTags": {
         "title": "Allow Custom HTML tags",
