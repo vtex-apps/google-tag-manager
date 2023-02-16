@@ -152,5 +152,5 @@ export function addToCart(eventData: AddToCartData) {
     value: totalValue,
   }
 
-  updateEcommerce(eventName, data)
+  updateEcommerce(eventName, { ecommerce: data })
 }
