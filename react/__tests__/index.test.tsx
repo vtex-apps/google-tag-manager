@@ -7,6 +7,7 @@ import {
   Promotion,
   PromotionClickData,
   AddToCartData,
+  RemoveFromCartData,
   CartItem,
 } from '../typings/events'
 import shouldMergeUAEvents from '../modules/utils/shouldMergeUAEvents'
@@ -234,6 +235,62 @@ describe('GA4 events', () => {
               item_category2: 'Tables',
               quantity: 1,
               price: 150.9,
+            },
+          ],
+        },
+      })
+    })
+  })
+
+  describe('remove_from_cart', () => {
+    it('sends an event that signifies an item being removed from cart', () => {
+      type CartItemMockType = Pick<
+        CartItem,
+        | 'name'
+        | 'brand'
+        | 'price'
+        | 'skuId'
+        | 'skuName'
+        | 'quantity'
+        | 'category'
+        | 'productId'
+      >
+
+      const cartItem: CartItemMockType = {
+        productId: '200000202',
+        skuId: '2000304',
+        brand: 'Sony',
+        name: 'Top Wood',
+        skuName: 'top_wood_200',
+        price: 197.99,
+        category: 'Home & Decor',
+        quantity: 1,
+      }
+
+      const data: RemoveFromCartData = {
+        currency: 'USD',
+        event: 'removeFromCart',
+        eventName: 'vtex:removeFromCart',
+        items: [cartItem as CartItem],
+      }
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('remove_from_cart', {
+        ecommerce: {
+          currency: 'USD',
+          value: 197.99,
+          items: [
+            {
+              item_id: '200000202',
+              item_brand: 'Sony',
+              item_name: 'Top Wood',
+              item_variant: '2000304',
+              item_category: 'Home & Decor',
+              quantity: 1,
+              price: 197.99,
             },
           ],
         },
