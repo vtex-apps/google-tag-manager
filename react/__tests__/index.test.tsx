@@ -361,23 +361,25 @@ describe('GA4 events', () => {
       handleEvents(message)
 
       expect(mockedUpdate).toHaveBeenCalledWith('purchase', {
-        coupon: null,
-        currency: 'USD',
-        items: [
-          {
-            item_brand: 'New Offers!!',
-            item_category: 'Apparel & Accessories',
-            item_id: '9',
-            item_name: 'Top Everyday Necessaire',
-            item_variant: '20',
-            price: 1600.99,
-            quantity: 1,
-          },
-        ],
-        shipping: 1942.61,
-        tax: 0,
-        transaction_id: '1310750551387',
-        value: 3543.6,
+        ecommerce: {
+          coupon: null,
+          currency: 'USD',
+          items: [
+            {
+              item_brand: 'New Offers!!',
+              item_category: 'Apparel & Accessories',
+              item_id: '9',
+              item_name: 'Top Everyday Necessaire',
+              item_variant: '20',
+              price: 1600.99,
+              quantity: 1,
+            },
+          ],
+          shipping: 1942.61,
+          tax: 0,
+          transaction_id: '1310750551387',
+          value: 3543.6,
+        },
       })
     })
   })
