@@ -4,6 +4,7 @@ import {
   AddToCartData,
   RemoveFromCartData,
   PromoViewData,
+  OrderPlacedData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -13,6 +14,8 @@ import {
   getQuantity,
   getImpressions,
   getDiscount,
+  getPurchaseObjectData,
+  getPurchaseItems,
   getProductNameWithoutVariant,
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
@@ -235,6 +238,32 @@ export function removeFromCart(eventData: RemoveFromCartData) {
     items,
     currency,
     value: totalValue,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function purchase(eventData: OrderPlacedData) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'purchase'
+
+  const { id, revenue, tax, shipping, coupon } = getPurchaseObjectData(
+    eventData
+  )
+
+  const { transactionProducts, currency } = eventData
+
+  const items = getPurchaseItems(transactionProducts)
+
+  const data = {
+    transaction_id: id,
+    value: revenue,
+    tax,
+    shipping,
+    coupon,
+    items,
+    currency,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

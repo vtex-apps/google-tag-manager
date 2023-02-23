@@ -1,6 +1,5 @@
 import updateEcommerce from './updateEcommerce'
 import {
-  Order,
   PixelMessage,
   ProductOrder,
   Impression,
@@ -11,9 +10,11 @@ import {
   ProductClickData,
   ProductViewReferenceId,
   PromoViewData,
+  OrderPlacedData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
+  purchase,
   selectItem,
   selectPromotion,
   viewItem,
@@ -22,7 +23,12 @@ import {
   addToCart,
   removeFromCart,
 } from './gaEvents'
-import { getCategory, getSeller, getProductNameWithoutVariant } from './utils'
+import {
+  getCategory,
+  getSeller,
+  getProductNameWithoutVariant,
+  getPurchaseObjectData,
+} from './utils'
 
 const defaultReference = { Value: '' }
 
@@ -210,7 +216,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:orderPlaced': {
-      const order = e.data
+      const order = e.data as OrderPlacedData
 
       const ecommerce = {
         purchase: {
@@ -236,6 +242,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
+      purchase(order)
       updateEcommerce('orderPlaced', data)
 
       return
@@ -321,17 +328,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     default: {
       break
     }
-  }
-}
-
-function getPurchaseObjectData(order: Order) {
-  return {
-    affiliation: order.transactionAffiliation,
-    coupon: order.coupon ? order.coupon : null,
-    id: order.orderGroup,
-    revenue: order.transactionTotal,
-    shipping: order.transactionShipping,
-    tax: order.transactionTax,
   }
 }
 
