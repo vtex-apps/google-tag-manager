@@ -135,39 +135,24 @@ export function viewPromotion(eventData: PromoViewData) {
   const eventName = 'view_promotion'
 
   const {
-    promotions: [promotion],
+    promotions: [{ creative, position, id, name, products }],
   } = eventData
 
-  let item = {}
-  const { product, list, position } = eventData
+  let items: Array<{ item_id: string; item_name: string }> = []
 
-  if (product) {
-    const { sku, productName, productId, categories, brand } = product
-    const { name: variant } = sku
-    const seller = getSeller(sku.sellers)
-    const categoriesHierarchy = getCategoriesWithHierarchy(categories)
-    const discount = getDiscount(seller)
-    const quantity = getQuantity(seller)
-
-    item = {
-      item_id: productId,
-      item_name: productName,
-      item_list_name: list,
-      item_brand: brand,
-      item_variant: variant,
-      index: position,
-      discount,
-      quantity,
-      ...categoriesHierarchy,
-    }
+  if (products?.length) {
+    items = products.map(product => ({
+      item_id: product.productId,
+      item_name: product.productName,
+    }))
   }
 
   const data = {
-    creative_name: promotion.creative,
-    creative_slot: promotion.position,
-    promotion_id: promotion.id,
-    promotion_name: promotion.name,
-    items: [item],
+    creative_name: creative,
+    creative_slot: position,
+    promotion_id: id,
+    promotion_name: name,
+    items,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

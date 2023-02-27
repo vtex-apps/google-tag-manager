@@ -1,7 +1,7 @@
 import productImpressionData from '../__mocks__/productImpression'
 import productDetails from '../__mocks__/productDetail'
 import productClick from '../__mocks__/productClick'
-import viewPromotionData from '../__mocks__/viewPromotion'
+import { buildViewPromotionData } from '../__mocks__/viewPromotion'
 import { handleEvents } from '../index'
 import updateEcommerce from '../modules/updateEcommerce'
 import {
@@ -387,7 +387,24 @@ describe('GA4 events', () => {
 
   describe('view_promotion', () => {
     it('sends an event that signifies a promotion was viewed from a list', () => {
-      const message = new MessageEvent('message', { data: viewPromotionData })
+      const data = buildViewPromotionData({
+        id: 'P_12345',
+        name: 'Summer Sale',
+        creative: 'Summer Banner',
+        position: 'featured_app_1',
+        products: [
+          {
+            productId: 'SKU_20',
+            productName: 'Tea Leaves',
+          },
+          {
+            productId: 'SKU_30',
+            productName: 'Coffee Beans',
+          },
+        ],
+      })
+
+      const message = new MessageEvent('message', { data })
 
       handleEvents(message)
 
@@ -399,16 +416,12 @@ describe('GA4 events', () => {
           promotion_name: 'Summer Sale',
           items: [
             {
-              item_id: '16',
-              item_name: 'Classic Shoes Top',
-              discount: 0,
-              index: 1,
-              item_brand: 'Mizuno',
-              item_category: 'Apparel & Accessories',
-              item_category2: 'Shoes',
-              item_list_name: 'Shelf',
-              item_variant: 'Classic Pink',
-              quantity: 2000000,
+              item_id: 'SKU_20',
+              item_name: 'Tea Leaves',
+            },
+            {
+              item_id: 'SKU_30',
+              item_name: 'Coffee Beans',
             },
           ],
         },
