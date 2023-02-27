@@ -3,6 +3,7 @@ import {
   PixelMessage,
   AddToCartData,
   RemoveFromCartData,
+  PromoViewData,
   OrderPlacedData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
@@ -123,6 +124,35 @@ export function selectPromotion(eventData: PixelMessage['data']) {
     creative_slot: promotion.position,
     promotion_id: promotion.id,
     promotion_name: promotion.name,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function viewPromotion(eventData: PromoViewData) {
+  if (!shouldMergeUAEvents()) return
+
+  const eventName = 'view_promotion'
+
+  const {
+    promotions: [{ creative, position, id, name, products }],
+  } = eventData
+
+  let items: Array<{ item_id: string; item_name: string }> = []
+
+  if (products?.length) {
+    items = products.map(product => ({
+      item_id: product.productId,
+      item_name: product.productName,
+    }))
+  }
+
+  const data = {
+    creative_name: creative,
+    creative_slot: position,
+    promotion_id: id,
+    promotion_name: name,
+    items,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

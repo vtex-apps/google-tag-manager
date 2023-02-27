@@ -9,6 +9,7 @@ import {
   ProductViewData,
   ProductClickData,
   ProductViewReferenceId,
+  PromoViewData,
   OrderPlacedData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
@@ -18,6 +19,7 @@ import {
   selectPromotion,
   viewItem,
   viewItemList,
+  viewPromotion,
   addToCart,
   removeFromCart,
 } from './gaEvents'
@@ -288,7 +290,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:promoView': {
-      const { promotions } = e.data
+      const { promotions } = e.data as PromoViewData
 
       const data = {
         event: 'promoView',
@@ -299,6 +301,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
+      viewPromotion(e.data)
       updateEcommerce('promoView', data)
 
       break

@@ -1,6 +1,7 @@
 import productImpressionData from '../__mocks__/productImpression'
 import productDetails from '../__mocks__/productDetail'
 import productClick from '../__mocks__/productClick'
+import { buildViewPromotionData } from '../__mocks__/viewPromotion'
 import { handleEvents } from '../index'
 import updateEcommerce from '../modules/updateEcommerce'
 import {
@@ -379,6 +380,50 @@ describe('GA4 events', () => {
           tax: 0,
           transaction_id: '1310750551387',
           value: 3543.6,
+        },
+      })
+    })
+  })
+
+  describe('view_promotion', () => {
+    it('sends an event that signifies a promotion was viewed from a list', () => {
+      const data = buildViewPromotionData({
+        id: 'P_12345',
+        name: 'Summer Sale',
+        creative: 'Summer Banner',
+        position: 'featured_app_1',
+        products: [
+          {
+            productId: 'SKU_20',
+            productName: 'Tea Leaves',
+          },
+          {
+            productId: 'SKU_30',
+            productName: 'Coffee Beans',
+          },
+        ],
+      })
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('view_promotion', {
+        ecommerce: {
+          creative_name: 'Summer Banner',
+          creative_slot: 'featured_app_1',
+          promotion_id: 'P_12345',
+          promotion_name: 'Summer Sale',
+          items: [
+            {
+              item_id: 'SKU_20',
+              item_name: 'Tea Leaves',
+            },
+            {
+              item_id: 'SKU_30',
+              item_name: 'Coffee Beans',
+            },
+          ],
         },
       })
     })

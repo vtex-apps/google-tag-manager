@@ -164,11 +164,14 @@ export interface PromotionClickData extends EventData {
   promotions: Promotion[]
 }
 
+type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
+
 interface Promotion {
   id?: string
   name?: string
   creative?: string
   position?: string
+  products?: PromotionProduct[]
 }
 
 interface CartItemAdditionalInfo {
@@ -202,12 +205,6 @@ interface Totalizer {
   id: string
   name: string
   value: number
-}
-
-interface Seller {
-  id: string
-  name: string
-  logo: string
 }
 
 interface ClientProfileData {
