@@ -12,6 +12,7 @@ import {
   PromoViewData,
   OrderPlacedData,
   ProductImpressionData,
+  CartLoadedData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
@@ -271,7 +272,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:cartLoaded': {
-      const { orderForm } = e.data
+      const { orderForm } = e.data as CartLoadedData
 
       const data = {
         event: 'checkout',
