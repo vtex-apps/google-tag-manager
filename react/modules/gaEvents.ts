@@ -17,7 +17,6 @@ import {
   getDiscount,
   getPurchaseObjectData,
   getPurchaseItems,
-  getProductNameWithoutVariant,
   formatCartItemsAndValue,
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
