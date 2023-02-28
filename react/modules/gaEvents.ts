@@ -6,6 +6,7 @@ import {
   PromoViewData,
   OrderPlacedData,
   ProductClickData,
+  ProductViewData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -21,7 +22,7 @@ import {
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
 
-export function viewItem(eventData: PixelMessage['data']) {
+export function viewItem(eventData: ProductViewData) {
   if (!shouldMergeUAEvents()) return
 
   const eventName = 'view_item'
