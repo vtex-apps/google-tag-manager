@@ -18,10 +18,10 @@ import {
   getPurchaseItems,
   getProductNameWithoutVariant,
 } from './utils'
-import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
+import shouldSendGA4Events from './utils/shouldSendGA4Events'
 
 export function viewItem(eventData: PixelMessage['data']) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'view_item'
 
@@ -59,7 +59,7 @@ export function viewItem(eventData: PixelMessage['data']) {
 }
 
 export function viewItemList(eventData: PixelMessage['data']) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'view_item_list'
 
@@ -76,7 +76,7 @@ export function viewItemList(eventData: PixelMessage['data']) {
 }
 
 export function selectItem(eventData: PixelMessage['data']) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'select_item'
 
@@ -114,7 +114,7 @@ export function selectItem(eventData: PixelMessage['data']) {
 }
 
 export function selectPromotion(eventData: PixelMessage['data']) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'select_promotion'
   const [promotion] = eventData.promotions
@@ -130,7 +130,7 @@ export function selectPromotion(eventData: PixelMessage['data']) {
 }
 
 export function viewPromotion(eventData: PromoViewData) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'view_promotion'
 
@@ -159,7 +159,7 @@ export function viewPromotion(eventData: PromoViewData) {
 }
 
 export function addToCart(eventData: AddToCartData) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'add_to_cart'
 
@@ -194,7 +194,7 @@ export function addToCart(eventData: AddToCartData) {
 }
 
 export function removeFromCart(eventData: RemoveFromCartData) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'remove_from_cart'
 
@@ -229,7 +229,7 @@ export function removeFromCart(eventData: RemoveFromCartData) {
 }
 
 export function purchase(eventData: OrderPlacedData) {
-  if (!shouldMergeUAEvents()) return
+  if (!shouldSendGA4Events()) return
 
   const eventName = 'purchase'
 

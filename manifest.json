@@ -44,9 +44,9 @@
         "description": "Beware that using Custom HTML tags can drastically impact the store's performance",
         "type": "boolean"
       },
-      "mergeUAEvents": {
-        "title": "Merge Universal Analytics and Google Analytics 4 Events",
-        "description": "When this setting is active, UA events will be merged to their equivalent on GA4",
+      "sendGA4Events": {
+        "title": "Send Google Analytics 4 Events",
+        "description": "When this setting is active, also send the GA4 version of the events",
         "type": "boolean"
       }
     }
