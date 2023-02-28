@@ -1,6 +1,5 @@
 import {
   CartItem,
-  PixelMessage,
   AddToCartData,
   RemoveFromCartData,
   PromoViewData,
