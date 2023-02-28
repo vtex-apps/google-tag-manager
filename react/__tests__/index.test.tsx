@@ -107,6 +107,9 @@ test('productClick', () => {
     event: 'productClick',
     ecommerce: {
       click: {
+        actionField: {
+          list: 'List of products',
+        },
         products: [
           {
             brand: 'Mizuno',
@@ -114,6 +117,7 @@ test('productClick', () => {
             id: '16',
             variant: '35',
             name: 'Classic Shoes Top',
+            position: 3,
             price: 38.9,
             dimension1: '12531',
             dimension2: '',
