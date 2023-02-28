@@ -157,7 +157,7 @@ describe('GA4 events', () => {
               item_name: 'Classic Shoes Top',
               item_list_name: 'List of products',
               item_brand: 'Mizuno',
-              item_variant: 'Classic Pink',
+              item_variant: '35',
               price: 1540.99,
               quantity: 2000000,
               discount: 0,

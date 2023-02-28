@@ -31,7 +31,7 @@ export function viewItem(eventData: ProductViewData) {
 
   const { selectedSku, productName, productId, categories, brand } = product
 
-  const { name: variant } = selectedSku
+  const { itemId: variant } = selectedSku
 
   const seller = getSeller(selectedSku.sellers)
   const value = getPrice(seller)
