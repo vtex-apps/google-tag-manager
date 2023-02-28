@@ -5,6 +5,7 @@ import {
   RemoveFromCartData,
   PromoViewData,
   OrderPlacedData,
+  ProductClickData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -75,7 +76,7 @@ export function viewItemList(eventData: PixelMessage['data']) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function selectItem(eventData: PixelMessage['data']) {
+export function selectItem(eventData: ProductClickData) {
   if (!shouldMergeUAEvents()) return
 
   const eventName = 'select_item'
