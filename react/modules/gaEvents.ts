@@ -85,7 +85,7 @@ export function selectItem(eventData: ProductClickData) {
 
   const { sku, productName, productId, categories, brand } = product
 
-  const { name: variant } = sku
+  const { itemId: variant } = sku
 
   const seller = getSeller(sku.sellers)
   const price = getPrice(seller)
