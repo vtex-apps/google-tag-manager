@@ -77,6 +77,9 @@ test('productDetail', () => {
     event: 'productDetail',
     ecommerce: {
       detail: {
+        actionField: {
+          list: 'List of products',
+        },
         products: [
           {
             brand: 'Mizuno',
@@ -152,7 +155,7 @@ describe('GA4 events', () => {
             {
               item_id: '16',
               item_name: 'Classic Shoes Top',
-              item_list_name: undefined,
+              item_list_name: 'List of products',
               item_brand: 'Mizuno',
               item_variant: 'Classic Pink',
               price: 1540.99,

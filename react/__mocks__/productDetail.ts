@@ -791,6 +791,7 @@ const productDetail = {
       __typename: 'SKU',
     },
   },
+  list: 'List of products',
 }
 
 export default productDetail
