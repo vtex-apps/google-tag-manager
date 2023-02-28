@@ -27,7 +27,7 @@ export function viewItem(eventData: ProductViewData) {
 
   const eventName = 'view_item'
 
-  const { currency, product, list, position } = eventData
+  const { currency, product, list } = eventData
 
   const { selectedSku, productName, productId, categories, brand } = product
 
@@ -45,7 +45,6 @@ export function viewItem(eventData: ProductViewData) {
     item_list_name: list,
     item_brand: brand,
     item_variant: variant,
-    index: position,
     discount,
     quantity,
     price: value,
