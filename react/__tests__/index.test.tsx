@@ -138,6 +138,35 @@ describe('GA4 events', () => {
     mockedShouldMergeUAEvents.mockReturnValue(mergeUAEvents)
   })
 
+  describe('select_item', () => {
+    it('sends an event that signifies an item was selected from a list', () => {
+      const message = new MessageEvent('message', { data: productClick })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('select_item', {
+        ecommerce: {
+          item_list_name: 'List of products',
+          items: [
+            {
+              item_id: '16',
+              item_name: 'Classic Shoes Top',
+              item_list_name: 'List of products',
+              item_brand: 'Mizuno',
+              item_variant: 'Classic Pink',
+              index: 3,
+              price: 38.9,
+              quantity: 2000000,
+              discount: 0,
+              item_category: 'Apparel & Accessories',
+              item_category2: 'Shoes',
+            },
+          ],
+        },
+      })
+    })
+  })
+
   describe('select_promotion', () => {
     it('sends an event that signifies a promotion was selected from a list', () => {
       const promotion: Promotion = {
