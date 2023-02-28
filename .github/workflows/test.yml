@@ -1,16 +1,12 @@
 name: CI
 
-on:
-  pull_request:
-    branches:
-    - master
-    - feat/settings-merge-ua-events # TODO: Remove once we're done.
+on: push
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Run tests
