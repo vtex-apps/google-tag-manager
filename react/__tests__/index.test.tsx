@@ -84,7 +84,7 @@ test('productDetail', () => {
             id: '16',
             variant: '35',
             name: 'Classic Shoes Top',
-            price: 38.9,
+            price: 1540.99,
             dimension1: '',
             dimension2: '12531',
             dimension3: 'Classic Pink',
@@ -147,7 +147,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('view_item', {
         ecommerce: {
           currency: 'USD',
-          value: 38.9,
+          value: 1540.99,
           items: [
             {
               item_id: '16',

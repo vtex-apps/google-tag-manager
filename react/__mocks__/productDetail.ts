@@ -654,9 +654,9 @@ const productDetail = {
           commertialOffer: {
             discountHighlights: [],
             teasers: [],
-            Price: 38.9,
-            ListPrice: 38.9,
-            PriceWithoutDiscount: 38.9,
+            Price: 1540.99,
+            ListPrice: 1900.99,
+            // PriceWithoutDiscount: 38.9, the current event does not send this.
             RewardValue: 0,
             PriceValidUntil: '2020-09-05T22:07:59.9154441Z',
             AvailableQuantity: 2000000,
