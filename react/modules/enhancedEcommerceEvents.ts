@@ -11,6 +11,7 @@ import {
   ProductViewReferenceId,
   PromoViewData,
   OrderPlacedData,
+  ProductImpressionData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
@@ -249,7 +250,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productImpression': {
-      const { currency, list, impressions } = e.data
+      const { currency, list, impressions } = e.data as ProductImpressionData
 
       const parsedImpressions = (impressions || []).map(
         getProductImpressionObjectData(list)
