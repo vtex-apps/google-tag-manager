@@ -17,6 +17,7 @@ export interface PixelMessage extends MessageEvent {
     | CartData
     | PromoViewData
     | PromotionClickData
+    | AddPaymentInfoData
 }
 
 export interface EventData {
@@ -162,6 +163,14 @@ export interface PromotionClickData extends EventData {
   event: 'promotionClick'
   eventType: 'vtex:promotionClick'
   promotions: Promotion[]
+}
+
+export interface AddPaymentInfoData extends EventData {
+  event: 'addPaymentInfo'
+  eventType: 'vtex:addPaymentInfo'
+  payment: PaymentType
+  items: CartItem[]
+  currency: string
 }
 
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>

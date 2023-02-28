@@ -1,4 +1,10 @@
-import { Impression, Order, ProductOrder, Seller } from '../typings/events'
+import {
+  CartItem,
+  Impression,
+  Order,
+  ProductOrder,
+  Seller,
+} from '../typings/events'
 
 export function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -172,6 +178,29 @@ function formatPurchaseProduct(product: ProductOrder) {
   }
 
   return item
+}
+
+export function formatCartItemsAndValue(cartItems: CartItem[]) {
+  let totalValue = 0.0
+  const items = cartItems.map((item: CartItem) => {
+    const productName = getProductNameWithoutVariant(item.name, item.skuName)
+    const formattedPrice =
+      item.priceIsInt === true ? item.price / 100 : item.price
+
+    totalValue += formattedPrice
+
+    return {
+      item_id: item.productId,
+      item_brand: item.brand,
+      item_name: productName,
+      item_variant: item.skuId,
+      quantity: item.quantity,
+      price: formattedPrice,
+      ...getCategoriesWithHierarchy([item.category]),
+    }
+  })
+
+  return { items, totalValue }
 }
 
 export function getPurchaseItems(orderProducts: ProductOrder[]) {

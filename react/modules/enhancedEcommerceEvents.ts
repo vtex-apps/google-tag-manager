@@ -22,6 +22,7 @@ import {
   viewPromotion,
   addToCart,
   removeFromCart,
+  addPaymentInfo,
 } from './gaEvents'
 import {
   getCategory,
@@ -321,6 +322,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       selectPromotion(e.data)
       updateEcommerce('promotionClick', data)
+
+      break
+    }
+
+    case 'vtex:addPaymentInfo': {
+      addPaymentInfo(e.data)
 
       break
     }

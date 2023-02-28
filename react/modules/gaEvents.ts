@@ -5,6 +5,7 @@ import {
   RemoveFromCartData,
   PromoViewData,
   OrderPlacedData,
+  AddPaymentInfoData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -17,6 +18,7 @@ import {
   getPurchaseObjectData,
   getPurchaseItems,
   getProductNameWithoutVariant,
+  formatCartItemsAndValue,
 } from './utils'
 import shouldMergeUAEvents from './utils/shouldMergeUAEvents'
 
@@ -165,24 +167,7 @@ export function addToCart(eventData: AddToCartData) {
 
   const { items: eventDataItems, currency } = eventData
 
-  let totalValue = 0.0
-  const items = eventDataItems.map((item: CartItem) => {
-    const productName = getProductNameWithoutVariant(item.name, item.skuName)
-    const formattedPrice =
-      item.priceIsInt === true ? item.price / 100 : item.price
-
-    totalValue += formattedPrice
-
-    return {
-      item_id: item.productId,
-      item_brand: item.brand,
-      item_name: productName,
-      item_variant: item.skuId,
-      quantity: item.quantity,
-      price: formattedPrice,
-      ...getCategoriesWithHierarchy([item.category]),
-    }
-  })
+  const { items, totalValue } = formatCartItemsAndValue(eventDataItems)
 
   const data = {
     items,
@@ -200,24 +185,7 @@ export function removeFromCart(eventData: RemoveFromCartData) {
 
   const { items: eventDataItems, currency } = eventData
 
-  let totalValue = 0.0
-  const items = eventDataItems.map((item: CartItem) => {
-    const productName = getProductNameWithoutVariant(item.name, item.skuName)
-    const formattedPrice =
-      item.priceIsInt === true ? item.price / 100 : item.price
-
-    totalValue += formattedPrice
-
-    return {
-      item_id: item.productId,
-      item_brand: item.brand,
-      item_name: productName,
-      item_variant: item.skuId,
-      quantity: item.quantity,
-      price: formattedPrice,
-      ...getCategoriesWithHierarchy([item.category]),
-    }
-  })
+  const { items, totalValue } = formatCartItemsAndValue(eventDataItems)
 
   const data = {
     items,
@@ -249,6 +217,24 @@ export function purchase(eventData: OrderPlacedData) {
     coupon,
     items,
     currency,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function addPaymentInfo(eventData: AddPaymentInfoData) {
+  const eventName = 'add_payment_info'
+
+  const { currency, payment, items: eventDataItems } = eventData
+  const { value, paymentSystemName } = payment
+
+  const { items } = formatCartItemsAndValue(eventDataItems)
+
+  const data = {
+    currency,
+    value,
+    payment_type: paymentSystemName,
+    items,
   }
 
   updateEcommerce(eventName, { ecommerce: data })
