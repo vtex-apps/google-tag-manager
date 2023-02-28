@@ -309,7 +309,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:promotionClick': {
-      const { promotions } = e.data
+      const { promotions } = e.data as PromoViewData
 
       const data = {
         event: 'promotionClick',

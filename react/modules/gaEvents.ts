@@ -116,7 +116,7 @@ export function selectItem(eventData: ProductClickData) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function selectPromotion(eventData: PixelMessage['data']) {
+export function selectPromotion(eventData: PromoViewData) {
   if (!shouldMergeUAEvents()) return
 
   const eventName = 'select_promotion'
