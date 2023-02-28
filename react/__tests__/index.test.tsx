@@ -156,6 +156,7 @@ describe('GA4 events', () => {
               item_brand: 'Mizuno',
               item_variant: 'Classic Pink',
               index: undefined,
+              price: 1540.99,
               quantity: 2000000,
               discount: 0,
               item_category: 'Apparel & Accessories',

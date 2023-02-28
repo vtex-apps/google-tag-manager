@@ -47,6 +47,7 @@ export function viewItem(eventData: PixelMessage['data']) {
     index: position,
     discount,
     quantity,
+    price: value,
     ...categoriesHierarchy,
   }
 
