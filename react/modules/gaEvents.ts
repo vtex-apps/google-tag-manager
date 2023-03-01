@@ -1,5 +1,4 @@
 import {
-  CartItem,
   PixelMessage,
   AddToCartData,
   RemoveFromCartData,
@@ -225,14 +224,16 @@ export function addPaymentInfo(eventData: AddPaymentInfoData) {
   const eventName = 'add_payment_info'
 
   const { currency, payment, items: eventDataItems } = eventData
-  const { value, paymentSystemName } = payment
+  const { value, group } = payment
 
   const { items } = formatCartItemsAndValue(eventDataItems)
 
+  const formattedValue = value / 100
+
   const data = {
     currency,
-    value,
-    payment_type: paymentSystemName,
+    value: formattedValue,
+    payment_type: group,
     items,
   }
 
