@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- A new app configuration option to Admin that clients can opt-in to also send the events in the GA4 format.
+- Support for sending GA4 [`view_item`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_item) when `vtex:productImpression` is received.
+- Support for sending GA4 [`view_item_list`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_item_list) when `vtex:productClick` is received.
+- Support for sending GA4 [`select_item`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_item) when `vtex:productClick` is received.
+- Support for sending GA4 [`purchase`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase) when `vtex:orderPlaced` is received.
+- Support for sending GA4 [`purchase`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase) when `vtex:orderPlaced` is received.
+- Support for sending GA4 [`add_to_cart`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_to_cart) when `vtex:addToCart` is received.
+- Support for sending GA4 [`remove_from_cart`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#remove_from_cart) when `vtex:removeFromCart` is received.
+- Support for sending GA4 [`view_promotion`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_promotion) when `vtex:promoView` is received.
+- Support for sending GA4 [`select_promotion`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_promotion) when `vtex:promotionClick` is received.
+
 ## [3.4.0] - 2023-02-15
 
 ## [3.3.1] - 2022-04-04

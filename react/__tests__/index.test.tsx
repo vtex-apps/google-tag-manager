@@ -11,10 +11,10 @@ import {
   RemoveFromCartData,
   CartItem,
 } from '../typings/events'
-import shouldMergeUAEvents from '../modules/utils/shouldMergeUAEvents'
 import { creditCardPaymentInfo } from '../__mocks__/addPaymentInfo'
+import shouldSendGA4Events from '../modules/utils/shouldSendGA4Events'
 
-jest.mock('../modules/utils/shouldMergeUAEvents')
+jest.mock('../modules/utils/shouldSendGA4Events')
 
 jest.mock('../modules/updateEcommerce', () => jest.fn())
 
@@ -127,12 +127,12 @@ test('productClick', () => {
 })
 
 describe('GA4 events', () => {
-  const mergeUAEvents = true
-  const mockedShouldMergeUAEvents = shouldMergeUAEvents as jest.Mock
+  const sendGA4Events = true
+  const mockedShouldSendGA4Events = shouldSendGA4Events as jest.Mock
 
   beforeEach(() => {
-    mockedShouldMergeUAEvents.mockReset()
-    mockedShouldMergeUAEvents.mockReturnValue(mergeUAEvents)
+    mockedShouldSendGA4Events.mockReset()
+    mockedShouldSendGA4Events.mockReturnValue(sendGA4Events)
   })
 
   describe('select_promotion', () => {
