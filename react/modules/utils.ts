@@ -126,7 +126,7 @@ export function getCategory(rawCategories: string[]) {
 
 // Transform this: "/Apparel & Accessories/Clothing/Tops/"
 // To this: "Apparel & Accessories/Clothing/Tops"
-export function removeStartAndEndSlash(category?: string) {
+function removeStartAndEndSlash(category?: string) {
   return category?.replace(/^\/|\/$/g, '')
 }
 

@@ -11,6 +11,8 @@ import {
   ProductViewReferenceId,
   PromoViewData,
   OrderPlacedData,
+  ProductImpressionData,
+  CartLoadedData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
@@ -250,7 +252,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productImpression': {
-      const { currency, list, impressions } = e.data
+      const { currency, list, impressions } = e.data as ProductImpressionData
 
       const parsedImpressions = (impressions || []).map(
         getProductImpressionObjectData(list)
@@ -271,7 +273,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:cartLoaded': {
-      const { orderForm } = e.data
+      const { orderForm } = e.data as CartLoadedData
 
       const data = {
         event: 'checkout',
@@ -309,7 +311,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:promotionClick': {
-      const { promotions } = e.data
+      const { promotions } = e.data as PromoViewData
 
       const data = {
         event: 'promotionClick',

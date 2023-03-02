@@ -257,6 +257,8 @@ const productClick = {
       },
     },
   },
+  list: 'List of products',
+  position: 3,
 }
 
 export default productClick
