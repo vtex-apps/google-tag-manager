@@ -166,7 +166,7 @@ describe('GA4 events', () => {
               quantity: 2000000,
             },
             {
-              discount: 0,
+              discount: 100,
               index: 2,
               item_brand: 'Nintendo',
               item_category: 'Apparel & Accessories',
@@ -202,7 +202,7 @@ describe('GA4 events', () => {
               item_variant: '35',
               price: 1540.99,
               quantity: 2000000,
-              discount: 0,
+              discount: 360,
               item_category: 'Apparel & Accessories',
               item_category2: 'Shoes',
             },

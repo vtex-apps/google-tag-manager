@@ -91,23 +91,10 @@ export function getImpressions(impressions: Impression[]) {
   return formattedImpressions
 }
 
-export function getDiscount(seller: Seller) {
-  if (!seller.commertialOffer.PriceWithoutDiscount) return 0
-
-  const { commertialOffer } = seller
-  const { Price, PriceWithoutDiscount } = commertialOffer
-
-  if (PriceWithoutDiscount <= Price) return 0
-
-  let price
-
-  try {
-    price = PriceWithoutDiscount - Price
-  } catch {
-    price = 0
-  }
-
-  return price
+export function getDiscount({
+  commertialOffer: { Price: price, ListPrice: listPrice },
+}: Seller) {
+  return listPrice - price
 }
 
 export function getCategory(rawCategories: string[]) {
