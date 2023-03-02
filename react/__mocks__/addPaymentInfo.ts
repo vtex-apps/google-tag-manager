@@ -16,7 +16,7 @@ const cartItem = {
   quantity: 1,
 }
 
-export const creditCardPaymentInfo = {
+export const creditCardPaymentInfoMock = {
   eventName: 'vtex:addPaymentInfo',
   event: 'addPaymentInfo',
   payment: creditCardPaymentType,

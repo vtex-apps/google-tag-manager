@@ -11,7 +11,7 @@ import {
   RemoveFromCartData,
   CartItem,
 } from '../typings/events'
-import { creditCardPaymentInfo } from '../__mocks__/addPaymentInfo'
+import { creditCardPaymentInfoMock } from '../__mocks__/addPaymentInfo'
 import shouldSendGA4Events from '../modules/utils/shouldSendGA4Events'
 
 jest.mock('../modules/utils/shouldSendGA4Events')
@@ -539,7 +539,7 @@ describe('GA4 events', () => {
 
   describe('add_payment_info', () => {
     it('sends an event when a user add a payment information (credit card)', () => {
-      const data = creditCardPaymentInfo
+      const data = creditCardPaymentInfoMock
 
       const message = new MessageEvent('message', { data })
 
