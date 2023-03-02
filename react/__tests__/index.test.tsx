@@ -11,6 +11,7 @@ import {
   RemoveFromCartData,
   CartItem,
 } from '../typings/events'
+import { creditCardPaymentInfoMock } from '../__mocks__/addPaymentInfo'
 import shouldSendGA4Events from '../modules/utils/shouldSendGA4Events'
 
 jest.mock('../modules/utils/shouldSendGA4Events')
@@ -529,6 +530,35 @@ describe('GA4 events', () => {
             {
               item_id: 'SKU_30',
               item_name: 'Coffee Beans',
+            },
+          ],
+        },
+      })
+    })
+  })
+
+  describe('add_payment_info', () => {
+    it('sends an event when a user add a payment information (credit card)', () => {
+      const data = creditCardPaymentInfoMock
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('add_payment_info', {
+        ecommerce: {
+          currency: 'USD',
+          value: 211.19,
+          payment_type: 'creditCard',
+          items: [
+            {
+              item_id: '200000202',
+              item_brand: 'Sony',
+              item_name: 'Top Wood',
+              item_variant: '2000304',
+              item_category: 'Home & Decor',
+              quantity: 1,
+              price: 197.99,
             },
           ],
         },
