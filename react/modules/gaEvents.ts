@@ -1,10 +1,12 @@
 import {
   CartItem,
-  PixelMessage,
   AddToCartData,
   RemoveFromCartData,
   PromoViewData,
   OrderPlacedData,
+  ProductClickData,
+  ProductViewData,
+  ProductImpressionData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -20,16 +22,16 @@ import {
 } from './utils'
 import shouldSendGA4Events from './utils/shouldSendGA4Events'
 
-export function viewItem(eventData: PixelMessage['data']) {
+export function viewItem(eventData: ProductViewData) {
   if (!shouldSendGA4Events()) return
 
   const eventName = 'view_item'
 
-  const { currency, product, list, position } = eventData
+  const { currency, product, list } = eventData
 
   const { selectedSku, productName, productId, categories, brand } = product
 
-  const { name: variant } = selectedSku
+  const { itemId: variant } = selectedSku
 
   const seller = getSeller(selectedSku.sellers)
   const value = getPrice(seller)
@@ -43,9 +45,9 @@ export function viewItem(eventData: PixelMessage['data']) {
     item_list_name: list,
     item_brand: brand,
     item_variant: variant,
-    index: position,
     discount,
     quantity,
+    price: value,
     ...categoriesHierarchy,
   }
 
@@ -58,7 +60,7 @@ export function viewItem(eventData: PixelMessage['data']) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function viewItemList(eventData: PixelMessage['data']) {
+export function viewItemList(eventData: ProductImpressionData) {
   if (!shouldSendGA4Events()) return
 
   const eventName = 'view_item_list'
@@ -75,7 +77,7 @@ export function viewItemList(eventData: PixelMessage['data']) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function selectItem(eventData: PixelMessage['data']) {
+export function selectItem(eventData: ProductClickData) {
   if (!shouldSendGA4Events()) return
 
   const eventName = 'select_item'
@@ -84,7 +86,7 @@ export function selectItem(eventData: PixelMessage['data']) {
 
   const { sku, productName, productId, categories, brand } = product
 
-  const { name: variant } = sku
+  const { itemId: variant } = sku
 
   const seller = getSeller(sku.sellers)
   const price = getPrice(seller)
@@ -113,7 +115,7 @@ export function selectItem(eventData: PixelMessage['data']) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function selectPromotion(eventData: PixelMessage['data']) {
+export function selectPromotion(eventData: PromoViewData) {
   if (!shouldSendGA4Events()) return
 
   const eventName = 'select_promotion'

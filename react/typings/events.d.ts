@@ -15,6 +15,7 @@ export interface PixelMessage extends MessageEvent {
     | UserData
     | CartIdData
     | CartData
+    | CartLoadedData
     | PromoViewData
     | PromotionClickData
 }
@@ -407,11 +408,4 @@ export interface CommertialOffer {
   AvailableQuantity: number
 }
 
-export interface CategoryTreeItem {
-  href: string
-  id: number
-  name: string
-}
-
-export type CategoryTree = CategoryTreeItem[]
 export type ProductViewReferenceId = Array<Item['referenceId']>

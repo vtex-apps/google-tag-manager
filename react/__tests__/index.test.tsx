@@ -77,6 +77,9 @@ test('productDetail', () => {
     event: 'productDetail',
     ecommerce: {
       detail: {
+        actionField: {
+          list: 'List of products',
+        },
         products: [
           {
             brand: 'Mizuno',
@@ -84,7 +87,7 @@ test('productDetail', () => {
             id: '16',
             variant: '35',
             name: 'Classic Shoes Top',
-            price: 38.9,
+            price: 1540.99,
             dimension1: '',
             dimension2: '12531',
             dimension3: 'Classic Pink',
@@ -107,6 +110,9 @@ test('productClick', () => {
     event: 'productClick',
     ecommerce: {
       click: {
+        actionField: {
+          list: 'List of products',
+        },
         products: [
           {
             brand: 'Mizuno',
@@ -114,6 +120,7 @@ test('productClick', () => {
             id: '16',
             variant: '35',
             name: 'Classic Shoes Top',
+            position: 3,
             price: 38.9,
             dimension1: '12531',
             dimension2: '',
@@ -132,6 +139,106 @@ describe('GA4 events', () => {
   beforeEach(() => {
     mockedShouldSendGA4Events.mockReset()
     mockedShouldSendGA4Events.mockReturnValue(sendGA4Events)
+  })
+
+  describe('view_item_list', () => {
+    it('sends an event that signifies that some content was shown to the user', () => {
+      const message = new MessageEvent('message', {
+        data: productImpressionData,
+      })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('view_item_list', {
+        ecommerce: {
+          item_list_name: 'Shelf',
+          items: [
+            {
+              discount: 0,
+              index: 1,
+              item_brand: 'Mizuno',
+              item_category: 'Apparel & Accessories',
+              item_category2: 'Shoes',
+              item_id: '16',
+              item_name: 'Classic Shoes Top',
+              item_variant: '35',
+              price: 38.9,
+              quantity: 2000000,
+            },
+            {
+              discount: 0,
+              index: 2,
+              item_brand: 'Nintendo',
+              item_category: 'Apparel & Accessories',
+              item_category2: 'Watches',
+              item_id: '15',
+              item_name: 'Gorgeous Top Watch',
+              item_variant: '32',
+              price: 2200,
+              quantity: 2000000,
+            },
+          ],
+        },
+      })
+    })
+  })
+
+  describe('view_item', () => {
+    it('sends an event that signifies that some content was shown to the user', () => {
+      const message = new MessageEvent('message', { data: productDetails })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('view_item', {
+        ecommerce: {
+          currency: 'USD',
+          value: 1540.99,
+          items: [
+            {
+              item_id: '16',
+              item_name: 'Classic Shoes Top',
+              item_list_name: 'List of products',
+              item_brand: 'Mizuno',
+              item_variant: '35',
+              price: 1540.99,
+              quantity: 2000000,
+              discount: 0,
+              item_category: 'Apparel & Accessories',
+              item_category2: 'Shoes',
+            },
+          ],
+        },
+      })
+    })
+  })
+
+  describe('select_item', () => {
+    it('sends an event that signifies an item was selected from a list', () => {
+      const message = new MessageEvent('message', { data: productClick })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('select_item', {
+        ecommerce: {
+          item_list_name: 'List of products',
+          items: [
+            {
+              item_id: '16',
+              item_name: 'Classic Shoes Top',
+              item_list_name: 'List of products',
+              item_brand: 'Mizuno',
+              item_variant: '35',
+              index: 3,
+              price: 38.9,
+              quantity: 2000000,
+              discount: 0,
+              item_category: 'Apparel & Accessories',
+              item_category2: 'Shoes',
+            },
+          ],
+        },
+      })
+    })
   })
 
   describe('select_promotion', () => {
