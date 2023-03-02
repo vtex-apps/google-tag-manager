@@ -14,7 +14,7 @@ export function getPrice(seller: Seller) {
   let price
 
   try {
-    price = seller.commertialOffer.Price
+    price = seller.commertialOffer.ListPrice
   } catch {
     price = undefined
   }
