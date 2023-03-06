@@ -7,6 +7,7 @@ import {
   ProductClickData,
   ProductViewData,
   ProductImpressionData,
+  BeginCheckoutData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -236,6 +237,22 @@ export function addPaymentInfo(eventData: AddPaymentInfoData) {
     currency,
     value: formattedValue,
     payment_type: group,
+    items,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function beginCheckout(eventData: BeginCheckoutData) {
+  const eventName = 'begin_checkout'
+
+  const { currency, items: eventDataItems } = eventData
+
+  const { items, totalValue } = formatCartItemsAndValue(eventDataItems)
+
+  const data = {
+    currency,
+    value: totalValue,
     items,
   }
 
