@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for sending GA4 [`view_promotion`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_promotion) when `vtex:promoView` is received.
 - Support for sending GA4 [`select_promotion`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_promotion) when `vtex:promotionClick` is received.
 - Support for sending GA4 [`add_payment_info`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_payment_info) when `vtex:addPaymentInfo` is received.
+- Support for sending GA4 [`begin_checkout`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#begin_checkout) when `vtex:beginCheckout` is received.
 
 ## [3.4.0] - 2023-02-15
 

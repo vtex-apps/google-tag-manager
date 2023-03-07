@@ -174,6 +174,13 @@ export interface AddPaymentInfoData extends EventData {
   currency: string
 }
 
+export interface BeginCheckoutData extends EventData {
+  event: 'beginCheckout'
+  eventType: 'vtex:beginCheckout'
+  items: CartItem[]
+  currency: string
+}
+
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
 
 interface Promotion {
