@@ -182,6 +182,9 @@ function formatPurchaseProduct(product: ProductOrder) {
 
 export function formatCartItemsAndValue(cartItems: CartItem[]) {
   let totalValue = 0.0
+
+  if (!cartItems.length) return { items: [], totalValue }
+
   const items = cartItems.map((item: CartItem) => {
     const productName = getProductNameWithoutVariant(item.name, item.skuName)
     const formattedPrice =

@@ -14,6 +14,10 @@ import {
 import { creditCardPaymentInfoMock } from '../__mocks__/addPaymentInfo'
 import shouldSendGA4Events from '../modules/utils/shouldSendGA4Events'
 import { beginCheckoutMock } from '../__mocks__/beginCheckout'
+import {
+  viewCartWithItemsMock,
+  viewCartWithNoItemsMock,
+} from '../__mocks__/viewCart'
 
 jest.mock('../modules/utils/shouldSendGA4Events')
 
@@ -600,6 +604,58 @@ describe('GA4 events', () => {
               price: 150.9,
             },
           ],
+        },
+      })
+    })
+  })
+  describe('view_cart', () => {
+    it('sends an event when a user opens the cart with items', () => {
+      const data = viewCartWithItemsMock
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('view_cart', {
+        ecommerce: {
+          currency: 'USD',
+          value: 348.89,
+          items: [
+            {
+              item_id: '200000202',
+              item_brand: 'Sony',
+              item_name: 'Top Wood',
+              item_variant: '2000304',
+              item_category: 'Home & Decor',
+              quantity: 1,
+              price: 197.99,
+            },
+            {
+              item_id: '200000203',
+              item_brand: 'Sony',
+              item_name: 'Top Wood 2',
+              item_variant: '2000305',
+              item_category: 'Home & Decor',
+              item_category2: 'Tables',
+              quantity: 1,
+              price: 150.9,
+            },
+          ],
+        },
+      })
+    })
+    it('sends an event when a user opens the cart with no items', () => {
+      const data = viewCartWithNoItemsMock
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('view_cart', {
+        ecommerce: {
+          currency: 'USD',
+          value: 0.0,
+          items: [],
         },
       })
     })
