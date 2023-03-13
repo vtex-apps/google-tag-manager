@@ -171,21 +171,25 @@ export interface AddPaymentInfoData extends EventData {
   eventType: 'vtex:addPaymentInfo'
   payment: PaymentType
   items: CartItem[]
-  currency: string
 }
 
 export interface BeginCheckoutData extends EventData {
   event: 'beginCheckout'
   eventType: 'vtex:beginCheckout'
   items: CartItem[]
-  currency: string
 }
 
 export interface ViewCartData extends EventData {
   event: 'viewCart'
   eventType: 'vtex:viewCart'
   items: CartItem[]
-  currency: string
+}
+
+export interface AddToWishlistData extends EventData {
+  event: 'addToWishlist'
+  eventType: 'vtex:addToWishlist'
+  product: Product
+  list: string
 }
 
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
