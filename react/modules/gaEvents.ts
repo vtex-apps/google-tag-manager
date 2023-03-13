@@ -9,6 +9,7 @@ import {
   ProductImpressionData,
   BeginCheckoutData,
   AddShippingInfoData,
+  ViewCartData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -272,6 +273,22 @@ export function addShippingInfo(eventData: AddShippingInfoData) {
     value,
     items,
     shipping_tier: shippingTier,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function viewCart(eventData: ViewCartData) {
+  const eventName = 'view_cart'
+
+  const { currency, items: eventDataItems } = eventData
+
+  const { items, totalValue } = formatCartItemsAndValue(eventDataItems)
+
+  const data = {
+    currency,
+    value: totalValue,
+    items,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

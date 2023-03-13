@@ -27,6 +27,7 @@ import {
   addPaymentInfo,
   beginCheckout,
   addShippingInfo,
+  viewCart,
 } from './gaEvents'
 import {
   getCategory,
@@ -344,6 +345,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:addShippingInfo': {
       addShippingInfo(e.data)
+
+      break
+    }
+
+    case 'vtex:viewCart': {
+      viewCart(e.data)
 
       break
     }
