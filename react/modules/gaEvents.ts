@@ -280,25 +280,22 @@ export function viewCart(eventData: ViewCartData) {
 export function refund(eventData: RefundData) {
   const eventName = 'refund'
 
-  const { currency, order } = eventData
+  const { id, revenue, tax, shipping, coupon } = getPurchaseObjectData(
+    eventData
+  )
 
-  const {
-    transactionId,
-    transactionTotal,
-    transactionTax,
-    transactionShipping,
-    transactionProducts,
-  } = order
+  const { transactionProducts, currency } = eventData
 
   const items = getPurchaseItems(transactionProducts)
 
   const data = {
-    currency,
-    transaction_id: transactionId,
-    value: transactionTotal,
-    tax: transactionTax,
-    shipping: transactionShipping,
+    transaction_id: id,
+    value: revenue,
+    tax,
+    shipping,
+    coupon,
     items,
+    currency,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

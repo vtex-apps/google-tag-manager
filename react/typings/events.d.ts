@@ -188,10 +188,9 @@ export interface ViewCartData extends EventData {
   currency: string
 }
 
-export interface RefundData extends EventData {
-  event: 'viewCart'
-  eventType: 'vtex:viewCart'
-  order: Order
+export interface RefundData extends Order, EventData {
+  event: 'refund'
+  eventType: 'vtex:refund'
 }
 
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
