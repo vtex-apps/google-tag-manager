@@ -426,7 +426,6 @@ export interface Seller {
 
 export interface CommertialOffer {
   Price: number
-  PriceWithoutDiscount: number
   ListPrice: number
   AvailableQuantity: number
 }

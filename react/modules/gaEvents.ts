@@ -36,10 +36,16 @@ export function viewItem(eventData: ProductViewData) {
   const { itemId: variant } = selectedSku
 
   const seller = getSeller(selectedSku.sellers)
-  const value = getPrice(seller)
+  const price = getPrice(seller)
   const categoriesHierarchy = getCategoriesWithHierarchy(categories)
   const discount = getDiscount(seller)
   const quantity = getQuantity(seller)
+
+  let value
+
+  if (price) {
+    value = price - discount
+  }
 
   const item = {
     item_id: productId,
@@ -49,7 +55,7 @@ export function viewItem(eventData: ProductViewData) {
     item_variant: variant,
     discount,
     quantity,
-    price: value,
+    price,
     ...categoriesHierarchy,
   }
 
