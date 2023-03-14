@@ -612,7 +612,7 @@ describe('GA4 events', () => {
   })
 
   describe('refund', () => {
-    it('sends an event when the user refunds a order', () => {
+    it('sends an event when the user refunds an order', () => {
       const data = transaction
 
       data.event = 'refund'
@@ -641,6 +641,35 @@ describe('GA4 events', () => {
           tax: 0,
           transaction_id: '1310750551387',
           value: 3543.6,
+        },
+      })
+    })
+  })
+
+  describe('add_to_wishlist', () => {
+    it('sends an event when the user add a product to wishlist', () => {
+      const message = new MessageEvent('message', { data: productDetails })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('view_item', {
+        ecommerce: {
+          currency: 'USD',
+          value: 1540.99,
+          items: [
+            {
+              item_id: '16',
+              item_name: 'Classic Shoes Top',
+              item_list_name: 'List of products',
+              item_brand: 'Mizuno',
+              item_variant: '35',
+              price: 1540.99,
+              quantity: 2000000,
+              discount: 0,
+              item_category: 'Apparel & Accessories',
+              item_category2: 'Shoes',
+            },
+          ],
         },
       })
     })
