@@ -9,6 +9,7 @@ import {
   ProductImpressionData,
   BeginCheckoutData,
   ViewCartData,
+  AddToWishlistData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -271,6 +272,42 @@ export function viewCart(eventData: ViewCartData) {
     currency,
     value: totalValue,
     items,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function addToWishlist(eventData: AddToWishlistData) {
+  const eventName = 'add_to_wishlist'
+
+  const { currency, product, list } = eventData
+
+  const { selectedSku, productName, productId, categories, brand } = product
+
+  const { itemId: variant } = selectedSku
+
+  const seller = getSeller(selectedSku.sellers)
+  const value = getPrice(seller)
+  const categoriesHierarchy = getCategoriesWithHierarchy(categories)
+  const discount = getDiscount(seller)
+  const quantity = getQuantity(seller)
+
+  const item = {
+    item_id: productId,
+    item_name: productName,
+    item_list_name: list,
+    item_brand: brand,
+    item_variant: variant,
+    discount,
+    quantity,
+    price: value,
+    ...categoriesHierarchy,
+  }
+
+  const data = {
+    currency,
+    value,
+    items: [item],
   }
 
   updateEcommerce(eventName, { ecommerce: data })
