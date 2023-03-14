@@ -18,6 +18,7 @@ import {
   viewCartWithItemsMock,
   viewCartWithNoItemsMock,
 } from '../__mocks__/viewCart'
+import { transaction } from '../__mocks__/transaction'
 
 jest.mock('../modules/utils/shouldSendGA4Events')
 
@@ -414,61 +415,10 @@ describe('GA4 events', () => {
 
   describe('purchase', () => {
     it('sends an event that signifies a successful checkout on orderPlaced page', () => {
-      const transactionProducts = [
-        {
-          attachments: [],
-          brand: 'New Offers!!',
-          brandId: '2000045',
-          category: 'Apparel & Accessories',
-          categoryId: '25',
-          categoryIdTree: ['25'],
-          categoryTree: ['Apparel & Accessories'],
-          components: [],
-          ean: '9812983',
-          id: '9',
-          measurementUnit: 'un',
-          name: 'Top Everyday Necessaire 100 RMS',
-          originalPrice: 1600.99,
-          price: 1600.99,
-          priceTags: [],
-          productRefId: '',
-          quantity: 1,
-          seller: 'VTEX',
-          sellerId: '1',
-          sellingPrice: 1600.99,
-          sku: '20',
-          skuName: '100 RMS',
-          skuRefId: '9812983',
-          slug: 'everyday-necessaire',
-          tax: 0,
-          unitMultiplier: 1,
-        },
-      ]
+      const data = transaction
 
-      const data = {
-        accountName: 'storecomponents',
-        corporateName: null,
-        currency: 'USD',
-        event: 'orderPlaced',
-        eventName: 'vtex:orderPlaced',
-        openTextField: null,
-        orderGroup: '1310750551387',
-        ordersInOrderGroup: ['1310750551387-01'],
-        salesChannel: '1',
-        transactionAffiliation: 'VTEX',
-        transactionCurrency: 'USD',
-        transactionCustomTaxes: {},
-        transactionDate: '2023-02-14T18:56:47.0019167Z',
-        transactionDiscounts: 0,
-        transactionId: '1310750551387',
-        transactionLatestShippingEstimate: '2023-02-15T18:56:52.1493235Z',
-        transactionPayment: { id: 'FCE420A6B22C45D3BD60FD5DB55D34D1' },
-        transactionShipping: 1942.61,
-        transactionProducts,
-        transactionSubtotal: 1600.99,
-        transactionTax: 0,
-        transactionTotal: 3543.6,
-      }
+      data.event = 'orderPlaced'
+      data.eventName = 'vtex:orderPlaced'
 
       const message = new MessageEvent('message', { data })
 
@@ -656,6 +606,41 @@ describe('GA4 events', () => {
           currency: 'USD',
           value: 0.0,
           items: [],
+        },
+      })
+    })
+  })
+
+  describe('refund', () => {
+    it('sends an event when the user refunds an order', () => {
+      const data = transaction
+
+      data.event = 'refund'
+      data.eventName = 'vtex:refund'
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('refund', {
+        ecommerce: {
+          coupon: null,
+          currency: 'USD',
+          items: [
+            {
+              item_brand: 'New Offers!!',
+              item_category: 'Apparel & Accessories',
+              item_id: '9',
+              item_name: 'Top Everyday Necessaire',
+              item_variant: '20',
+              price: 1600.99,
+              quantity: 1,
+            },
+          ],
+          shipping: 1942.61,
+          tax: 0,
+          transaction_id: '1310750551387',
+          value: 3543.6,
         },
       })
     })

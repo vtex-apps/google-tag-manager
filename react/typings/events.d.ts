@@ -192,6 +192,11 @@ export interface AddToWishlistData extends EventData {
   list: string
 }
 
+export interface RefundData extends Order, EventData {
+  event: 'refund'
+  eventType: 'vtex:refund'
+}
+
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
 
 interface Promotion {

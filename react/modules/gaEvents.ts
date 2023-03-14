@@ -9,6 +9,7 @@ import {
   ProductImpressionData,
   BeginCheckoutData,
   ViewCartData,
+  RefundData,
   AddToWishlistData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
@@ -308,6 +309,30 @@ export function addToWishlist(eventData: AddToWishlistData) {
     currency,
     value,
     items: [item],
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function refund(eventData: RefundData) {
+  const eventName = 'refund'
+
+  const { id, revenue, tax, shipping, coupon } = getPurchaseObjectData(
+    eventData
+  )
+
+  const { transactionProducts, currency } = eventData
+
+  const items = getPurchaseItems(transactionProducts)
+
+  const data = {
+    transaction_id: id,
+    value: revenue,
+    tax,
+    shipping,
+    coupon,
+    items,
+    currency,
   }
 
   updateEcommerce(eventName, { ecommerce: data })
