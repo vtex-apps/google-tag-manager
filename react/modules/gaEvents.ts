@@ -9,6 +9,7 @@ import {
   ProductImpressionData,
   BeginCheckoutData,
   ViewCartData,
+  LoginData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -271,6 +272,18 @@ export function viewCart(eventData: ViewCartData) {
     currency,
     value: totalValue,
     items,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function login(eventData: LoginData) {
+  const eventName = 'login'
+
+  const { method } = eventData
+
+  const data = {
+    method,
   }
 
   updateEcommerce(eventName, { ecommerce: data })
