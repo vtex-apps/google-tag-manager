@@ -612,7 +612,7 @@ describe('GA4 events', () => {
   })
 
   describe('refund', () => {
-    it('sends an event when the user refunds a order', () => {
+    it('sends an event when the user refunds an order', () => {
       const data = transaction
 
       data.event = 'refund'
