@@ -188,6 +188,12 @@ export interface ViewCartData extends EventData {
   currency: string
 }
 
+export interface SearchData extends EventData {
+  event: 'viewCart'
+  eventType: 'vtex:viewCart'
+  term: string
+}
+
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
 
 interface Promotion {

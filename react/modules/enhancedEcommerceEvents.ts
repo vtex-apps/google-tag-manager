@@ -27,6 +27,7 @@ import {
   addPaymentInfo,
   beginCheckout,
   viewCart,
+  search,
 } from './gaEvents'
 import {
   getCategory,
@@ -344,6 +345,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:viewCart': {
       viewCart(e.data)
+
+      break
+    }
+
+    case 'vtex:search': {
+      search(e.data)
 
       break
     }
