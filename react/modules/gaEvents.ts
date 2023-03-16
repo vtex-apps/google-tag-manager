@@ -9,6 +9,7 @@ import {
   ProductImpressionData,
   BeginCheckoutData,
   ViewCartData,
+  LoginData,
   RefundData,
   AddToWishlistData,
 } from '../typings/events'
@@ -333,6 +334,18 @@ export function refund(eventData: RefundData) {
     coupon,
     items,
     currency,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function login(eventData: LoginData) {
+  const eventName = 'login'
+
+  const { method } = eventData
+
+  const data = {
+    method,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

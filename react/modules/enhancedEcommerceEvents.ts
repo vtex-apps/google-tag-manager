@@ -27,6 +27,7 @@ import {
   addPaymentInfo,
   beginCheckout,
   viewCart,
+  login,
   refund,
   addToWishlist,
 } from './gaEvents'
@@ -346,6 +347,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:viewCart': {
       viewCart(e.data)
+
+      break
+    }
+
+    case 'vtex:login': {
+      login(e.data)
 
       break
     }

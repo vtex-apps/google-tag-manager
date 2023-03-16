@@ -197,6 +197,12 @@ export interface RefundData extends Order, EventData {
   eventType: 'vtex:refund'
 }
 
+export interface LoginData extends EventData {
+  event: 'viewCart'
+  eventType: 'vtex:viewCart'
+  method: string
+}
+
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
 
 interface Promotion {
