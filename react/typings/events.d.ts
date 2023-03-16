@@ -198,8 +198,8 @@ export interface RefundData extends Order, EventData {
 }
 
 export interface SearchData extends EventData {
-  event: 'viewCart'
-  eventType: 'vtex:viewCart'
+  event: 'search'
+  eventType: 'vtex:search'
   term: string
 }
 
