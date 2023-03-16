@@ -27,6 +27,7 @@ import {
   addPaymentInfo,
   beginCheckout,
   viewCart,
+  search,
   login,
   refund,
   addToWishlist,
@@ -365,6 +366,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:addToWishlist': {
       addToWishlist(e.data)
+
+      break
+    }
+
+    case 'vtex:search': {
+      search(e.data)
 
       break
     }

@@ -693,4 +693,23 @@ describe('GA4 events', () => {
       })
     })
   })
+  describe('search', () => {
+    it('sends an event when a user search for a term on store', () => {
+      const data = {
+        event: 'search',
+        eventName: 'vtex:search',
+        term: 'Top Wood',
+      }
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('search', {
+        ecommerce: {
+          search_term: 'Top Wood',
+        },
+      })
+    })
+  })
 })

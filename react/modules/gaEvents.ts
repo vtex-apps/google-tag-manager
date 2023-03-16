@@ -9,6 +9,7 @@ import {
   ProductImpressionData,
   BeginCheckoutData,
   ViewCartData,
+  SearchData,
   LoginData,
   RefundData,
   AddToWishlistData,
@@ -346,6 +347,18 @@ export function login(eventData: LoginData) {
 
   const data = {
     method,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function search(eventData: SearchData) {
+  const eventName = 'search'
+
+  const { term } = eventData
+
+  const data = {
+    search_term: term,
   }
 
   updateEcommerce(eventName, { ecommerce: data })
