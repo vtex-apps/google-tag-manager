@@ -712,4 +712,23 @@ describe('GA4 events', () => {
       })
     })
   })
+  describe('sign_up', () => {
+    it('sends an event when a user signup on store with any method', () => {
+      const data = {
+        event: 'signUp',
+        eventName: 'vtex:signUp',
+        method: 'Google',
+      }
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('sign_up', {
+        ecommerce: {
+          method: 'Google',
+        },
+      })
+    })
+  })
 })
