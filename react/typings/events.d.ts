@@ -203,6 +203,12 @@ export interface SearchData extends EventData {
   term: string
 }
 
+export interface LoginData extends EventData {
+  event: 'viewCart'
+  eventType: 'vtex:viewCart'
+  method: string
+}
+
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
 
 interface Promotion {

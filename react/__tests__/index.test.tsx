@@ -674,6 +674,25 @@ describe('GA4 events', () => {
       })
     })
   })
+  describe('login', () => {
+    it('sends an event when a user login on store with any method', () => {
+      const data = {
+        event: 'login',
+        eventName: 'vtex:login',
+        method: 'Google',
+      }
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('login', {
+        ecommerce: {
+          method: 'Google',
+        },
+      })
+    })
+  })
   describe('search', () => {
     it('sends an event when a user search for a term on store', () => {
       const data = {
