@@ -19,6 +19,8 @@ export interface PixelMessage extends MessageEvent {
     | PromoViewData
     | PromotionClickData
     | AddPaymentInfoData
+    | SignUpData
+    | LoginData
 }
 
 export interface EventData {
