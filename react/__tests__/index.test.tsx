@@ -712,6 +712,7 @@ describe('GA4 events', () => {
       })
     })
   })
+
   describe('sign_up', () => {
     it('sends an event when a user signup on store with any method', () => {
       const data = {
