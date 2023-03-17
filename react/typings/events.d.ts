@@ -19,6 +19,8 @@ export interface PixelMessage extends MessageEvent {
     | PromoViewData
     | PromotionClickData
     | AddPaymentInfoData
+    | SignUpData
+    | LoginData
 }
 
 export interface EventData {
@@ -204,9 +206,14 @@ export interface SearchData extends EventData {
 }
 
 export interface LoginData extends EventData {
-  event: 'viewCart'
-  eventType: 'vtex:viewCart'
+  event: 'login'
+  eventType: 'vtex:login'
   method: string
+}
+
+export interface SignUpData extends LoginData, EventData {
+  event: 'signUp'
+  eventType: 'vtex:signUp'
 }
 
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>

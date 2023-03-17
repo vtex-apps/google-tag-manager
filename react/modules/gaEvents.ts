@@ -13,6 +13,7 @@ import {
   LoginData,
   RefundData,
   AddToWishlistData,
+  SignUpData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -342,6 +343,18 @@ export function refund(eventData: RefundData) {
 
 export function login(eventData: LoginData) {
   const eventName = 'login'
+
+  const { method } = eventData
+
+  const data = {
+    method,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function signUp(eventData: SignUpData) {
+  const eventName = 'sign_up'
 
   const { method } = eventData
 

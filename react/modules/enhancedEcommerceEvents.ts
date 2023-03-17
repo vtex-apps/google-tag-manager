@@ -31,6 +31,7 @@ import {
   login,
   refund,
   addToWishlist,
+  signUp,
 } from './gaEvents'
 import {
   getCategory,
@@ -354,6 +355,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:login': {
       login(e.data)
+
+      break
+    }
+
+    case 'vtex:signUp': {
+      signUp(e.data)
 
       break
     }
