@@ -21,6 +21,7 @@ export interface PixelMessage extends MessageEvent {
     | AddPaymentInfoData
     | SignUpData
     | LoginData
+    | ShareData
 }
 
 export interface EventData {
@@ -203,6 +204,14 @@ export interface SearchData extends EventData {
   event: 'search'
   eventType: 'vtex:search'
   term: string
+}
+
+export interface ShareData extends EventData {
+  event: 'share'
+  eventType: 'vtex:share'
+  method: string
+  type: string
+  itemId: string
 }
 
 export interface LoginData extends EventData {

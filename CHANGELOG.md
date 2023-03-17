@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for sending GA4 [`refund`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#refund) when `vtex:refund` is received.
 - Support for sending GA4 [`add_to_wishlist`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_to_wishlist) when `vtex:addToWishlist` is received.
 - Support for sending GA4 [`sign_up`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#sign_up) when `vtex:signUp` is received.
+- Support for sending GA4 [`share`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#share) when `vtex:share` is received.
 
 ## [3.4.0] - 2023-02-15
 
