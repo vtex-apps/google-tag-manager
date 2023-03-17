@@ -22,7 +22,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for sending GA4 [`add_payment_info`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_payment_info) when `vtex:addPaymentInfo` is received.
 - Support for sending GA4 [`begin_checkout`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#begin_checkout) when `vtex:beginCheckout` is received.
 - Support for sending GA4 [`view_cart`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_cart) when `vtex:beginCheckout` is received.
-
 - Support for sending GA4 [`add_shipping_info`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_shipping_info) when `vtex:addShippingInfo` is received.
 
 ## [3.4.0] - 2023-02-15

@@ -14,5 +14,6 @@ export const shippingInfoMock = {
   event: 'addShippingInfo',
   items: [cartItem],
   currency: 'USD',
+  shippingTier: 'Ground',
   value: 1958.35,
 }

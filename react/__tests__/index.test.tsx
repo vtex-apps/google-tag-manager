@@ -682,6 +682,7 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              shipping_tier: 'Ground',
             },
           ],
         },
