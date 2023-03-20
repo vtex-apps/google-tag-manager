@@ -264,13 +264,13 @@ export function beginCheckout(eventData: BeginCheckoutData) {
 export function addShippingInfo(eventData: AddShippingInfoData) {
   const eventName = 'add_shipping_info'
 
-  const { currency, items: eventDataItems, shippingTier } = eventData
+  const { currency, items: eventDataItems, shippingTier, value } = eventData
 
-  const { items, totalValue } = formatCartItemsAndValue(eventDataItems ?? [])
+  const { items } = formatCartItemsAndValue(eventDataItems ?? [])
 
   const data = {
     currency,
-    value: totalValue,
+    value,
     items,
     shipping_tier: shippingTier,
   }

@@ -187,6 +187,7 @@ export interface AddShippingInfoData extends EventData {
   eventType: 'vtex:addShippingInfo'
   items: CartItem[]
   shippingTier: string
+  value: number
 }
 
 export interface ViewCartData extends EventData {

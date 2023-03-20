@@ -673,6 +673,7 @@ describe('GA4 events', () => {
         ecommerce: {
           currency: 'USD',
           value: 1958.35,
+          shipping_tier: 'Ground',
           items: [
             {
               item_id: '200000202',
@@ -682,7 +683,6 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
-              shipping_tier: 'Ground',
             },
           ],
         },
