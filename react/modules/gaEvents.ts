@@ -381,11 +381,11 @@ export function search(eventData: SearchData) {
 export function share(eventData: ShareData) {
   const eventName = 'share'
 
-  const { method, type, itemId } = eventData
+  const { method, contentType, itemId } = eventData
 
   const data = {
     method,
-    content_type: type,
+    content_type: contentType,
     item_id: itemId,
   }
 

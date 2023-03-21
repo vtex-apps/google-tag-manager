@@ -210,7 +210,7 @@ export interface ShareData extends EventData {
   event: 'share'
   eventType: 'vtex:share'
   method: string
-  type: string
+  contentType: string
   itemId: string
 }
 

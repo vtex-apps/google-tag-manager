@@ -732,6 +732,7 @@ describe('GA4 events', () => {
       })
     })
   })
+
   describe('share', () => {
     it('sends an event when a user share a product via any type', () => {
       const data = {
