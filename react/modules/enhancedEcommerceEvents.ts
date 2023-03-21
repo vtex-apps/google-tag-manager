@@ -33,6 +33,7 @@ import {
   refund,
   addToWishlist,
   signUp,
+  share,
 } from './gaEvents'
 import {
   getCategory,
@@ -386,6 +387,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:search': {
       search(e.data)
+
+      break
+    }
+
+    case 'vtex:share': {
+      share(e.data)
 
       break
     }

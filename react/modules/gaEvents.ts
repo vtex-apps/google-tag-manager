@@ -15,6 +15,7 @@ import {
   RefundData,
   AddToWishlistData,
   SignUpData,
+  ShareData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -390,6 +391,20 @@ export function search(eventData: SearchData) {
 
   const data = {
     search_term: term,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function share(eventData: ShareData) {
+  const eventName = 'share'
+
+  const { method, contentType, itemId } = eventData
+
+  const data = {
+    method,
+    content_type: contentType,
+    item_id: itemId,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

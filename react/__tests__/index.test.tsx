@@ -762,4 +762,28 @@ describe('GA4 events', () => {
       })
     })
   })
+
+  describe('share', () => {
+    it('sends an event when a user share a product via any type', () => {
+      const data = {
+        event: 'share',
+        eventName: 'vtex:share',
+        method: 'Facebook',
+        contentType: 'image',
+        itemId: '10',
+      }
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('share', {
+        ecommerce: {
+          method: 'Facebook',
+          content_type: 'image',
+          item_id: '10',
+        },
+      })
+    })
+  })
 })
