@@ -266,7 +266,7 @@ export function addShippingInfo(eventData: AddShippingInfoData) {
 
   const { currency, items: eventDataItems, shippingTier, value } = eventData
 
-  const { items } = formatCartItemsAndValue(eventDataItems ?? [])
+  const { items } = formatCartItemsAndValue(eventDataItems)
 
   const data = {
     currency,
