@@ -739,7 +739,7 @@ describe('GA4 events', () => {
         event: 'share',
         eventName: 'vtex:share',
         method: 'Facebook',
-        type: 'image',
+        contentType: 'image',
         itemId: '10',
       }
 
