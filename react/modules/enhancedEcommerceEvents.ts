@@ -28,6 +28,11 @@ import {
   beginCheckout,
   addShippingInfo,
   viewCart,
+  search,
+  login,
+  refund,
+  addToWishlist,
+  signUp,
 } from './gaEvents'
 import {
   getCategory,
@@ -351,6 +356,36 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:viewCart': {
       viewCart(e.data)
+
+      break
+    }
+
+    case 'vtex:login': {
+      login(e.data)
+
+      break
+    }
+
+    case 'vtex:signUp': {
+      signUp(e.data)
+
+      break
+    }
+
+    case 'vtex:refund': {
+      refund(e.data)
+
+      break
+    }
+
+    case 'vtex:addToWishlist': {
+      addToWishlist(e.data)
+
+      break
+    }
+
+    case 'vtex:search': {
+      search(e.data)
 
       break
     }

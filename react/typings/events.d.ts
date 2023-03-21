@@ -20,6 +20,8 @@ export interface PixelMessage extends MessageEvent {
     | PromotionClickData
     | AddPaymentInfoData
     | AddShippingInfoData
+    | SignUpData
+    | LoginData
 }
 
 export interface EventData {
@@ -172,14 +174,12 @@ export interface AddPaymentInfoData extends EventData {
   eventType: 'vtex:addPaymentInfo'
   payment: PaymentType
   items: CartItem[]
-  currency: string
 }
 
 export interface BeginCheckoutData extends EventData {
   event: 'beginCheckout'
   eventType: 'vtex:beginCheckout'
   items: CartItem[]
-  currency: string
 }
 
 export interface AddShippingInfoData extends EventData {
@@ -194,7 +194,35 @@ export interface ViewCartData extends EventData {
   event: 'viewCart'
   eventType: 'vtex:viewCart'
   items: CartItem[]
-  currency: string
+}
+
+export interface AddToWishlistData extends EventData {
+  event: 'addToWishlist'
+  eventType: 'vtex:addToWishlist'
+  product: Product
+  list: string
+}
+
+export interface RefundData extends Order, EventData {
+  event: 'refund'
+  eventType: 'vtex:refund'
+}
+
+export interface SearchData extends EventData {
+  event: 'search'
+  eventType: 'vtex:search'
+  term: string
+}
+
+export interface LoginData extends EventData {
+  event: 'login'
+  eventType: 'vtex:login'
+  method: string
+}
+
+export interface SignUpData extends LoginData, EventData {
+  event: 'signUp'
+  eventType: 'vtex:signUp'
 }
 
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
