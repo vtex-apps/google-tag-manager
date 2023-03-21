@@ -14,6 +14,7 @@ import {
 import { creditCardPaymentInfoMock } from '../__mocks__/addPaymentInfo'
 import shouldSendGA4Events from '../modules/utils/shouldSendGA4Events'
 import { beginCheckoutMock } from '../__mocks__/beginCheckout'
+import { shippingInfoMock } from '../__mocks__/addShippingInfo'
 import {
   viewCartWithItemsMock,
   viewCartWithNoItemsMock,
@@ -641,6 +642,35 @@ describe('GA4 events', () => {
           tax: 0,
           transaction_id: '1310750551387',
           value: 3543.6,
+        },
+      })
+    })
+  })
+
+  describe('add_shipping_info', () => {
+    it('sends an event when a user add a shipping info', () => {
+      const data = shippingInfoMock
+
+      const message = new MessageEvent('message', { data })
+
+      handleEvents(message)
+
+      expect(mockedUpdate).toHaveBeenCalledWith('add_shipping_info', {
+        ecommerce: {
+          currency: 'USD',
+          value: 1958.35,
+          shipping_tier: 'Ground',
+          items: [
+            {
+              item_id: '200000202',
+              item_brand: 'Sony',
+              item_name: 'Top Wood',
+              item_variant: '2000304',
+              item_category: 'Home & Decor',
+              quantity: 1,
+              price: 197.99,
+            },
+          ],
         },
       })
     })

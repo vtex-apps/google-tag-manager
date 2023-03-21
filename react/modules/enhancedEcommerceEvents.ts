@@ -26,6 +26,7 @@ import {
   removeFromCart,
   addPaymentInfo,
   beginCheckout,
+  addShippingInfo,
   viewCart,
   search,
   login,
@@ -343,6 +344,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:beginCheckout': {
       beginCheckout(e.data)
+
+      break
+    }
+
+    case 'vtex:addShippingInfo': {
+      addShippingInfo(e.data)
 
       break
     }

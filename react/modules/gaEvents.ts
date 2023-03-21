@@ -8,6 +8,7 @@ import {
   ProductViewData,
   ProductImpressionData,
   BeginCheckoutData,
+  AddShippingInfoData,
   ViewCartData,
   SearchData,
   LoginData,
@@ -260,6 +261,23 @@ export function beginCheckout(eventData: BeginCheckoutData) {
     currency,
     value: totalValue,
     items,
+  }
+
+  updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function addShippingInfo(eventData: AddShippingInfoData) {
+  const eventName = 'add_shipping_info'
+
+  const { currency, items: eventDataItems, shippingTier, value } = eventData
+
+  const { items } = formatCartItemsAndValue(eventDataItems)
+
+  const data = {
+    currency,
+    value,
+    items,
+    shipping_tier: shippingTier,
   }
 
   updateEcommerce(eventName, { ecommerce: data })

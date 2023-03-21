@@ -19,6 +19,7 @@ export interface PixelMessage extends MessageEvent {
     | PromoViewData
     | PromotionClickData
     | AddPaymentInfoData
+    | AddShippingInfoData
     | SignUpData
     | LoginData
 }
@@ -179,6 +180,14 @@ export interface BeginCheckoutData extends EventData {
   event: 'beginCheckout'
   eventType: 'vtex:beginCheckout'
   items: CartItem[]
+}
+
+export interface AddShippingInfoData extends EventData {
+  event: 'addShippingInfo'
+  eventType: 'vtex:addShippingInfo'
+  items: CartItem[]
+  shippingTier: string
+  value: number
 }
 
 export interface ViewCartData extends EventData {
