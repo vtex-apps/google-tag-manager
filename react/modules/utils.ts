@@ -190,7 +190,7 @@ export function formatCartItemsAndValue(cartItems: CartItem[]) {
     const formattedPrice =
       item.priceIsInt === true ? item.price / 100 : item.price
 
-    totalValue += formattedPrice
+    totalValue += formattedPrice * item.quantity
 
     return {
       item_id: item.productId,
