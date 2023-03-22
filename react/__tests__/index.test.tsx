@@ -314,7 +314,7 @@ describe('GA4 events', () => {
         skuName: 'top_wood_300',
         price: 150.9,
         category: 'Home & Decor/Tables',
-        quantity: 1,
+        quantity: 2,
       }
 
       const data: AddToCartData = {
@@ -331,7 +331,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('add_to_cart', {
         ecommerce: {
           currency: 'USD',
-          value: 348.89,
+          value: 499.79,
           items: [
             {
               item_id: '200000202',
@@ -349,7 +349,7 @@ describe('GA4 events', () => {
               item_variant: '2000305',
               item_category: 'Home & Decor',
               item_category2: 'Tables',
-              quantity: 1,
+              quantity: 2,
               price: 150.9,
             },
           ],
