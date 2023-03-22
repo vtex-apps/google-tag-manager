@@ -437,13 +437,13 @@ describe('GA4 events', () => {
               item_name: 'Top Everyday Necessaire',
               item_variant: '20',
               price: 1600.99,
-              quantity: 1,
+              quantity: 2,
             },
           ],
           shipping: 1942.61,
           tax: 0,
           transaction_id: '1310750551387',
-          value: 3543.6,
+          value: 5144.59,
         },
       })
     })
@@ -637,13 +637,13 @@ describe('GA4 events', () => {
               item_name: 'Top Everyday Necessaire',
               item_variant: '20',
               price: 1600.99,
-              quantity: 1,
+              quantity: 2,
             },
           ],
           shipping: 1942.61,
           tax: 0,
           transaction_id: '1310750551387',
-          value: 3543.6,
+          value: 5144.59,
         },
       })
     })
