@@ -17,7 +17,7 @@ const cartItem2 = {
   skuName: 'top_wood_300',
   price: 150.9,
   category: 'Home & Decor/Tables',
-  quantity: 1,
+  quantity: 3,
 }
 
 export const beginCheckoutMock = {

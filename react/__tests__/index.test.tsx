@@ -314,7 +314,7 @@ describe('GA4 events', () => {
         skuName: 'top_wood_300',
         price: 150.9,
         category: 'Home & Decor/Tables',
-        quantity: 1,
+        quantity: 2,
       }
 
       const data: AddToCartData = {
@@ -331,7 +331,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('add_to_cart', {
         ecommerce: {
           currency: 'USD',
-          value: 348.89,
+          value: 499.79,
           items: [
             {
               item_id: '200000202',
@@ -349,7 +349,7 @@ describe('GA4 events', () => {
               item_variant: '2000305',
               item_category: 'Home & Decor',
               item_category2: 'Tables',
-              quantity: 1,
+              quantity: 2,
               price: 150.9,
             },
           ],
@@ -380,7 +380,7 @@ describe('GA4 events', () => {
         skuName: 'top_wood_200',
         price: 197.99,
         category: 'Home & Decor',
-        quantity: 1,
+        quantity: 3,
       }
 
       const data: RemoveFromCartData = {
@@ -397,7 +397,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('remove_from_cart', {
         ecommerce: {
           currency: 'USD',
-          value: 197.99,
+          value: 593.97,
           items: [
             {
               item_id: '200000202',
@@ -405,7 +405,7 @@ describe('GA4 events', () => {
               item_name: 'Top Wood',
               item_variant: '2000304',
               item_category: 'Home & Decor',
-              quantity: 1,
+              quantity: 3,
               price: 197.99,
             },
           ],
@@ -437,13 +437,13 @@ describe('GA4 events', () => {
               item_name: 'Top Everyday Necessaire',
               item_variant: '20',
               price: 1600.99,
-              quantity: 1,
+              quantity: 2,
             },
           ],
           shipping: 1942.61,
           tax: 0,
           transaction_id: '1310750551387',
-          value: 3543.6,
+          value: 5144.59,
         },
       })
     })
@@ -533,7 +533,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('begin_checkout', {
         ecommerce: {
           currency: 'USD',
-          value: 348.89,
+          value: 650.69,
           items: [
             {
               item_id: '200000202',
@@ -551,7 +551,7 @@ describe('GA4 events', () => {
               item_variant: '2000305',
               item_category: 'Home & Decor',
               item_category2: 'Tables',
-              quantity: 1,
+              quantity: 3,
               price: 150.9,
             },
           ],
@@ -559,6 +559,7 @@ describe('GA4 events', () => {
       })
     })
   })
+
   describe('view_cart', () => {
     it('sends an event when a user opens the cart with items', () => {
       const data = viewCartWithItemsMock
@@ -570,7 +571,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('view_cart', {
         ecommerce: {
           currency: 'USD',
-          value: 348.89,
+          value: 546.88,
           items: [
             {
               item_id: '200000202',
@@ -578,7 +579,7 @@ describe('GA4 events', () => {
               item_name: 'Top Wood',
               item_variant: '2000304',
               item_category: 'Home & Decor',
-              quantity: 1,
+              quantity: 2,
               price: 197.99,
             },
             {
@@ -595,6 +596,7 @@ describe('GA4 events', () => {
         },
       })
     })
+
     it('sends an event when a user opens the cart with no items', () => {
       const data = viewCartWithNoItemsMock
 
@@ -635,13 +637,13 @@ describe('GA4 events', () => {
               item_name: 'Top Everyday Necessaire',
               item_variant: '20',
               price: 1600.99,
-              quantity: 1,
+              quantity: 2,
             },
           ],
           shipping: 1942.61,
           tax: 0,
           transaction_id: '1310750551387',
-          value: 3543.6,
+          value: 5144.59,
         },
       })
     })

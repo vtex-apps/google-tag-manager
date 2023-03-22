@@ -16,7 +16,7 @@ const transactionProducts = [
     price: 1600.99,
     priceTags: [],
     productRefId: '',
-    quantity: 1,
+    quantity: 2,
     seller: 'VTEX',
     sellerId: '1',
     sellingPrice: 1600.99,
@@ -49,7 +49,7 @@ export const transaction = {
   transactionPayment: { id: 'FCE420A6B22C45D3BD60FD5DB55D34D1' },
   transactionShipping: 1942.61,
   transactionProducts,
-  transactionSubtotal: 1600.99,
+  transactionSubtotal: 3201.98,
   transactionTax: 0,
-  transactionTotal: 3543.6,
+  transactionTotal: 5144.59,
 }
