@@ -533,7 +533,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('begin_checkout', {
         ecommerce: {
           currency: 'USD',
-          value: 348.89,
+          value: 650.69,
           items: [
             {
               item_id: '200000202',
@@ -551,7 +551,7 @@ describe('GA4 events', () => {
               item_variant: '2000305',
               item_category: 'Home & Decor',
               item_category2: 'Tables',
-              quantity: 1,
+              quantity: 3,
               price: 150.9,
             },
           ],
@@ -559,6 +559,7 @@ describe('GA4 events', () => {
       })
     })
   })
+
   describe('view_cart', () => {
     it('sends an event when a user opens the cart with items', () => {
       const data = viewCartWithItemsMock
