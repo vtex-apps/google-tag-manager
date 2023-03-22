@@ -571,7 +571,7 @@ describe('GA4 events', () => {
       expect(mockedUpdate).toHaveBeenCalledWith('view_cart', {
         ecommerce: {
           currency: 'USD',
-          value: 348.89,
+          value: 546.88,
           items: [
             {
               item_id: '200000202',
@@ -579,7 +579,7 @@ describe('GA4 events', () => {
               item_name: 'Top Wood',
               item_variant: '2000304',
               item_category: 'Home & Decor',
-              quantity: 1,
+              quantity: 2,
               price: 197.99,
             },
             {
@@ -596,6 +596,7 @@ describe('GA4 events', () => {
         },
       })
     })
+
     it('sends an event when a user opens the cart with no items', () => {
       const data = viewCartWithNoItemsMock
 

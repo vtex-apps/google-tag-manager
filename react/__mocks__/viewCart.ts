@@ -6,7 +6,7 @@ const cartItem1 = {
   skuName: 'top_wood_200',
   price: 197.99,
   category: 'Home & Decor',
-  quantity: 1,
+  quantity: 2,
 }
 
 const cartItem2 = {
