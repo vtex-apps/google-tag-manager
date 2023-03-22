@@ -62,9 +62,9 @@ export function getCategoriesWithHierarchy(categoriesArray: string[]) {
 }
 
 export function getQuantity(seller: Seller) {
-  if (!seller) return 1
+  const isAvailable = seller.commertialOffer.AvailableQuantity > 0
 
-  return seller.commertialOffer?.AvailableQuantity || 1
+  return isAvailable ? 1 : 0
 }
 
 export function getImpressions(impressions: Impression[]) {
