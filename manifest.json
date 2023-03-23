@@ -4,7 +4,7 @@
   "version": "3.3.2",
   "title": "Google Tag Manager",
   "description": "Google Tag Manager",
-  "mustUpdateAt": "2023-02-01",
+  "mustUpdateAt": "2019-04-03",
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
@@ -41,14 +41,11 @@
         "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager",
         "type": "string"
       },
-      "typeScript": {
-        "title": "Script attribute type",
+      "allowPartytown": {
+        "title": "Allow scripts with Partytown",
         "description": "Define whether the type attribute execute script on a secondary thread or not.",
-        "default": "javascript",
-        "enum": [
-          "javascript",
-          "partytown"
-        ]
+        "default": false,
+        "type": "boolean"
       },
       "allowCustomHtmlTags": {
         "title": "Allow Custom HTML tags",
