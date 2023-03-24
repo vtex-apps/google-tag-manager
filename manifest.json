@@ -1,7 +1,7 @@
 {
   "name": "google-tag-manager",
   "vendor": "vtex",
-  "version": "3.3.2",
+  "version": "3.3.1",
   "title": "Google Tag Manager",
   "description": "Google Tag Manager",
   "mustUpdateAt": "2019-04-03",
@@ -43,7 +43,7 @@
       },
       "allowPartytown": {
         "title": "Allow scripts with Partytown",
-        "description": "Define whether the type attribute execute script on a secondary thread or not.",
+        "description": "Define whether the type attribute executes script on a secondary thread or not. It's mandatory to have the partytown app installed to make it work",
         "default": false,
         "type": "boolean"
       },
