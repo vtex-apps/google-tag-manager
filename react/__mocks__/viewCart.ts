@@ -4,7 +4,7 @@ const cartItem1 = {
   brand: 'Sony',
   name: 'Top Wood',
   skuName: 'top_wood_200',
-  price: 197.99,
+  price: 19799,
   category: 'Home & Decor',
   quantity: 2,
 }
@@ -15,7 +15,7 @@ const cartItem2 = {
   brand: 'Sony',
   name: 'Top Wood 2',
   skuName: 'top_wood_300',
-  price: 150.9,
+  price: 15090,
   category: 'Home & Decor/Tables',
   quantity: 1,
 }

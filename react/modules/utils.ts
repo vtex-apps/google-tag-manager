@@ -61,6 +61,15 @@ export function getCategoriesWithHierarchy(categoriesArray: string[]) {
   return categoriesFormatted
 }
 
+function getCategoriesByKey(
+  categories: Record<string, string> | null,
+  keysArray?: string[]
+) {
+  if (!keysArray || !keysArray.length || !categories) return []
+
+  return keysArray.filter(key => key !== '').map(key => categories[key])
+}
+
 export function getQuantity(seller: Seller) {
   const isAvailable = seller.commertialOffer.AvailableQuantity > 0
 
@@ -180,26 +189,38 @@ function formatPurchaseProduct(product: ProductOrder) {
   return item
 }
 
-export function formatCartItemsAndValue(cartItems: CartItem[]) {
+export function formatCartItemsAndValue(
+  cartItems: CartItem[],
+  dividePrice = false
+) {
   let totalValue = 0.0
 
   if (!cartItems.length) return { items: [], totalValue }
 
   const items = cartItems.map((item: CartItem) => {
     const productName = getProductNameWithoutVariant(item.name, item.skuName)
-    const formattedPrice =
-      item.priceIsInt === true ? item.price / 100 : item.price
+
+    const shouldFormatPrice = item.priceIsInt ?? dividePrice
+
+    const formattedPrice = shouldFormatPrice ? item.price / 100 : item.price
+
+    const itemBrand = item.brand ? item.brand : item.additionalInfo?.brandName
+
+    const categoryIds = splitIntoCategories(item.productCategoryIds)
+    const formattedCategories = item.category
+      ? [item.category]
+      : getCategoriesByKey(item.productCategories, categoryIds)
 
     totalValue += formattedPrice * item.quantity
 
     return {
       item_id: item.productId,
-      item_brand: item.brand,
+      item_brand: itemBrand,
       item_name: productName,
       item_variant: item.skuId,
       quantity: item.quantity,
       price: formattedPrice,
-      ...getCategoriesWithHierarchy([item.category]),
+      ...getCategoriesWithHierarchy(formattedCategories),
     }
   })
 
