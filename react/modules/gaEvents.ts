@@ -289,7 +289,9 @@ export function viewCart(eventData: ViewCartData) {
 
   const { currency, items: eventDataItems } = eventData
 
-  const { items, totalValue } = formatCartItemsAndValue(eventDataItems, true)
+  const { items, totalValue } = formatCartItemsAndValue(eventDataItems, {
+    dividePrice: true,
+  })
 
   const data = {
     currency,

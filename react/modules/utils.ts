@@ -61,13 +61,23 @@ export function getCategoriesWithHierarchy(categoriesArray: string[]) {
   return categoriesFormatted
 }
 
-function getCategoriesByKey(
+function getCategoriesHierarchyByKey(
   categories: Record<string, string> | null,
   keysArray?: string[]
 ) {
   if (!keysArray || !keysArray.length || !categories) return []
+  const categoriesFormatted: string[] = []
+  const categoriesHierarchyFormatted = {}
 
-  return keysArray.filter(key => key !== '').map(key => categories[key])
+  keysArray.forEach(key => {
+    if (key) categoriesFormatted.push(categories[key])
+  })
+
+  categoriesFormatted.forEach((category, index) => {
+    formatCategoriesHierarchy(categoriesHierarchyFormatted, category, index)
+  })
+
+  return categoriesHierarchyFormatted
 }
 
 export function getQuantity(seller: Seller) {
@@ -191,7 +201,9 @@ function formatPurchaseProduct(product: ProductOrder) {
 
 export function formatCartItemsAndValue(
   cartItems: CartItem[],
-  dividePrice = false
+  options?: {
+    dividePrice: boolean
+  }
 ) {
   let totalValue = 0.0
 
@@ -200,7 +212,7 @@ export function formatCartItemsAndValue(
   const items = cartItems.map((item: CartItem) => {
     const productName = getProductNameWithoutVariant(item.name, item.skuName)
 
-    const shouldFormatPrice = item.priceIsInt ?? dividePrice
+    const shouldFormatPrice = item.priceIsInt ?? options?.dividePrice
 
     const formattedPrice = shouldFormatPrice ? item.price / 100 : item.price
 
@@ -208,8 +220,8 @@ export function formatCartItemsAndValue(
 
     const categoryIds = splitIntoCategories(item.productCategoryIds)
     const formattedCategories = item.category
-      ? [item.category]
-      : getCategoriesByKey(item.productCategories, categoryIds)
+      ? getCategoriesWithHierarchy([item.category])
+      : getCategoriesHierarchyByKey(item.productCategories, categoryIds)
 
     totalValue += formattedPrice * item.quantity
 
@@ -220,7 +232,7 @@ export function formatCartItemsAndValue(
       item_variant: item.skuId,
       quantity: item.quantity,
       price: formattedPrice,
-      ...getCategoriesWithHierarchy(formattedCategories),
+      ...formattedCategories,
     }
   })
 
