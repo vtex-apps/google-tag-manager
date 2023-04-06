@@ -1,22 +1,33 @@
 const cartItem1 = {
   productId: '200000202',
   skuId: '2000304',
-  brand: 'Sony',
+  additionalInfo: {
+    brandName: 'Sony',
+  },
   name: 'Top Wood',
   skuName: 'top_wood_200',
-  price: 197.99,
-  category: 'Home & Decor',
+  price: 19799,
+  productCategories: {
+    '25': 'Home & Decor',
+  },
+  productCategoryIds: '/25/',
   quantity: 2,
 }
 
 const cartItem2 = {
   productId: '200000203',
   skuId: '2000305',
-  brand: 'Sony',
+  additionalInfo: {
+    brandName: 'Sony',
+  },
   name: 'Top Wood 2',
   skuName: 'top_wood_300',
-  price: 150.9,
-  category: 'Home & Decor/Tables',
+  price: 15090,
+  productCategories: {
+    '25': 'Home & Decor',
+    '32': 'Tables',
+  },
+  productCategoryIds: '/25/32/',
   quantity: 1,
 }
 

@@ -61,6 +61,25 @@ export function getCategoriesWithHierarchy(categoriesArray: string[]) {
   return categoriesFormatted
 }
 
+function getCategoriesHierarchyByKey(
+  categories: Record<string, string> | null,
+  keysArray?: string[]
+) {
+  if (!keysArray || !keysArray.length || !categories) return []
+  const categoriesFormatted: string[] = []
+  const categoriesHierarchyFormatted = {}
+
+  keysArray.forEach(key => {
+    if (key) categoriesFormatted.push(categories[key])
+  })
+
+  categoriesFormatted.forEach((category, index) => {
+    formatCategoriesHierarchy(categoriesHierarchyFormatted, category, index)
+  })
+
+  return categoriesHierarchyFormatted
+}
+
 export function getQuantity(seller: Seller) {
   const isAvailable = seller.commertialOffer.AvailableQuantity > 0
 
@@ -180,26 +199,40 @@ function formatPurchaseProduct(product: ProductOrder) {
   return item
 }
 
-export function formatCartItemsAndValue(cartItems: CartItem[]) {
+export function formatCartItemsAndValue(
+  cartItems: CartItem[],
+  options?: {
+    dividePrice: boolean
+  }
+) {
   let totalValue = 0.0
 
   if (!cartItems.length) return { items: [], totalValue }
 
   const items = cartItems.map((item: CartItem) => {
     const productName = getProductNameWithoutVariant(item.name, item.skuName)
-    const formattedPrice =
-      item.priceIsInt === true ? item.price / 100 : item.price
+
+    const shouldFormatPrice = item.priceIsInt ?? options?.dividePrice
+
+    const formattedPrice = shouldFormatPrice ? item.price / 100 : item.price
+
+    const itemBrand = item.brand ? item.brand : item.additionalInfo?.brandName
+
+    const categoryIds = splitIntoCategories(item.productCategoryIds)
+    const formattedCategories = item.category
+      ? getCategoriesWithHierarchy([item.category])
+      : getCategoriesHierarchyByKey(item.productCategories, categoryIds)
 
     totalValue += formattedPrice * item.quantity
 
     return {
       item_id: item.productId,
-      item_brand: item.brand,
+      item_brand: itemBrand,
       item_name: productName,
       item_variant: item.skuId,
       quantity: item.quantity,
       price: formattedPrice,
-      ...getCategoriesWithHierarchy([item.category]),
+      ...formattedCategories,
     }
   })
 

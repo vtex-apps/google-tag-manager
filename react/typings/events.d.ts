@@ -252,6 +252,7 @@ interface CartItemAdditionalInfo {
 interface CartItem {
   id: string
   productCategories: Record<string, string> | null
+  productCategoryIds?: string
   additionalInfo: CartItemAdditionalInfo | null
   brand: string
   ean: string
