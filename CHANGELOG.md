@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Test if new beta versions are automatically deployed to all accounts using it.
+
 ## [3.3.1] - 2022-04-04
 
 ### Fixed
