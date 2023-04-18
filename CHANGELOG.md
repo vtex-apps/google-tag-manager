@@ -29,7 +29,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for sending GA4 [`sign_up`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#sign_up) when `vtex:signUp` is received (not being sent yet).
 - Support for sending GA4 [`share`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#share) when `vtex:share` is received (not being sent yet).
 
-## [3.4.0] - 2023-02-15
+## [3.4.2] - 2023-04-13
+
+### Security
+- Updates lodash version
+
+## [3.4.1] - 2023-04-12
+
+### Security
+- Updates dependencies with security issues
 
 ## [3.3.1] - 2022-04-04
 
@@ -39,14 +47,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.3.0] - 2022-02-09
 
 ### Added
-- Added a custom field to "userData" dataLayer 
+- Added a custom field to "userData" dataLayer
 
 ## [3.2.1] - 2022-01-26
-### Fixed 
-- Added `ecommerceV2` property sent on the orderPlaced event to match the checkout dataLayer 
+### Fixed
+- Added `ecommerceV2` property sent on the orderPlaced event to match the checkout dataLayer
 
 ## [3.2.0] - 2022-01-26
-### Added 
+### Added
 -`dimension4` property to the product data layer on `productView` events, representing the availability of the product
 
 ## [3.1.3] - 2021-12-28
