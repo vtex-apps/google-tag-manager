@@ -684,7 +684,7 @@ describe('GA4 events', () => {
 
       handleEvents(message)
 
-      expect(mockedUpdate).toHaveBeenCalledWith('view_item', {
+      expect(mockedUpdate).toHaveBeenCalledWith('add_to_wishlist', {
         ecommerce: {
           currency: 'USD',
           value: 1540.99,
