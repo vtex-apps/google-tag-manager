@@ -245,6 +245,10 @@ export function formatCartItemsAndValue(
       quantity: item.quantity,
       price: formattedPrice,
       ...formattedCategories,
+      dimension1: item.productRefId ?? '',
+      dimension2: item.referenceId ?? '',
+      dimension3: item.variant ?? '',
+      dimension4: item.quantity ? 'available' : 'unavailable',
     }
   })
 

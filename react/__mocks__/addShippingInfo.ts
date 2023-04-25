@@ -7,6 +7,9 @@ const cartItem = {
   price: 197.99,
   category: 'Home & Decor',
   quantity: 1,
+  productRefId: '123',
+  referenceId: '456',
+  variant: 'Red',
 }
 
 export const shippingInfoMock = {

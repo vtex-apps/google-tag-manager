@@ -309,6 +309,9 @@ describe('GA4 events', () => {
         | 'quantity'
         | 'category'
         | 'productId'
+        | 'productRefId'
+        | 'referenceId'
+        | 'variant'
       >
 
       const cartItem1: CartItemMockType = {
@@ -320,6 +323,9 @@ describe('GA4 events', () => {
         price: 197.99,
         category: 'Home & Decor',
         quantity: 1,
+        productRefId: '123',
+        referenceId: '456',
+        variant: 'Red',
       }
 
       const cartItem2: CartItemMockType = {
@@ -331,6 +337,9 @@ describe('GA4 events', () => {
         price: 150.9,
         category: 'Home & Decor/Tables',
         quantity: 2,
+        productRefId: '789',
+        referenceId: '101',
+        variant: 'Blue',
       }
 
       const data: AddToCartData = {
@@ -357,6 +366,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
             {
               item_id: '200000203',
@@ -367,6 +380,10 @@ describe('GA4 events', () => {
               item_category2: 'Tables',
               quantity: 2,
               price: 150.9,
+              dimension1: '789',
+              dimension2: '101',
+              dimension3: 'Blue',
+              dimension4: 'available',
             },
           ],
         },
@@ -386,6 +403,9 @@ describe('GA4 events', () => {
         | 'quantity'
         | 'category'
         | 'productId'
+        | 'productRefId'
+        | 'referenceId'
+        | 'variant'
       >
 
       const cartItem: CartItemMockType = {
@@ -397,6 +417,9 @@ describe('GA4 events', () => {
         price: 197.99,
         category: 'Home & Decor',
         quantity: 3,
+        productRefId: '123',
+        referenceId: '456',
+        variant: 'Red',
       }
 
       const data: RemoveFromCartData = {
@@ -423,6 +446,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 3,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
           ],
         },
@@ -531,6 +558,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
           ],
         },
@@ -559,6 +590,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
             {
               item_id: '200000203',
@@ -569,6 +604,10 @@ describe('GA4 events', () => {
               item_category2: 'Tables',
               quantity: 3,
               price: 150.9,
+              dimension1: '789',
+              dimension2: '101',
+              dimension3: 'Blue',
+              dimension4: 'available',
             },
           ],
         },
@@ -597,6 +636,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 2,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
             {
               item_id: '200000203',
@@ -607,6 +650,10 @@ describe('GA4 events', () => {
               item_category2: 'Tables',
               quantity: 1,
               price: 150.9,
+              dimension1: '789',
+              dimension2: '101',
+              dimension3: 'Blue',
+              dimension4: 'available',
             },
           ],
         },
@@ -687,6 +734,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
           ],
         },
