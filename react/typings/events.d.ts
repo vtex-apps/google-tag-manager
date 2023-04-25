@@ -169,7 +169,7 @@ export interface PromoViewData extends EventData {
 export interface PromotionClickData extends EventData {
   event: 'promotionClick'
   eventType: 'vtex:promotionClick'
-  eventName: 'vtex:promoView'
+  eventName: 'vtex:promotionClick'
   promotions: Promotion[]
 }
 
