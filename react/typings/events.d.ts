@@ -23,6 +23,11 @@ export interface PixelMessage extends MessageEvent {
     | SignUpData
     | LoginData
     | ShareData
+    | BeginCheckoutData
+    | ViewCartData
+    | RefundData
+    | AddToWishlistData
+    | SearchData
 }
 
 export interface EventData {
@@ -181,6 +186,7 @@ export interface PromotionClickData extends EventData {
 export interface AddPaymentInfoData extends EventData {
   event: 'addPaymentInfo'
   eventType: 'vtex:addPaymentInfo'
+  eventName: 'vtex:addPaymentInfo'
   payment: PaymentType
   items: CartItem[]
 }
@@ -188,12 +194,14 @@ export interface AddPaymentInfoData extends EventData {
 export interface BeginCheckoutData extends EventData {
   event: 'beginCheckout'
   eventType: 'vtex:beginCheckout'
+  eventName: 'vtex:beginCheckout'
   items: CartItem[]
 }
 
 export interface AddShippingInfoData extends EventData {
   event: 'addShippingInfo'
   eventType: 'vtex:addShippingInfo'
+  eventName: 'vtex:addShippingInfo'
   items: CartItem[]
   shippingTier: string
   value: number
@@ -202,12 +210,14 @@ export interface AddShippingInfoData extends EventData {
 export interface ViewCartData extends EventData {
   event: 'viewCart'
   eventType: 'vtex:viewCart'
+  eventName: 'vtex:viewCart'
   items: CartItem[]
 }
 
 export interface AddToWishlistData extends EventData {
   event: 'addToWishlist'
   eventType: 'vtex:addToWishlist'
+  eventName: 'vtex:addToWishlist'
   product: Product
   list: string
 }
@@ -215,17 +225,20 @@ export interface AddToWishlistData extends EventData {
 export interface RefundData extends Order, EventData {
   event: 'refund'
   eventType: 'vtex:refund'
+  eventName: 'vtex:refund'
 }
 
 export interface SearchData extends EventData {
   event: 'search'
   eventType: 'vtex:search'
+  eventName: 'vtex:search'
   term: string
 }
 
 export interface ShareData extends EventData {
   event: 'share'
   eventType: 'vtex:share'
+  eventName: 'vtex:share'
   method: string
   contentType: string
   itemId: string
@@ -234,12 +247,14 @@ export interface ShareData extends EventData {
 export interface LoginData extends EventData {
   event: 'login'
   eventType: 'vtex:login'
+  eventName: 'vtex:login'
   method: string
 }
 
 export interface SignUpData extends LoginData, EventData {
   event: 'signUp'
   eventType: 'vtex:signUp'
+  eventName: 'vtex:signUp'
 }
 
 type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>

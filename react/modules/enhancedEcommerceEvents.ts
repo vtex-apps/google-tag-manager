@@ -4,15 +4,7 @@ import {
   ProductOrder,
   Impression,
   CartItem,
-  AddToCartData,
-  RemoveFromCartData,
-  ProductViewData,
-  ProductClickData,
   ProductViewReferenceId,
-  PromoViewData,
-  OrderPlacedData,
-  ProductImpressionData,
-  CartLoadedData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
@@ -54,7 +46,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         productName,
         brand,
         categories,
-      } = (e.data as ProductViewData).product
+      } = e.data.product
 
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
@@ -110,7 +102,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productClick': {
-      const { product, position } = e.data as ProductClickData
+      const { product, position } = e.data
       const {
         productName,
         brand,
@@ -162,7 +154,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:addToCart': {
-      const { items } = e.data as AddToCartData
+      const { items } = e.data
 
       const data = {
         ecommerce: {
@@ -195,7 +187,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:removeFromCart': {
-      const { items } = e.data as RemoveFromCartData
+      const { items } = e.data
 
       const data = {
         ecommerce: {
@@ -228,7 +220,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:orderPlaced': {
-      const order = e.data as OrderPlacedData
+      const order = e.data
 
       const ecommerce = {
         purchase: {
@@ -261,7 +253,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productImpression': {
-      const { currency, list, impressions } = e.data as ProductImpressionData
+      const { currency, list, impressions } = e.data
 
       const parsedImpressions = (impressions || []).map(
         getProductImpressionObjectData(list)
@@ -282,7 +274,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:cartLoaded': {
-      const { orderForm } = e.data as CartLoadedData
+      const { orderForm } = e.data
 
       const data = {
         event: 'checkout',
@@ -302,7 +294,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:promoView': {
-      const { promotions } = e.data as PromoViewData
+      const { promotions } = e.data
 
       const data = {
         event: 'promoView',
@@ -320,7 +312,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:promotionClick': {
-      const { promotions } = e.data as PromoViewData
+      const { promotions } = e.data
 
       const data = {
         event: 'promotionClick',
