@@ -96,7 +96,7 @@ test('productDetail', () => {
             variant: '35',
             name: 'Classic Shoes Top',
             price: 1540.99,
-            dimension1: '',
+            dimension1: '123',
             dimension2: '12531',
             dimension3: 'Classic Pink',
             dimension4: 'available',

@@ -10,7 +10,7 @@ const productDetail = {
     titleTag: 'Classic Shoes',
     metaTagDescription: "If you go classic, you can't go wrong.",
     linkText: 'classic-shoes',
-    productReference: null,
+    productReference: '123',
     categories: ['/Apparel & Accessories/Shoes/', '/Apparel & Accessories/'],
     categoryId: '10',
     categoriesIds: ['/25/10/', '/25/'],
