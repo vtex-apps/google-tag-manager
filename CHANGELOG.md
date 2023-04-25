@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Chore
 
 - Clean up linting and formatting warnings.
+- Removed the unused `CartData` type from the `PixelMessage` interface.
 
 ## [3.4.2] - 2023-04-13
 
