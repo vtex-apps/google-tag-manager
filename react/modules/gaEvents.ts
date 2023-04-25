@@ -113,9 +113,16 @@ export function selectItem(eventData: ProductClickData) {
 
   const { product, list, position } = eventData
 
-  const { sku, productName, productId, categories, brand } = product
+  const {
+    sku,
+    productName,
+    productId,
+    productReference,
+    categories,
+    brand,
+  } = product
 
-  const { itemId: variant } = sku
+  const { itemId: variant, referenceId, name } = sku
 
   const seller = getSeller(sku.sellers)
   const price = getPrice(seller)
@@ -134,6 +141,10 @@ export function selectItem(eventData: ProductClickData) {
     quantity,
     discount,
     ...categoriesHierarchy,
+    dimension1: productReference ?? '',
+    dimension2: referenceId?.Value ?? '',
+    dimension3: name ?? '',
+    dimension4: quantity ? 'available' : 'quantity',
   }
 
   const data = {
