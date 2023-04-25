@@ -91,8 +91,16 @@ export function getImpressions(impressions: Impression[]) {
 
   const formattedImpressions = impressions.map(impression => {
     const { product, position } = impression
-    const { productName, productId, sku, brand, categories } = product
-    const { itemId, seller } = sku
+    const {
+      productName,
+      productId,
+      productReference,
+      sku,
+      brand,
+      categories,
+    } = product
+
+    const { itemId, seller, referenceId, name } = sku
 
     const price = getPrice(seller)
     const discount = getDiscount(seller)
@@ -110,6 +118,10 @@ export function getImpressions(impressions: Impression[]) {
       price,
       quantity,
       ...categoriesHierarchy,
+      dimension1: productReference ?? '',
+      dimension2: referenceId?.Value ?? '',
+      dimension3: name ?? '',
+      dimension4: quantity ? 'available' : 'unavailable',
     }
   })
 
