@@ -682,9 +682,11 @@ describe('GA4 events', () => {
     it('sends an event when the user add a product to wishlist', () => {
       const message = new MessageEvent('message', { data: productDetails })
 
+      message.data.eventName = 'vtex:addToWishlist'
+
       handleEvents(message)
 
-      expect(mockedUpdate).toHaveBeenCalledWith('view_item', {
+      expect(mockedUpdate).toHaveBeenCalledWith('add_to_wishlist', {
         ecommerce: {
           currency: 'USD',
           value: 1540.99,
