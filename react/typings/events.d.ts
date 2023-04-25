@@ -15,6 +15,7 @@ export interface PixelMessage extends MessageEvent {
     | SearchPageInfoData
     | UserData
     | CartIdData
+    | CartLoadedData
     | PromoViewData
     | PromotionClickData
 }
