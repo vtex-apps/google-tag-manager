@@ -25,9 +25,7 @@ declare module 'vtex.render-runtime' {
   }
 
   export const ChildBlock: ComponentType<ChildBlockProps>
-  export const useChildBlock = function({
-    id: string,
-  }): Record<string, unknown> {}
+  export const useChildBlock = ({ id: string }): Record<string, unknown> => {}
 
   export const Helmet: ReactElement
   export const Link: ReactType
