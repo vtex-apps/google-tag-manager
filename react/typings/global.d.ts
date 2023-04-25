@@ -1,3 +1,3 @@
 interface Window extends Window {
-  dataLayer: unknown[]
+  dataLayer: Array<Record<string, unknown>>
 }
