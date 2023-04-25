@@ -5,6 +5,7 @@ export interface PixelMessage extends MessageEvent {
     | OrderPlacedData
     | OrderPlacedTrackedData
     | PageViewData
+    | LegacyProductViewData
     | ProductImpressionData
     | AddToCartData
     | RemoveToCartData
@@ -30,6 +31,12 @@ export interface PageInfoData extends EventData {
   accountName: string
   pageTitle: string
   pageUrl: string
+}
+
+export interface LegacyProductViewData extends EventData {
+  event: 'pageInfo'
+  eventName: 'vtex:pageInfo'
+  eventType: 'productView'
 }
 
 export interface UserData extends PageInfoData {
