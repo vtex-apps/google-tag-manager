@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Chore
+
+- Clean up linting and formatting warnings.
+
 ## [3.4.2] - 2023-04-13
 
 ### Security
