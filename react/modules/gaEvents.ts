@@ -74,9 +74,9 @@ export function viewItem(eventData: ProductViewData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
-    dimension1: productReference,
-    dimension2: skuReferenceId,
-    dimension3: selectedSku.name,
+    dimension1: productReference ?? '',
+    dimension2: skuReferenceId ?? '',
+    dimension3: selectedSku.name ?? '',
     dimension4: quantity ? 'available' : 'unavailable',
   }
 
