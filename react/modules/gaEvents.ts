@@ -16,6 +16,7 @@ import {
   AddToWishlistData,
   SignUpData,
   ShareData,
+  ProductViewReferenceId,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -38,7 +39,14 @@ export function viewItem(eventData: ProductViewData) {
 
   const { currency, product, list } = eventData
 
-  const { selectedSku, productName, productId, categories, brand } = product
+  const {
+    selectedSku,
+    productName,
+    productId,
+    productReference,
+    categories,
+    brand,
+  } = product
 
   const { itemId: variant } = selectedSku
 
@@ -47,6 +55,14 @@ export function viewItem(eventData: ProductViewData) {
   const categoriesHierarchy = getCategoriesWithHierarchy(categories)
   const discount = getDiscount(seller)
   const quantity = getQuantity(seller)
+
+  // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
+  // Doing that there could possibly break some apps or stores, so it's better doing it here
+  const skuReferenceId = (
+    ((selectedSku.referenceId as unknown) as ProductViewReferenceId)?.[0] ?? {
+      Value: '',
+    }
+  ).Value
 
   const item = {
     item_id: productId,
@@ -58,6 +74,10 @@ export function viewItem(eventData: ProductViewData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
+    dimension1: productReference,
+    dimension2: skuReferenceId,
+    dimension3: selectedSku.name,
+    dimension4: quantity ? 'available' : 'unavailable',
   }
 
   const data = {
