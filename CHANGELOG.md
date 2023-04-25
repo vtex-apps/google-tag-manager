@@ -29,6 +29,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for sending GA4 [`sign_up`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#sign_up) when `vtex:signUp` is received (not being sent yet).
 - Support for sending GA4 [`share`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#share) when `vtex:share` is received (not being sent yet).
 
+### Chore
+
+- Clean up linting and formatting warnings.
+
 ## [3.4.2] - 2023-04-13
 
 ### Security

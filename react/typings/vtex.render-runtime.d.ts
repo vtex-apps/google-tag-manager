@@ -4,7 +4,7 @@ declare module 'vtex.render-runtime' {
 
   export interface NavigationOptions {
     page: string
-    params?: any
+    params?: unknown
   }
 
   export interface RenderContextProps {
@@ -15,7 +15,7 @@ declare module 'vtex.render-runtime' {
 
   interface ExtensionPointProps {
     id: string
-    [key: string]: any
+    [key: string]: unknown
   }
 
   export const ExtensionPoint: ComponentType<ExtensionPointProps>
@@ -25,9 +25,7 @@ declare module 'vtex.render-runtime' {
   }
 
   export const ChildBlock: ComponentType<ChildBlockProps>
-  export const useChildBlock = function({
-    id: string,
-  }): Record<string, unknown> {}
+  export const useChildBlock = ({ id: string }): Record<string, unknown> => {}
 
   export const Helmet: ReactElement
   export const Link: ReactType
