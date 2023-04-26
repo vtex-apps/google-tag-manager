@@ -118,7 +118,7 @@ export function getImpressions(impressions: Impression[]) {
       price,
       quantity,
       ...categoriesHierarchy,
-      ...customDimenions({
+      ...customDimensions({
         productReference,
         skuReference: referenceId?.Value,
         skuName: name,
@@ -219,7 +219,7 @@ function formatPurchaseProduct(product: ProductOrder) {
     price,
     quantity,
     ...getCategoriesWithHierarchy([category]),
-    ...customDimenions({
+    ...customDimensions({
       productReference: productRefId,
       skuReference: skuRefId,
       skuName,
@@ -264,7 +264,7 @@ export function formatCartItemsAndValue(
       quantity: item.quantity,
       price: formattedPrice,
       ...formattedCategories,
-      ...customDimenions({
+      ...customDimensions({
         productReference: item.productRefId,
         skuReference: item.referenceId,
         skuName: item.variant,
@@ -300,7 +300,7 @@ interface CustomDimensionParams {
   quantity: number
 }
 
-export function customDimenions(
+export function customDimensions(
   params: CustomDimensionParams
 ): CustomDimensions {
   return {

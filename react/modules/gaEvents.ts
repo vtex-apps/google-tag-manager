@@ -30,7 +30,7 @@ import {
   getPurchaseObjectData,
   getPurchaseItems,
   formatCartItemsAndValue,
-  customDimenions,
+  customDimensions,
 } from './utils'
 import shouldSendGA4Events from './utils/shouldSendGA4Events'
 
@@ -76,7 +76,7 @@ export function viewItem(eventData: ProductViewData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
-    ...customDimenions({
+    ...customDimensions({
       productReference,
       skuReference: skuReferenceId,
       skuName: selectedSku.name,
@@ -145,7 +145,7 @@ export function selectItem(eventData: ProductClickData) {
     quantity,
     discount,
     ...categoriesHierarchy,
-    ...customDimenions({
+    ...customDimensions({
       productReference,
       skuReference: referenceId?.Value,
       skuName: name,
@@ -379,7 +379,7 @@ export function addToWishlist(eventData: AddToWishlistData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
-    ...customDimenions({
+    ...customDimensions({
       productReference,
       skuReference: skuReferenceId,
       skuName: selectedSku.name,
