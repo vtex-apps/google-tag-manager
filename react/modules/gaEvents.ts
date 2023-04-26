@@ -29,9 +29,8 @@ import {
   getPurchaseObjectData,
   getPurchaseItems,
   formatCartItemsAndValue,
-  customDimensions,
-  productViewSkuReference,
 } from './utils'
+import { customDimensions, productViewSkuReference } from './customDimensions'
 import shouldSendGA4Events from './utils/shouldSendGA4Events'
 
 export function viewItem(eventData: ProductViewData) {

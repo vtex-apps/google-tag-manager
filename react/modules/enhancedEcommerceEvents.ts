@@ -31,9 +31,11 @@ import {
   getSeller,
   getProductNameWithoutVariant,
   getPurchaseObjectData,
+} from './utils'
+import {
   customDimensionSkuAvailability,
   productViewSkuReference,
-} from './utils'
+} from './customDimensions'
 
 export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
   switch (e.data.eventName) {
