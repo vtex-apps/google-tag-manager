@@ -32,6 +32,7 @@ import {
   getSeller,
   getProductNameWithoutVariant,
   getPurchaseObjectData,
+  customDimensionSkuAvailability,
 } from './utils'
 
 const defaultReference = { Value: '' }
@@ -51,8 +52,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
 
-      const isAvailable =
-        productAvailableQuantity > 0 ? 'available' : 'unavailable'
+      const isAvailable = customDimensionSkuAvailability(
+        productAvailableQuantity
+      )
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}

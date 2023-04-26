@@ -280,7 +280,7 @@ export function getPurchaseItems(orderProducts: ProductOrder[]) {
   return orderProducts.map(formatPurchaseProduct)
 }
 
-type ProductAvailability = 'available' | 'unavailable'
+type CustomDimensionSkuAvailability = 'available' | 'unavailable'
 
 interface CustomDimensions {
   /** Product reference */
@@ -290,7 +290,7 @@ interface CustomDimensions {
   /** SKU name */
   dimension3: string
   /** SKU availability */
-  dimension4: ProductAvailability
+  dimension4: CustomDimensionSkuAvailability
 }
 
 interface CustomDimensionParams {
@@ -307,6 +307,12 @@ export function customDimensions(
     dimension1: params.productReference ?? '',
     dimension2: params.skuReference ?? '',
     dimension3: params.skuName ?? '',
-    dimension4: params.quantity ? 'available' : 'unavailable',
+    dimension4: customDimensionSkuAvailability(params.quantity),
   }
+}
+
+export function customDimensionSkuAvailability(
+  quantity: number
+): CustomDimensionSkuAvailability {
+  return quantity ? 'available' : 'unavailable'
 }
