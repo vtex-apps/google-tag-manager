@@ -16,7 +16,6 @@ import {
   AddToWishlistData,
   SignUpData,
   ShareData,
-  ProductViewReferenceId,
   PromotionClickData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
@@ -31,6 +30,7 @@ import {
   getPurchaseItems,
   formatCartItemsAndValue,
   customDimensions,
+  productViewSkuReference,
 } from './utils'
 import shouldSendGA4Events from './utils/shouldSendGA4Events'
 
@@ -58,14 +58,6 @@ export function viewItem(eventData: ProductViewData) {
   const discount = getDiscount(seller)
   const quantity = getQuantity(seller)
 
-  // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
-  // Doing that there could possibly break some apps or stores, so it's better doing it here
-  const skuReferenceId = (
-    ((selectedSku.referenceId as unknown) as ProductViewReferenceId)?.[0] ?? {
-      Value: '',
-    }
-  ).Value
-
   const item = {
     item_id: productId,
     item_name: productName,
@@ -78,7 +70,7 @@ export function viewItem(eventData: ProductViewData) {
     ...categoriesHierarchy,
     ...customDimensions({
       productReference,
-      skuReference: skuReferenceId,
+      skuReference: productViewSkuReference(product),
       skuName: selectedSku.name,
       quantity,
     }),
@@ -355,14 +347,6 @@ export function addToWishlist(eventData: AddToWishlistData) {
 
   const { itemId: variant } = selectedSku
 
-  // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
-  // Doing that there could possibly break some apps or stores, so it's better doing it here
-  const skuReferenceId = (
-    ((selectedSku.referenceId as unknown) as ProductViewReferenceId)?.[0] ?? {
-      Value: '',
-    }
-  ).Value
-
   const seller = getSeller(selectedSku.sellers)
   const value = getPrice(seller)
   const categoriesHierarchy = getCategoriesWithHierarchy(categories)
@@ -381,7 +365,7 @@ export function addToWishlist(eventData: AddToWishlistData) {
     ...categoriesHierarchy,
     ...customDimensions({
       productReference,
-      skuReference: skuReferenceId,
+      skuReference: productViewSkuReference(product),
       skuName: selectedSku.name,
       quantity,
     }),

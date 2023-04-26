@@ -4,7 +4,6 @@ import {
   ProductOrder,
   Impression,
   CartItem,
-  ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
@@ -33,9 +32,8 @@ import {
   getProductNameWithoutVariant,
   getPurchaseObjectData,
   customDimensionSkuAvailability,
+  productViewSkuReference,
 } from './utils'
-
-const defaultReference = { Value: '' }
 
 export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
   switch (e.data.eventName) {
@@ -59,13 +57,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
-      // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
-      // Doing that there could possibly break some apps or stores, so it's better doing it here
-      const skuReferenceId = (
-        ((selectedSku.referenceId as unknown) as ProductViewReferenceId)?.[0] ??
-        defaultReference
-      ).Value
-
       let price
 
       try {
@@ -86,7 +77,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 variant: selectedSku.itemId,
                 name: productName,
                 dimension1: productReference ?? '',
-                dimension2: skuReferenceId ?? '',
+                dimension2: productViewSkuReference(e.data.product) ?? '',
                 dimension3: selectedSku.name,
                 dimension4: isAvailable,
                 price,
