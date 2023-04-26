@@ -17,6 +17,7 @@ import {
   SignUpData,
   ShareData,
   ProductViewReferenceId,
+  PromotionClickData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -155,7 +156,7 @@ export function selectItem(eventData: ProductClickData) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function selectPromotion(eventData: PromoViewData) {
+export function selectPromotion(eventData: PromotionClickData) {
   if (!shouldSendGA4Events()) return
 
   const eventName = 'select_promotion'
