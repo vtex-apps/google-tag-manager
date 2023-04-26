@@ -194,7 +194,18 @@ export function getProductNameWithoutVariant(
 }
 
 function formatPurchaseProduct(product: ProductOrder) {
-  const { name, skuName, id, brand, sku, price, quantity, category } = product
+  const {
+    name,
+    skuName,
+    id,
+    brand,
+    sku,
+    price,
+    quantity,
+    category,
+    productRefId,
+    skuRefId,
+  } = product
 
   const productName = getProductNameWithoutVariant(name, skuName)
 
@@ -206,6 +217,10 @@ function formatPurchaseProduct(product: ProductOrder) {
     price,
     quantity,
     ...getCategoriesWithHierarchy([category]),
+    dimension1: productRefId,
+    dimension2: skuRefId,
+    dimension3: skuName,
+    dimension4: quantity ? 'available' : 'unavailable',
   }
 
   return item
