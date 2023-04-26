@@ -338,9 +338,24 @@ export function addToWishlist(eventData: AddToWishlistData) {
 
   const { currency, product, list } = eventData
 
-  const { selectedSku, productName, productId, categories, brand } = product
+  const {
+    selectedSku,
+    productName,
+    productId,
+    categories,
+    brand,
+    productReference,
+  } = product
 
   const { itemId: variant } = selectedSku
+
+  // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
+  // Doing that there could possibly break some apps or stores, so it's better doing it here
+  const skuReferenceId = (
+    ((selectedSku.referenceId as unknown) as ProductViewReferenceId)?.[0] ?? {
+      Value: '',
+    }
+  ).Value
 
   const seller = getSeller(selectedSku.sellers)
   const value = getPrice(seller)
@@ -358,6 +373,10 @@ export function addToWishlist(eventData: AddToWishlistData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
+    dimension1: productReference ?? '',
+    dimension2: skuReferenceId ?? '',
+    dimension3: selectedSku.name ?? '',
+    dimension4: quantity ? 'available' : 'unavailable',
   }
 
   const data = {
