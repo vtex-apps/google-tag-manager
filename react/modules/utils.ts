@@ -118,10 +118,12 @@ export function getImpressions(impressions: Impression[]) {
       price,
       quantity,
       ...categoriesHierarchy,
-      dimension1: productReference ?? '',
-      dimension2: referenceId?.Value ?? '',
-      dimension3: name ?? '',
-      dimension4: quantity ? 'available' : 'unavailable',
+      ...customDimenions({
+        productReference,
+        skuReference: referenceId?.Value,
+        skuName: name,
+        quantity,
+      }),
     }
   })
 
@@ -217,10 +219,12 @@ function formatPurchaseProduct(product: ProductOrder) {
     price,
     quantity,
     ...getCategoriesWithHierarchy([category]),
-    dimension1: productRefId,
-    dimension2: skuRefId,
-    dimension3: skuName,
-    dimension4: quantity ? 'available' : 'unavailable',
+    ...customDimenions({
+      productReference: productRefId,
+      skuReference: skuRefId,
+      skuName,
+      quantity,
+    }),
   }
 
   return item
@@ -260,10 +264,12 @@ export function formatCartItemsAndValue(
       quantity: item.quantity,
       price: formattedPrice,
       ...formattedCategories,
-      dimension1: item.productRefId ?? '',
-      dimension2: item.referenceId ?? '',
-      dimension3: item.variant ?? '',
-      dimension4: item.quantity ? 'available' : 'unavailable',
+      ...customDimenions({
+        productReference: item.productRefId,
+        skuReference: item.referenceId,
+        skuName: item.variant,
+        quantity: item.quantity,
+      }),
     }
   })
 
@@ -272,4 +278,35 @@ export function formatCartItemsAndValue(
 
 export function getPurchaseItems(orderProducts: ProductOrder[]) {
   return orderProducts.map(formatPurchaseProduct)
+}
+
+type ProductAvailability = 'available' | 'unavailable'
+
+interface CustomDimensions {
+  /** Product reference */
+  dimension1: string
+  /** SKU reference */
+  dimension2: string
+  /** SKU name */
+  dimension3: string
+  /** SKU availability */
+  dimension4: ProductAvailability
+}
+
+interface CustomDimensionParams {
+  productReference?: string
+  skuReference?: string
+  skuName?: string
+  quantity: number
+}
+
+export function customDimenions(
+  params: CustomDimensionParams
+): CustomDimensions {
+  return {
+    dimension1: params.productReference ?? '',
+    dimension2: params.skuReference ?? '',
+    dimension3: params.skuName ?? '',
+    dimension4: params.quantity ? 'available' : 'unavailable',
+  }
 }

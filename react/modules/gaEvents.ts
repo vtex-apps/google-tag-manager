@@ -30,6 +30,7 @@ import {
   getPurchaseObjectData,
   getPurchaseItems,
   formatCartItemsAndValue,
+  customDimenions,
 } from './utils'
 import shouldSendGA4Events from './utils/shouldSendGA4Events'
 
@@ -75,10 +76,12 @@ export function viewItem(eventData: ProductViewData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
-    dimension1: productReference ?? '',
-    dimension2: skuReferenceId ?? '',
-    dimension3: selectedSku.name ?? '',
-    dimension4: quantity ? 'available' : 'unavailable',
+    ...customDimenions({
+      productReference,
+      skuReference: skuReferenceId,
+      skuName: selectedSku.name,
+      quantity,
+    }),
   }
 
   const data = {
@@ -142,10 +145,12 @@ export function selectItem(eventData: ProductClickData) {
     quantity,
     discount,
     ...categoriesHierarchy,
-    dimension1: productReference ?? '',
-    dimension2: referenceId?.Value ?? '',
-    dimension3: name ?? '',
-    dimension4: quantity ? 'available' : 'quantity',
+    ...customDimenions({
+      productReference,
+      skuReference: referenceId?.Value,
+      skuName: name,
+      quantity,
+    }),
   }
 
   const data = {
@@ -374,10 +379,12 @@ export function addToWishlist(eventData: AddToWishlistData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
-    dimension1: productReference ?? '',
-    dimension2: skuReferenceId ?? '',
-    dimension3: selectedSku.name ?? '',
-    dimension4: quantity ? 'available' : 'unavailable',
+    ...customDimenions({
+      productReference,
+      skuReference: skuReferenceId,
+      skuName: selectedSku.name,
+      quantity,
+    }),
   }
 
   const data = {
