@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `Partytown` option to enable shopkeepers to load third-party scripts off the main thread.
 
+## [3.4.2] - 2023-04-13
+
+### Security
+- Updates lodash version
+
+## [3.4.1] - 2023-04-12
+
+### Security
+- Updates dependencies with security issues
+
 ## [3.3.1] - 2022-04-04
 
 ### Fixed
