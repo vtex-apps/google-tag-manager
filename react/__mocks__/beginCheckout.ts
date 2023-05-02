@@ -7,6 +7,9 @@ const cartItem1 = {
   price: 197.99,
   category: 'Home & Decor',
   quantity: 1,
+  productRefId: '123',
+  referenceId: '456',
+  variant: 'Red',
 }
 
 const cartItem2 = {
@@ -18,6 +21,9 @@ const cartItem2 = {
   price: 150.9,
   category: 'Home & Decor/Tables',
   quantity: 3,
+  productRefId: '789',
+  referenceId: '101',
+  variant: 'Blue',
 }
 
 export const beginCheckoutMock = {
