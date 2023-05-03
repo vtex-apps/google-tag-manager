@@ -5,18 +5,29 @@ export interface PixelMessage extends MessageEvent {
     | OrderPlacedData
     | OrderPlacedTrackedData
     | PageViewData
+    | LegacyProductViewData
     | ProductImpressionData
     | AddToCartData
-    | RemoveToCartData
+    | RemoveFromCartData
     | CartChangedData
     | HomePageInfo
     | ProductPageInfoData
     | SearchPageInfoData
     | UserData
     | CartIdData
-    | CartData
+    | CartLoadedData
     | PromoViewData
     | PromotionClickData
+    | AddPaymentInfoData
+    | AddShippingInfoData
+    | SignUpData
+    | LoginData
+    | ShareData
+    | BeginCheckoutData
+    | ViewCartData
+    | RefundData
+    | AddToWishlistData
+    | SearchData
 }
 
 export interface EventData {
@@ -31,6 +42,12 @@ export interface PageInfoData extends EventData {
   accountName: string
   pageTitle: string
   pageUrl: string
+}
+
+export interface LegacyProductViewData extends EventData {
+  event: 'pageInfo'
+  eventName: 'vtex:pageInfo'
+  eventType: 'productView'
 }
 
 export interface UserData extends PageInfoData {
@@ -100,7 +117,7 @@ export interface AddToCartData extends EventData {
   items: CartItem[]
 }
 
-export interface RemoveToCartData extends EventData {
+export interface RemoveFromCartData extends EventData {
   event: 'removeFromCart'
   eventName: 'vtex:removeFromCart'
   items: CartItem[]
@@ -155,20 +172,99 @@ export interface CartLoadedData extends EventData {
 export interface PromoViewData extends EventData {
   event: 'promoView'
   eventType: 'vtex:promoView'
+  eventName: 'vtex:promoView'
   promotions: Promotion[]
 }
 
 export interface PromotionClickData extends EventData {
   event: 'promotionClick'
   eventType: 'vtex:promotionClick'
+  eventName: 'vtex:promotionClick'
   promotions: Promotion[]
 }
+
+export interface AddPaymentInfoData extends EventData {
+  event: 'addPaymentInfo'
+  eventType: 'vtex:addPaymentInfo'
+  eventName: 'vtex:addPaymentInfo'
+  payment: PaymentType
+  items: CartItem[]
+}
+
+export interface BeginCheckoutData extends EventData {
+  event: 'beginCheckout'
+  eventType: 'vtex:beginCheckout'
+  eventName: 'vtex:beginCheckout'
+  items: CartItem[]
+}
+
+export interface AddShippingInfoData extends EventData {
+  event: 'addShippingInfo'
+  eventType: 'vtex:addShippingInfo'
+  eventName: 'vtex:addShippingInfo'
+  items: CartItem[]
+  shippingTier: string
+  value: number
+}
+
+export interface ViewCartData extends EventData {
+  event: 'viewCart'
+  eventType: 'vtex:viewCart'
+  eventName: 'vtex:viewCart'
+  items: CartItem[]
+}
+
+export interface AddToWishlistData extends EventData {
+  event: 'addToWishlist'
+  eventType: 'vtex:addToWishlist'
+  eventName: 'vtex:addToWishlist'
+  product: Product
+  list: string
+}
+
+export interface RefundData extends Order, EventData {
+  event: 'refund'
+  eventType: 'vtex:refund'
+  eventName: 'vtex:refund'
+}
+
+export interface SearchData extends EventData {
+  event: 'search'
+  eventType: 'vtex:search'
+  eventName: 'vtex:search'
+  term: string
+}
+
+export interface ShareData extends EventData {
+  event: 'share'
+  eventType: 'vtex:share'
+  eventName: 'vtex:share'
+  method: string
+  contentType: string
+  itemId: string
+}
+
+export interface LoginData extends EventData {
+  event: 'login'
+  eventType: 'vtex:login'
+  eventName: 'vtex:login'
+  method: string
+}
+
+export interface SignUpData extends LoginData, EventData {
+  event: 'signUp'
+  eventType: 'vtex:signUp'
+  eventName: 'vtex:signUp'
+}
+
+type PromotionProduct = Pick<ProductSummary, 'productId' | 'productName'>
 
 interface Promotion {
   id?: string
   name?: string
   creative?: string
   position?: string
+  products?: PromotionProduct[]
 }
 
 interface CartItemAdditionalInfo {
@@ -179,6 +275,7 @@ interface CartItemAdditionalInfo {
 interface CartItem {
   id: string
   productCategories: Record<string, string> | null
+  productCategoryIds?: string
   additionalInfo: CartItemAdditionalInfo | null
   brand: string
   ean: string
@@ -202,12 +299,6 @@ interface Totalizer {
   id: string
   name: string
   value: number
-}
-
-interface Seller {
-  id: string
-  name: string
-  logo: string
 }
 
 interface ClientProfileData {
@@ -405,6 +496,7 @@ export interface Seller {
 
 export interface CommertialOffer {
   Price: number
+  PriceWithoutDiscount: number
   ListPrice: number
   AvailableQuantity: number
 }

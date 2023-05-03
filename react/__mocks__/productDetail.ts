@@ -10,7 +10,7 @@ const productDetail = {
     titleTag: 'Classic Shoes',
     metaTagDescription: "If you go classic, you can't go wrong.",
     linkText: 'classic-shoes',
-    productReference: null,
+    productReference: '123',
     categories: ['/Apparel & Accessories/Shoes/', '/Apparel & Accessories/'],
     categoryId: '10',
     categoriesIds: ['/25/10/', '/25/'],
@@ -654,9 +654,9 @@ const productDetail = {
           commertialOffer: {
             discountHighlights: [],
             teasers: [],
-            Price: 38.9,
-            ListPrice: 38.9,
-            PriceWithoutDiscount: 38.9,
+            Price: 1540.99,
+            ListPrice: 1900.99,
+            // PriceWithoutDiscount: 38.9, the current event does not send this.
             RewardValue: 0,
             PriceValidUntil: '2020-09-05T22:07:59.9154441Z',
             AvailableQuantity: 2000000,
@@ -791,6 +791,7 @@ const productDetail = {
       __typename: 'SKU',
     },
   },
+  list: 'List of products',
 }
 
 export default productDetail

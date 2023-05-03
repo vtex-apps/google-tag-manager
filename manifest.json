@@ -45,6 +45,11 @@
         "title": "Allow Custom HTML tags",
         "description": "Beware that using Custom HTML tags can drastically impact the store's performance",
         "type": "boolean"
+      },
+      "sendGA4Events": {
+        "title": "Send Google Analytics 4 Events",
+        "description": "When this setting is active, also send the GA4 version of the events",
+        "type": "boolean"
       }
     }
   },

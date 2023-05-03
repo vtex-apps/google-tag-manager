@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- A new app configuration option on Admin, "Send Google Analytics 4 Events", that clients can opt-in to also send the events in the GA4 format.
+- Support for sending GA4 [`view_item`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_item) (UA [`detail`](https://developers.google.com/tag-manager/enhanced-ecommerce#details)) when `vtex:productView` is received.
+- Support for sending GA4 [`view_item_list`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_item_list) (UA [`impressions`](https://developers.google.com/tag-manager/enhanced-ecommerce#product-impressions)) when `vtex:productImpression` is received.
+- Support for sending GA4 [`select_item`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_item) (UA [`click`](https://developers.google.com/tag-manager/enhanced-ecommerce#product-clicks)) when `vtex:productClick` is received.
+- Support for sending GA4 [`purchase`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase) (UA [`purchase`](https://developers.google.com/tag-manager/enhanced-ecommerce#purchases)) when `vtex:orderPlaced` is received.
+- Support for sending GA4 [`add_to_cart`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_to_cart) (UA [`add`](https://developers.google.com/tag-manager/enhanced-ecommerce#add)) when `vtex:addToCart` is received.
+- Support for sending GA4 [`remove_from_cart`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#remove_from_cart) (UA [`remove`](https://developers.google.com/tag-manager/enhanced-ecommerce#remove)) when `vtex:removeFromCart` is received.
+- Support for sending GA4 [`view_promotion`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_promotion) (UA [`promoView`](https://developers.google.com/tag-manager/enhanced-ecommerce#promo-impressions)) when `vtex:promoView` is received.
+- Support for sending GA4 [`select_promotion`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_promotion) (UA [`promoClick`](https://developers.google.com/tag-manager/enhanced-ecommerce#promo-clicks)) when `vtex:promotionClick` is received.
+- Support for sending GA4 [`add_payment_info`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_payment_info) when `vtex:addPaymentInfo` is received (not being sent yet).
+- Support for sending GA4 [`begin_checkout`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#begin_checkout) when `vtex:beginCheckout` is received (not being sent yet).
+- Support for sending GA4 [`view_cart`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_cart) when `vtex:beginCheckout` is received (not being sent yet).
+- Support for sending GA4 [`add_shipping_info`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_shipping_info) when `vtex:addShippingInfo` is received (not being sent yet).
+- Support for sending GA4 [`search`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#search) when `vtex:search` is received (not being sent yet).
+- Support for sending GA4 [`login`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#login) when `vtex:login` is received (not being sent yet).
+- Support for sending GA4 [`refund`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#refund) when `vtex:refund` is received (not being sent yet).
+- Support for sending GA4 [`add_to_wishlist`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#add_to_wishlist) when `vtex:addToWishlist` is received (not being sent yet).
+- Support for sending GA4 [`sign_up`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#sign_up) when `vtex:signUp` is received (not being sent yet).
+- Support for sending GA4 [`share`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#share) when `vtex:share` is received (not being sent yet).
+
 ## [3.4.2] - 2023-04-13
 
 ### Security
@@ -25,14 +47,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.3.0] - 2022-02-09
 
 ### Added
-- Added a custom field to "userData" dataLayer 
+- Added a custom field to "userData" dataLayer
 
 ## [3.2.1] - 2022-01-26
-### Fixed 
-- Added `ecommerceV2` property sent on the orderPlaced event to match the checkout dataLayer 
+### Fixed
+- Added `ecommerceV2` property sent on the orderPlaced event to match the checkout dataLayer
 
 ## [3.2.0] - 2022-01-26
-### Added 
+### Added
 -`dimension4` property to the product data layer on `productView` events, representing the availability of the product
 
 ## [3.1.3] - 2021-12-28
