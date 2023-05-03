@@ -182,14 +182,26 @@ export function getProductNameWithoutVariant(
 }
 
 function formatPurchaseProduct(product: ProductOrder) {
-  const { name, skuName, id, brand, sku, price, quantity, category } = product
+  const {
+    name,
+    skuName,
+    id,
+    brand,
+    sku,
+    price,
+    quantity,
+    category,
+    additionalInfo,
+  } = product
+
+  const itemBrand = brand ?? additionalInfo?.brandName
 
   const productName = getProductNameWithoutVariant(name, skuName)
 
   const item = {
     item_id: id,
     item_name: productName,
-    item_brand: brand,
+    item_brand: itemBrand,
     item_variant: sku,
     price,
     quantity,

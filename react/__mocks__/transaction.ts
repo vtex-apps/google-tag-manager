@@ -53,3 +53,16 @@ export const transaction = {
   transactionTax: 0,
   transactionTotal: 5144.59,
 }
+
+export const refundTransaction = {
+  currency: 'USD',
+  event: 'refund',
+  eventName: 'vtex:refund',
+  order: {
+    items: transactionProducts,
+    shipping: 1942.61,
+    tax: 0,
+    transactionId: '1310750551387',
+    value: 3543.6,
+  },
+}

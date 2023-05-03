@@ -19,7 +19,7 @@ import {
   viewCartWithItemsMock,
   viewCartWithNoItemsMock,
 } from '../__mocks__/viewCart'
-import { transaction } from '../__mocks__/transaction'
+import { transaction, refundTransaction } from '../__mocks__/transaction'
 
 jest.mock('../modules/utils/shouldSendGA4Events')
 
@@ -616,10 +616,7 @@ describe('GA4 events', () => {
 
   describe('refund', () => {
     it('sends an event when the user refunds an order', () => {
-      const data = transaction
-
-      data.event = 'refund'
-      data.eventName = 'vtex:refund'
+      const data = refundTransaction
 
       const message = new MessageEvent('message', { data })
 
@@ -627,7 +624,6 @@ describe('GA4 events', () => {
 
       expect(mockedUpdate).toHaveBeenCalledWith('refund', {
         ecommerce: {
-          coupon: null,
           currency: 'USD',
           items: [
             {
@@ -643,7 +639,7 @@ describe('GA4 events', () => {
           shipping: 1942.61,
           tax: 0,
           transaction_id: '1310750551387',
-          value: 5144.59,
+          value: 3543.6,
         },
       })
     })

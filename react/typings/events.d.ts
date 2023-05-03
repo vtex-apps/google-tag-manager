@@ -204,9 +204,16 @@ export interface AddToWishlistData extends EventData {
   list: string
 }
 
-export interface RefundData extends Order, EventData {
+export interface RefundData extends EventData {
   event: 'refund'
   eventType: 'vtex:refund'
+  order: {
+    transactionId: string
+    tax: number
+    shipping: number
+    value: number
+    items: ProductOrder[]
+  }
 }
 
 export interface SearchData extends EventData {
@@ -366,6 +373,7 @@ export interface Order {
   transactionPayment: {
     id: string
   }
+  items: ProductOrder[]
 }
 
 export interface Impression {
@@ -394,8 +402,9 @@ export interface ProductOrder {
   productRefId: string
   ean: string
   slug: string
-  brand: string
+  brand?: string
   brandId: string
+  additionalInfo: CartItemAdditionalInfo | null
   seller: string
   sellerId: string
   category: string
