@@ -12,6 +12,9 @@ const cartItem1 = {
   },
   productCategoryIds: '/25/',
   quantity: 2,
+  productRefId: '123',
+  referenceId: '456',
+  variant: 'Red',
 }
 
 const cartItem2 = {
@@ -29,6 +32,9 @@ const cartItem2 = {
   },
   productCategoryIds: '/25/32/',
   quantity: 1,
+  productRefId: '789',
+  referenceId: '101',
+  variant: 'Blue',
 }
 
 export const viewCartWithItemsMock = {

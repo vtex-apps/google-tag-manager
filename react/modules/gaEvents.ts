@@ -16,6 +16,7 @@ import {
   AddToWishlistData,
   SignUpData,
   ShareData,
+  PromotionClickData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -29,6 +30,7 @@ import {
   getPurchaseItems,
   formatCartItemsAndValue,
 } from './utils'
+import { customDimensions, productViewSkuReference } from './customDimensions'
 import shouldSendGA4Events from './utils/shouldSendGA4Events'
 
 export function viewItem(eventData: ProductViewData) {
@@ -38,7 +40,14 @@ export function viewItem(eventData: ProductViewData) {
 
   const { currency, product, list } = eventData
 
-  const { selectedSku, productName, productId, categories, brand } = product
+  const {
+    selectedSku,
+    productName,
+    productId,
+    productReference,
+    categories,
+    brand,
+  } = product
 
   const { itemId: variant } = selectedSku
 
@@ -58,6 +67,12 @@ export function viewItem(eventData: ProductViewData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
+    ...customDimensions({
+      productReference,
+      skuReference: productViewSkuReference(product),
+      skuName: selectedSku.name,
+      quantity,
+    }),
   }
 
   const data = {
@@ -93,9 +108,16 @@ export function selectItem(eventData: ProductClickData) {
 
   const { product, list, position } = eventData
 
-  const { sku, productName, productId, categories, brand } = product
+  const {
+    sku,
+    productName,
+    productId,
+    productReference,
+    categories,
+    brand,
+  } = product
 
-  const { itemId: variant } = sku
+  const { itemId: variant, referenceId, name } = sku
 
   const seller = getSeller(sku.sellers)
   const price = getPrice(seller)
@@ -114,6 +136,12 @@ export function selectItem(eventData: ProductClickData) {
     quantity,
     discount,
     ...categoriesHierarchy,
+    ...customDimensions({
+      productReference,
+      skuReference: referenceId?.Value,
+      skuName: name,
+      quantity,
+    }),
   }
 
   const data = {
@@ -124,7 +152,7 @@ export function selectItem(eventData: ProductClickData) {
   updateEcommerce(eventName, { ecommerce: data })
 }
 
-export function selectPromotion(eventData: PromoViewData) {
+export function selectPromotion(eventData: PromotionClickData) {
   if (!shouldSendGA4Events()) return
 
   const eventName = 'select_promotion'
@@ -307,7 +335,14 @@ export function addToWishlist(eventData: AddToWishlistData) {
 
   const { currency, product, list } = eventData
 
-  const { selectedSku, productName, productId, categories, brand } = product
+  const {
+    selectedSku,
+    productName,
+    productId,
+    categories,
+    brand,
+    productReference,
+  } = product
 
   const { itemId: variant } = selectedSku
 
@@ -327,6 +362,12 @@ export function addToWishlist(eventData: AddToWishlistData) {
     quantity,
     price: value,
     ...categoriesHierarchy,
+    ...customDimensions({
+      productReference,
+      skuReference: productViewSkuReference(product),
+      skuName: selectedSku.name,
+      quantity,
+    }),
   }
 
   const data = {

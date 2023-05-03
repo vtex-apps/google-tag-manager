@@ -96,7 +96,7 @@ test('productDetail', () => {
             variant: '35',
             name: 'Classic Shoes Top',
             price: 1540.99,
-            dimension1: '',
+            dimension1: '123',
             dimension2: '12531',
             dimension3: 'Classic Pink',
             dimension4: 'available',
@@ -172,6 +172,10 @@ describe('GA4 events', () => {
               item_variant: '35',
               price: 38.9,
               quantity: 1,
+              dimension1: '12531',
+              dimension2: '232344',
+              dimension3: 'Classic Pink',
+              dimension4: 'available',
             },
             {
               discount: 0,
@@ -184,6 +188,10 @@ describe('GA4 events', () => {
               item_variant: '32',
               price: 2200,
               quantity: 0,
+              dimension1: '',
+              dimension2: '',
+              dimension3: 'Grey',
+              dimension4: 'unavailable',
             },
           ],
         },
@@ -213,6 +221,10 @@ describe('GA4 events', () => {
               discount: 0,
               item_category: 'Apparel & Accessories',
               item_category2: 'Shoes',
+              dimension1: '123',
+              dimension2: '12531',
+              dimension3: 'Classic Pink',
+              dimension4: 'available',
             },
           ],
         },
@@ -242,6 +254,10 @@ describe('GA4 events', () => {
               discount: 0,
               item_category: 'Apparel & Accessories',
               item_category2: 'Shoes',
+              dimension1: '12531',
+              dimension2: '',
+              dimension3: 'Classic Pink',
+              dimension4: 'available',
             },
           ],
         },
@@ -293,6 +309,9 @@ describe('GA4 events', () => {
         | 'quantity'
         | 'category'
         | 'productId'
+        | 'productRefId'
+        | 'referenceId'
+        | 'variant'
       >
 
       const cartItem1: CartItemMockType = {
@@ -304,6 +323,9 @@ describe('GA4 events', () => {
         price: 197.99,
         category: 'Home & Decor',
         quantity: 1,
+        productRefId: '123',
+        referenceId: '456',
+        variant: 'Red',
       }
 
       const cartItem2: CartItemMockType = {
@@ -315,6 +337,9 @@ describe('GA4 events', () => {
         price: 150.9,
         category: 'Home & Decor/Tables',
         quantity: 2,
+        productRefId: '789',
+        referenceId: '101',
+        variant: 'Blue',
       }
 
       const data: AddToCartData = {
@@ -341,6 +366,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
             {
               item_id: '200000203',
@@ -351,6 +380,10 @@ describe('GA4 events', () => {
               item_category2: 'Tables',
               quantity: 2,
               price: 150.9,
+              dimension1: '789',
+              dimension2: '101',
+              dimension3: 'Blue',
+              dimension4: 'available',
             },
           ],
         },
@@ -370,6 +403,9 @@ describe('GA4 events', () => {
         | 'quantity'
         | 'category'
         | 'productId'
+        | 'productRefId'
+        | 'referenceId'
+        | 'variant'
       >
 
       const cartItem: CartItemMockType = {
@@ -381,6 +417,9 @@ describe('GA4 events', () => {
         price: 197.99,
         category: 'Home & Decor',
         quantity: 3,
+        productRefId: '123',
+        referenceId: '456',
+        variant: 'Red',
       }
 
       const data: RemoveFromCartData = {
@@ -407,6 +446,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 3,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
           ],
         },
@@ -438,6 +481,10 @@ describe('GA4 events', () => {
               item_variant: '20',
               price: 1600.99,
               quantity: 2,
+              dimension1: '',
+              dimension2: '9812983',
+              dimension3: '100 RMS',
+              dimension4: 'available',
             },
           ],
           shipping: 1942.61,
@@ -515,6 +562,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
           ],
         },
@@ -543,6 +594,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
             {
               item_id: '200000203',
@@ -553,6 +608,10 @@ describe('GA4 events', () => {
               item_category2: 'Tables',
               quantity: 3,
               price: 150.9,
+              dimension1: '789',
+              dimension2: '101',
+              dimension3: 'Blue',
+              dimension4: 'available',
             },
           ],
         },
@@ -581,6 +640,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 2,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
             {
               item_id: '200000203',
@@ -591,6 +654,10 @@ describe('GA4 events', () => {
               item_category2: 'Tables',
               quantity: 1,
               price: 150.9,
+              dimension1: '789',
+              dimension2: '101',
+              dimension3: 'Blue',
+              dimension4: 'available',
             },
           ],
         },
@@ -634,6 +701,10 @@ describe('GA4 events', () => {
               item_variant: '20',
               price: 1600.99,
               quantity: 2,
+              dimension1: '',
+              dimension2: '9812983',
+              dimension3: '100 RMS',
+              dimension4: 'available',
             },
           ],
           shipping: 1942.61,
@@ -667,6 +738,10 @@ describe('GA4 events', () => {
               item_category: 'Home & Decor',
               quantity: 1,
               price: 197.99,
+              dimension1: '123',
+              dimension2: '456',
+              dimension3: 'Red',
+              dimension4: 'available',
             },
           ],
         },
@@ -678,9 +753,11 @@ describe('GA4 events', () => {
     it('sends an event when the user add a product to wishlist', () => {
       const message = new MessageEvent('message', { data: productDetails })
 
+      message.data.eventName = 'vtex:addToWishlist'
+
       handleEvents(message)
 
-      expect(mockedUpdate).toHaveBeenCalledWith('view_item', {
+      expect(mockedUpdate).toHaveBeenCalledWith('add_to_wishlist', {
         ecommerce: {
           currency: 'USD',
           value: 1540.99,
@@ -696,6 +773,10 @@ describe('GA4 events', () => {
               discount: 0,
               item_category: 'Apparel & Accessories',
               item_category2: 'Shoes',
+              dimension1: '123',
+              dimension2: '12531',
+              dimension3: 'Classic Pink',
+              dimension4: 'available',
             },
           ],
         },

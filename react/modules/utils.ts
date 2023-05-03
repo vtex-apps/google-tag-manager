@@ -5,6 +5,7 @@ import {
   ProductOrder,
   Seller,
 } from '../typings/events'
+import { customDimensions } from './customDimensions'
 
 export function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -91,8 +92,16 @@ export function getImpressions(impressions: Impression[]) {
 
   const formattedImpressions = impressions.map(impression => {
     const { product, position } = impression
-    const { productName, productId, sku, brand, categories } = product
-    const { itemId, seller } = sku
+    const {
+      productName,
+      productId,
+      productReference,
+      sku,
+      brand,
+      categories,
+    } = product
+
+    const { itemId, seller, referenceId, name } = sku
 
     const price = getPrice(seller)
     const discount = getDiscount(seller)
@@ -110,6 +119,12 @@ export function getImpressions(impressions: Impression[]) {
       price,
       quantity,
       ...categoriesHierarchy,
+      ...customDimensions({
+        productReference,
+        skuReference: referenceId?.Value,
+        skuName: name,
+        quantity,
+      }),
     }
   })
 
@@ -192,6 +207,8 @@ function formatPurchaseProduct(product: ProductOrder) {
     quantity,
     category,
     additionalInfo,
+    productRefId,
+    skuRefId,
   } = product
 
   const itemBrand = brand ?? additionalInfo?.brandName
@@ -206,6 +223,12 @@ function formatPurchaseProduct(product: ProductOrder) {
     price,
     quantity,
     ...getCategoriesWithHierarchy([category]),
+    ...customDimensions({
+      productReference: productRefId,
+      skuReference: skuRefId,
+      skuName,
+      quantity,
+    }),
   }
 
   return item
@@ -245,6 +268,12 @@ export function formatCartItemsAndValue(
       quantity: item.quantity,
       price: formattedPrice,
       ...formattedCategories,
+      ...customDimensions({
+        productReference: item.productRefId,
+        skuReference: item.referenceId,
+        skuName: item.variant,
+        quantity: item.quantity,
+      }),
     }
   })
 

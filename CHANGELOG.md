@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- A new app configuration option, "Send Google Analytics 4 Events", on Admin that clients can opt-in to also send the events in the GA4 format.
+- A new app configuration option on Admin, "Send Google Analytics 4 Events", that clients can opt-in to also send the events in the GA4 format.
 - Support for sending GA4 [`view_item`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_item) (UA [`detail`](https://developers.google.com/tag-manager/enhanced-ecommerce#details)) when `vtex:productView` is received.
 - Support for sending GA4 [`view_item_list`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#view_item_list) (UA [`impressions`](https://developers.google.com/tag-manager/enhanced-ecommerce#product-impressions)) when `vtex:productImpression` is received.
 - Support for sending GA4 [`select_item`](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_item) (UA [`click`](https://developers.google.com/tag-manager/enhanced-ecommerce#product-clicks)) when `vtex:productClick` is received.

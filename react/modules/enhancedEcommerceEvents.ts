@@ -4,15 +4,6 @@ import {
   ProductOrder,
   Impression,
   CartItem,
-  AddToCartData,
-  RemoveFromCartData,
-  ProductViewData,
-  ProductClickData,
-  ProductViewReferenceId,
-  PromoViewData,
-  OrderPlacedData,
-  ProductImpressionData,
-  CartLoadedData,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
 import {
@@ -41,8 +32,10 @@ import {
   getProductNameWithoutVariant,
   getPurchaseObjectData,
 } from './utils'
-
-const defaultReference = { Value: '' }
+import {
+  customDimensionSkuAvailability,
+  productViewSkuReference,
+} from './customDimensions'
 
 export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
   switch (e.data.eventName) {
@@ -54,23 +47,17 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         productName,
         brand,
         categories,
-      } = (e.data as ProductViewData).product
+      } = e.data.product
 
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
 
-      const isAvailable =
-        productAvailableQuantity > 0 ? 'available' : 'unavailable'
+      const isAvailable = customDimensionSkuAvailability(
+        productAvailableQuantity
+      )
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
-
-      // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
-      // Doing that there could possibly break some apps or stores, so it's better doing it here
-      const skuReferenceId = (
-        ((selectedSku.referenceId as unknown) as ProductViewReferenceId)?.[0] ??
-        defaultReference
-      ).Value
 
       let price
 
@@ -92,7 +79,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 variant: selectedSku.itemId,
                 name: productName,
                 dimension1: productReference ?? '',
-                dimension2: skuReferenceId ?? '',
+                dimension2: productViewSkuReference(e.data.product) ?? '',
                 dimension3: selectedSku.name,
                 dimension4: isAvailable,
                 price,
@@ -110,7 +97,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productClick': {
-      const { product, position } = e.data as ProductClickData
+      const { product, position } = e.data
       const {
         productName,
         brand,
@@ -162,7 +149,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:addToCart': {
-      const { items } = e.data as AddToCartData
+      const { items } = e.data
 
       const data = {
         ecommerce: {
@@ -195,7 +182,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:removeFromCart': {
-      const { items } = e.data as RemoveFromCartData
+      const { items } = e.data
 
       const data = {
         ecommerce: {
@@ -228,7 +215,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:orderPlaced': {
-      const order = e.data as OrderPlacedData
+      const order = e.data
 
       const ecommerce = {
         purchase: {
@@ -261,7 +248,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productImpression': {
-      const { currency, list, impressions } = e.data as ProductImpressionData
+      const { currency, list, impressions } = e.data
 
       const parsedImpressions = (impressions || []).map(
         getProductImpressionObjectData(list)
@@ -282,7 +269,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:cartLoaded': {
-      const { orderForm } = e.data as CartLoadedData
+      const { orderForm } = e.data
 
       const data = {
         event: 'checkout',
@@ -302,7 +289,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:promoView': {
-      const { promotions } = e.data as PromoViewData
+      const { promotions } = e.data
 
       const data = {
         event: 'promoView',
@@ -320,7 +307,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:promotionClick': {
-      const { promotions } = e.data as PromoViewData
+      const { promotions } = e.data
 
       const data = {
         event: 'promotionClick',
