@@ -396,7 +396,6 @@ export interface Order {
   transactionPayment: {
     id: string
   }
-  items: ProductOrder[]
 }
 
 export interface Impression {
