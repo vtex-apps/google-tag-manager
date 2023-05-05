@@ -206,19 +206,16 @@ function formatPurchaseProduct(product: ProductOrder) {
     price,
     quantity,
     category,
-    additionalInfo,
     productRefId,
     skuRefId,
   } = product
-
-  const itemBrand = brand ?? additionalInfo?.brandName
 
   const productName = getProductNameWithoutVariant(name, skuName)
 
   const item = {
     item_id: id,
     item_name: productName,
-    item_brand: itemBrand,
+    item_brand: brand,
     item_variant: sku,
     price,
     quantity,
