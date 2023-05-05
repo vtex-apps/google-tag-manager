@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.5.0] - 2023-05-03
 
+
 ### Added
 
 - A new app configuration option on Admin, "Send Google Analytics 4 Events", that clients can opt-in to also send the events in the GA4 format.

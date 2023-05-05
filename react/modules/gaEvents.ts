@@ -382,20 +382,23 @@ export function addToWishlist(eventData: AddToWishlistData) {
 export function refund(eventData: RefundData) {
   const eventName = 'refund'
 
-  const { id, revenue, tax, shipping, coupon } = getPurchaseObjectData(
-    eventData
-  )
+  const { currency } = eventData
 
-  const { transactionProducts, currency } = eventData
-
-  const items = getPurchaseItems(transactionProducts)
-
-  const data = {
-    transaction_id: id,
-    value: revenue,
+  const {
     tax,
     shipping,
-    coupon,
+    value,
+    transactionId,
+    items: orderItems,
+  } = eventData.order
+
+  const items = getPurchaseItems(orderItems)
+
+  const data = {
+    transaction_id: transactionId,
+    value,
+    tax,
+    shipping,
     items,
     currency,
   }
