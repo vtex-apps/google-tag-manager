@@ -425,9 +425,8 @@ export interface ProductOrder {
   productRefId: string
   ean: string
   slug: string
-  brand?: string
+  brand: string
   brandId: string
-  additionalInfo: CartItemAdditionalInfo | null
   seller: string
   sellerId: string
   category: string
