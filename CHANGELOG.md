@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [3.5.0] - 2023-05-03
+### Fixed
+- Fix `eventData` for the `refund` to receive a formatted order object instead
 
+## [3.5.0] - 2023-05-03
 
 ### Added
 
