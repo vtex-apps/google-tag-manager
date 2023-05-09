@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
+### Fixed
+- Fix attributes received from `eventData` on event `vtex:addToWishlist` extracting `items.product` ans using `sku` instead `selectedSku`
 ## [3.5.0] - 2023-05-03
 
 ### Added
