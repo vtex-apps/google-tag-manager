@@ -20,6 +20,7 @@ import {
   viewCartWithNoItemsMock,
 } from '../__mocks__/viewCart'
 import { transaction } from '../__mocks__/transaction'
+import productWishlist from '../__mocks__/addToWishlist'
 
 jest.mock('../modules/utils/shouldSendGA4Events')
 
@@ -755,7 +756,7 @@ describe('GA4 events', () => {
 
   describe('add_to_wishlist', () => {
     it('sends an event when the user add a product to wishlist', () => {
-      const message = new MessageEvent('message', { data: productDetails })
+      const message = new MessageEvent('message', { data: productWishlist })
 
       message.data.eventName = 'vtex:addToWishlist'
 
