@@ -3,6 +3,13 @@
     var gtmId = "{{settings.gtmId}}";
     var allowPartytown = "{{settings.allowPartytown}}"
 
+    var sendGA4EventsValue = "{{settings.sendGA4Events}}"
+    var sendGA4Events = sendGA4EventsValue == 'true'
+
+    window.__gtm__ = {
+      sendGA4Events
+    }
+    
     if (!gtmId) {
       console.error('Warning: No Google Tag Manager ID is defined. Please configure it in the apps admin.');
     } else {

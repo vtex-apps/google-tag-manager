@@ -1,7 +1,7 @@
 {
   "name": "google-tag-manager",
   "vendor": "vtex",
-  "version": "3.4.2",
+  "version": "3.5.1",
   "title": "Google Tag Manager",
   "description": "Google Tag Manager",
   "mustUpdateAt": "2019-04-03",
@@ -50,6 +50,11 @@
       "allowCustomHtmlTags": {
         "title": "Allow Custom HTML tags",
         "description": "Beware that using Custom HTML tags can drastically impact the store's performance",
+        "type": "boolean"
+      },
+      "sendGA4Events": {
+        "title": "Send Google Analytics 4 Events",
+        "description": "When this setting is active, also send the GA4 version of the events",
         "type": "boolean"
       }
     }
