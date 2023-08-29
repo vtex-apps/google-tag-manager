@@ -205,7 +205,7 @@ function formatPurchaseProduct(product: ProductOrder) {
     sku,
     price,
     quantity,
-    category,
+    categoryTree,
     productRefId,
     skuRefId,
   } = product
@@ -219,7 +219,7 @@ function formatPurchaseProduct(product: ProductOrder) {
     item_variant: sku,
     price,
     quantity,
-    ...getCategoriesWithHierarchy([category]),
+    ...getCategoriesWithHierarchy([categoryTree.join('/')]),
     ...customDimensions({
       productReference: productRefId,
       skuReference: skuRefId,
