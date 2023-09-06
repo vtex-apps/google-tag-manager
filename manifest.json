@@ -41,6 +41,12 @@
         "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager",
         "type": "string"
       },
+      "allowPartytown": {
+        "title": "Allow scripts with Partytown",
+        "description": "Define whether the type attribute executes script on a secondary thread or not. It's mandatory to have the partytown app installed to make it work",
+        "default": false,
+        "type": "boolean"
+      },
       "allowCustomHtmlTags": {
         "title": "Allow Custom HTML tags",
         "description": "Beware that using Custom HTML tags can drastically impact the store's performance",
