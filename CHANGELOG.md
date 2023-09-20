@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Fix `item_category` hierarchy on event `purchase`
+
 ## [3.5.1] - 2023-05-10
 ### Fixed
 - Fix attributes received from `eventData` on event `vtex:addToWishlist` extracting `items.product` ans using `sku` instead `selectedSku`
