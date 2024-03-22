@@ -346,9 +346,9 @@ export function addToWishlist(eventData: AddToWishlistData) {
     productReference,
   } = product
 
-  const { itemId: variant } = sku
+  const variant = sku ? sku.itemId : product.items[0].sellers
 
-  const seller = getSeller(sku.sellers)
+  const seller = getSeller(sku ? sku.sellers : product.items[0].sellers)
   const value = getPrice(seller)
   const categoriesHierarchy = getCategoriesWithHierarchy(categories)
   const discount = getDiscount(seller)
@@ -366,8 +366,8 @@ export function addToWishlist(eventData: AddToWishlistData) {
     ...categoriesHierarchy,
     ...customDimensions({
       productReference,
-      skuReference: sku.referenceId.Value,
-      skuName: sku.name,
+      skuReference: sku ? sku.referenceId.Value : product.items[0].referenceId?.Value,
+      skuName: sku ? sku.name : product.items[0].name,
       quantity,
     }),
   }
