@@ -346,7 +346,7 @@ export function addToWishlist(eventData: AddToWishlistData) {
     productReference,
   } = product
 
-  const variant = sku ? sku.itemId : product.items[0].sellers
+  const variant = sku ? sku.itemId : product.items[0].itemId
 
   const seller = getSeller(sku ? sku.sellers : product.items[0].sellers)
   const value = getPrice(seller)
