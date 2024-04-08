@@ -219,6 +219,7 @@ export interface AddToWishlistData extends EventData {
   eventType: 'vtex:addToWishlist'
   eventName: 'vtex:addToWishlist'
   items: {
+    selectedItem: any
     product: ProductSummary
   }
   list: string
@@ -485,6 +486,7 @@ export interface ProductSummary {
   productId: string
   productName: string
   productReference: string
+  selectedItem: any
   sku: ItemSummary
 }
 
