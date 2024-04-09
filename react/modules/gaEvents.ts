@@ -346,8 +346,6 @@ export function addToWishlist(eventData: AddToWishlistData) {
     productReference,
   } = product
 
-  console.log("EVENT:", eventData)
-
   const variant = sku ? sku.itemId : items.selectedItem.itemId
 
   const seller = getSeller(sku ? sku.sellers : items.selectedItem.sellers)
