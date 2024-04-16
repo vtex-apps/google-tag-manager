@@ -227,37 +227,37 @@ export interface AddToWishlistData extends EventData {
 
 export interface SelectedItem {
   attachments?: any[]
-  complementName?: String
-  ean?: String
+  complementName?: string
+  ean?: string
   estimatedDateArrival?: any
   images?: Image[]
-  itemId?: String
+  itemId?: string
   kitItems?: any[]
-  measurementUnit?: String
-  name?: String
-  nameComplete?: String
+  measurementUnit?: string
+  name?: string
+  nameComplete?: string
   referenceId?: any
-  sellers?: Seller[]
+  sellers: Seller[]
   unitMultiplier?: number
   variations?: any[]
   videos?: any[]
 }
 
 export interface Seller {
-  addToCartLink: String
+  addToCartLink: string
   commercialOffer: any
   sellerDefault: boolean
-  sellerId: String
-  sellerName: String
+  sellerId: string
+  sellerName: string
 }
 
 export interface Image {
-  cacheId: String
-  imageId: String
-  imageLabel: String
-  imageTag: String
-  imageText: String
-  imageUrl: String
+  cacheId: string
+  imageId: string
+  imageLabel: string
+  imageTag: string
+  imageText: string
+  imageUrl: string
 }
 
 export interface RefundData extends EventData {
