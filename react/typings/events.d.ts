@@ -219,10 +219,45 @@ export interface AddToWishlistData extends EventData {
   eventType: 'vtex:addToWishlist'
   eventName: 'vtex:addToWishlist'
   items: {
-    selectedItem: any
+    selectedItem: SelectedItem
     product: ProductSummary
   }
   list: string
+}
+
+export interface SelectedItem {
+  attachments?: any[]
+  complementName?: String
+  ean?: String
+  estimatedDateArrival?: any
+  images?: Image[]
+  itemId?: String
+  kitItems?: any[]
+  measurementUnit?: String
+  name?: String
+  nameComplete?: String
+  referenceId?: any
+  sellers?: Seller[]
+  unitMultiplier?: number
+  variations?: any[]
+  videos?: any[]
+}
+
+export interface Seller {
+  addToCartLink: String
+  commercialOffer: any
+  sellerDefault: boolean
+  sellerId: String
+  sellerName: String
+}
+
+export interface Image {
+  cacheId: String
+  imageId: String
+  imageLabel: String
+  imageTag: String
+  imageText: String
+  imageUrl: String
 }
 
 export interface RefundData extends EventData {
@@ -486,7 +521,7 @@ export interface ProductSummary {
   productId: string
   productName: string
   productReference: string
-  selectedItem: any
+  selectedItem: SelectedItem
   sku: ItemSummary
 }
 
