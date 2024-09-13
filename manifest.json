@@ -41,6 +41,11 @@
         "description": "Enter the ID (GTM-XXXX) from your Google Tag Manager",
         "type": "string"
       },
+      "gtmUrl": {
+        "title": "Google Tag Manager Server URL",
+        "description": "Enter the URL from your Google Tag Manager Server",
+        "type": "string"
+      },
       "allowCustomHtmlTags": {
         "title": "Allow Custom HTML tags",
         "description": "Beware that using Custom HTML tags can drastically impact the store's performance",

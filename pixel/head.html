@@ -1,11 +1,21 @@
 <script>
   (function() {
     var gtmId = "{{settings.gtmId}}";
+    let gtmUrl = "{{settings.gtmUrl}}";
     var sendGA4EventsValue = "{{settings.sendGA4Events}}"
     var sendGA4Events = sendGA4EventsValue == 'true'
-
+    
     window.__gtm__ = {
       sendGA4Events
+    }
+    
+    const gtmUrlDefault = 'https://www.googletagmanager.com/gtm.js?id='
+
+    if (gtmUrl) {
+      gtmId = gtmId.replace('GTM-', '')
+      gtmUrl = decodeURIComponent(gtmUrl)
+    } else {
+      gtmUrl = gtmUrlDefault
     }
     
     if (!gtmId) {
@@ -16,9 +26,9 @@
       // GTM script snippet. Taken from: https://developers.google.com/tag-manager/quickstart
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=gtmUrl+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer',gtmId)
     }
   })()
 </script>
+
