@@ -1,0 +1,14 @@
+{
+  "stack": "nodejs",
+  "memory": 512,
+  "ttl": 60,
+  "timeout": 3,
+  "minReplicas": 2,
+  "maxReplicas": 20,
+  "routes": {
+    "script": {
+      "path": "/_v/google-tag-manager/script/:name",
+      "public": true
+    }
+  }
+}

@@ -1,4 +1,41 @@
 <script>
+  const isSST = '{{ isServerSideTagging }}' === 'true'
+  const prefixURL = isSST ? '/_v/google-tag-manager/script' : 'https://www.googletagmanager.com';
+  window.__isSST__ = isSST
+  if (isSST) {
+    (function () {
+      function insertChildrenHandler(child, fct, scope, referenceNode) {
+        if (child.tagName === 'SCRIPT') {
+          if(child.src.includes('/gtag/js')) {
+            child.src = prefixURL + '/js?' + child.src.split('?')[1]
+          }
+          if(child.src.includes('/gtag/destination')) {
+            child.src = prefixURL + '/destination?' + child.src.split('?')[1]
+          }
+        }
+
+        return fct.call(scope, child, referenceNode)
+      }
+
+      const originalAppendChild = Element.prototype.appendChild
+      const originalInsertBefore = Element.prototype.insertBefore
+
+      Element.prototype.appendChild = function appendChild(child) {
+        return insertChildrenHandler(child, originalAppendChild, this)
+      }
+
+      Element.prototype.insertBefore = function insertBefore(child, referenceNode) {
+        return insertChildrenHandler(
+          child,
+          originalInsertBefore,
+          this,
+          referenceNode
+        )
+      }
+  })();
+  }
+
+
   (function() {
     var gtmId = "{{settings.gtmId}}";
     var sendGA4EventsValue = "{{settings.sendGA4Events}}"
@@ -7,7 +44,7 @@
     window.__gtm__ = {
       sendGA4Events
     }
-    
+
     if (!gtmId) {
       console.error('Warning: No Google Tag Manager ID is defined. Please configure it in the apps admin.');
     } else {
@@ -17,7 +54,7 @@
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        prefixURL + '/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer',gtmId)
     }
   })()
