@@ -127,6 +127,8 @@ It enables using and fixing the problems with Safari (private mode) tracking by 
 1) You must follow the steps to create the SST by following the documentation: [Server Side Tagging Fundamentals](https://developers.google.com/tag-platform/learn/sst-fundamentals)
 2) Once you have configured that, you must enable the flag **Is Server side Tagging?** accessing the App Management and open the VTEX Google Tag Manager Settings
 
+<!--- image reference here-->
+![alt text](files/settings.png)
 <!-- DOCS-IGNORE:start -->
 
 ## Contributors ✨
