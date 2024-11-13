@@ -20,6 +20,7 @@ import {
   addShippingInfo,
   viewCart,
   search,
+  autocomplete,
   login,
   refund,
   addToWishlist,
@@ -374,6 +375,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:search': {
       search(e.data)
+
+      break
+    }
+
+    case 'vtex:autocomplete': {
+      autocomplete(e.data)
 
       break
     }

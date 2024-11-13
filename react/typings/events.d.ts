@@ -28,6 +28,7 @@ export interface PixelMessage extends MessageEvent {
     | RefundData
     | AddToWishlistData
     | SearchData
+    | AutocompleteData
 }
 
 export interface EventData {
@@ -273,11 +274,22 @@ export interface RefundData extends EventData {
   }
 }
 
+export interface SearchAutocompleteData {
+  term: string
+}
+
 export interface SearchData extends EventData {
   event: 'search'
   eventType: 'vtex:search'
   eventName: 'vtex:search'
   term: string
+}
+
+export interface AutocompleteData extends EventData {
+  event: 'autocomplete'
+  eventType: string
+  eventName: 'vtex:autocomplete'
+  search: SearchAutocompleteData
 }
 
 export interface ShareData extends EventData {

@@ -17,6 +17,7 @@ import {
   SignUpData,
   ShareData,
   PromotionClickData,
+  AutocompleteData,
 } from '../typings/events'
 import updateEcommerce from './updateEcommerce'
 import {
@@ -366,7 +367,9 @@ export function addToWishlist(eventData: AddToWishlistData) {
     ...categoriesHierarchy,
     ...customDimensions({
       productReference,
-      skuReference: sku ? sku.referenceId.Value : items.selectedItem.referenceId,
+      skuReference: sku
+        ? sku.referenceId.Value
+        : items.selectedItem.referenceId,
       skuName: sku ? sku.name : items.selectedItem.name,
       quantity,
     }),
@@ -442,6 +445,16 @@ export function search(eventData: SearchData) {
   }
 
   updateEcommerce(eventName, { ecommerce: data })
+}
+
+export function autocomplete(eventData: AutocompleteData) {
+  const { eventType } = eventData
+
+  const data = {
+    term: eventData.search.term,
+  }
+
+  updateEcommerce(eventType, { ecommerce: data })
 }
 
 export function share(eventData: ShareData) {
