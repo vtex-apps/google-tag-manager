@@ -49,10 +49,16 @@ This is one deliverable inside a larger 3-year commercial agreement between VTEX
 
 #### US-4: Developer ID on every tag load
 
+> **Resolved, 2026-09-29** — see Open Question 1 and Decision 3 below. For stores *not* on GTG,
+> this story is **already satisfied today, by a different repository, with no code change in
+> this app** — see the confirmed mechanism before implementing anything here. For stores *on*
+> GTG, this story has a real, previously-unflagged gap — see the new risk under Decision 3.
+
 - **Story**: As VTEX platform engineering, I want a Developer ID present on every GTM tag load originated by this app, so that Google can attribute the installation to the VTEX platform per the contract.
 - **Acceptance Criteria**:
-  - **Given** the Developer ID value has been received from Google and configured, **when** `pixel/head.html` renders, **then** the identifier is present on the tag load, regardless of whether GTG is enabled for that store (see Open Question 1 for the exact mechanism when GTG is *not* enabled).
-  - **Given** the Developer ID value has not yet been provided by Google, **when** `pixel/head.html` renders, **then** nothing breaks — the identifier is simply omitted (no hardcoded placeholder is shipped).
+  - **Given** GTG is *not* enabled for a store, **when** `pixel/head.html` renders its unmodified `googletagmanager.com` loader, **then** the Developer ID is already present on the tag load — delivered by `vtex/pixel-server`, not by this app (confirmed; see Decision 3).
+  - **Given** GTG *is* enabled for a store and the script `src` has been rewritten to the same-origin 1P path, **when** the page renders, **then** the Developer ID must still be present on the tag load — this is **not yet guaranteed** by anything built so far (see the new risk under Decision 3) and needs an explicit answer before US-1 ships to any real store.
+  - **Given** the Developer ID value has not yet been provided by Google, **when** `pixel/head.html` renders, **then** nothing breaks — the identifier is simply omitted (no hardcoded placeholder is shipped by this app; see Decision 3 for why a placeholder shipped elsewhere is fine).
 
 ### Key Scenarios
 
@@ -133,7 +139,8 @@ The dotted boundary matters more than the diagram's boxes: this repository owns 
 
 | Risk | Impact | Likelihood | Mitigation |
 |---|---|---|---|
-| Developer ID value not yet received from Google | Medium | High (contract itself states it's pending) | Source the value from app-level config, not a hardcoded literal; ship the injection logic now as a no-op until the value exists |
+| Developer ID value not yet received from Google | Medium | High (contract itself states it's pending) | Not this app's problem to solve — see Decision 3. `vtex/pixel-server` already ships a placeholder (`dVTEX01`) behind the same real-value-pending condition; no independent placeholder needed here |
+| **GTG's own URL rewrite (US-1) silently breaks Developer ID coverage for exactly the stores that just adopted it** | High | High once US-1 ships to any real store | New — see Decision 3 addendum. `pixel-server`'s Developer ID detection (`vtex/pixel-server#88`) is a content-based regex anchored to `googletagmanager.com`; the moment this app rewrites `pixel/head.html`'s script `src` to a same-origin relative path, that regex stops matching and the Developer ID bootstrap silently stops being emitted — a regression, not a no-op, and invisible without deliberate testing |
 | Proxy backend location/architecture undecided | High | High | Keep this app's contract limited to emitting a same-origin relative path (Decision 1); do not assume routing internals |
 | Ambiguity on whether GTG enablement is a merchant-facing toggle or a platform-controlled rollout flag | Medium | Medium | Default to platform-controlled rollout (Decision 2); escalate to product before building any new admin UI |
 | Contract's "1P as default behavior" requirement (§6.1) vs. the phased/gradual rollout already being pursued (§3, §8) | High | Medium | Not resolved by this spec — flagged as Open Question 2 for the contract/product owner before GA |
@@ -157,10 +164,45 @@ The dotted boundary matters more than the diagram's boxes: this repository owns 
 
 #### Decision 3: Developer ID is a platform constant, not a merchant-configurable setting
 
-- **Status**: Accepted
-- **Context**: The Developer ID is a single static value assigned by Google to VTEX as a platform, not something that varies per merchant.
-- **Decision**: Keep it out of `settingsSchema` (which is merchant-facing input); source it from app-level configuration that can be updated independently of merchant settings.
-- **Consequences**: No merchant ever sees or configures this value; a single config change (or minor release) updates it for every store once Google provides it.
+- **Status**: **Superseded for non-GTG stores (confirmed 2026-09-29) — no work needed in this repo for that case.** Still open for GTG-enabled stores; see the addendum below.
+- **Context**: The Developer ID is a single static value assigned by Google to VTEX as a platform, not something that varies per merchant. Originally this spec assumed *this app* would need to inject it.
+- **Confirmed finding, resolving Open Question 1 for non-GTG stores**: `vtex/pixel-server#88`
+  (`feat/google-tag-developer-id`) already ships and has validated in production
+  (`storetheme.vtex.com`) a content-based rewrite, `withGoogleDeveloperId`, that prepends
+  `gtag('set','developer_id.<id>',true)` immediately before **any** snippet it serves that
+  matches `/googletagmanager\.com\/(?:gtm\.js|gtag\/js)/`. This app's own `manifest.json`
+  declares `"policies": [{"name": "pixel"}]` and `"pixel": "0.x"`, which is exactly the build
+  feature pixel-server filters on to decide which apps' snippets it serves through its `pixels`
+  route — and this app's current `pixel/head.html` loader line
+  (`'https://www.googletagmanager.com/gtm.js?id='+i+dl`) matches that regex. **So every store on
+  this app that is not on GTG already gets the Developer ID stamped today, with zero code change
+  here.** The placeholder value in production is `dVTEX01` — use that exact literal if this app
+  ever needs its own copy (see the addendum), not an independently invented one, so Google's
+  aggregate adoption signal stays consistent across surfaces during the pending-real-ID period.
+- **Addendum — the part of Open Question 1 this does NOT resolve, and a new decision it forces:**
+  pixel-server's regex is anchored to the literal string `googletagmanager.com`. Once US-1 ships
+  and rewrites `pixel/head.html`'s script `src` to a same-origin relative path for a GTG-enabled
+  store, that regex **stops matching**, and pixel-server silently stops emitting the Developer ID
+  bootstrap for exactly the stores that just adopted GTG — the population Google most wants
+  attributed, since Exhibit 1 §6.2 defines a *separate* delivery mechanism for them
+  (`X-Gtg-Developer-Id`, added by the proxy) that does not exist yet because the proxy itself
+  does not exist yet (Decision 1). Between "GTG enabled" and "proxy ships the header," a
+  GTG-enabled store has **no** Developer ID coverage at all — worse than today, not neutral.
+  **Decision**: when this app rewrites the script `src` for a GTG-enabled store (US-1), it must
+  also independently emit its own copy of the identical bootstrap
+  (`gtag('set','developer_id.<id>',true)`, same value, same app-level config source as pixel-server's)
+  directly in `pixel/head.html`, immediately before the rewritten loader — not because this app
+  owns Developer ID in general (it doesn't; Decision 3's main body still stands for the ~96%+ of
+  stores not on GTG), but as a defensive measure so GTG-enabled stores are never worse off than
+  before they adopted it. Once the proxy reliably sends `X-Gtg-Developer-Id` (confirmed via
+  Exhibit 1 §6.3's health checks), this client-side duplicate becomes redundant-but-harmless (a
+  repeated identical `gtag('set',...)` call is a no-op) and can be removed in a later release —
+  shipping it now costs one string concatenation and closes a real regression window.
+- **Consequences**: No merchant ever sees or configures this value in either case. For non-GTG
+  stores, a single config change in `pixel-server` updates every store once Google provides the
+  real ID — nothing to do here. For GTG-enabled stores, this app needs the same value available
+  at render time (app-level config, per the main decision) so its defensive copy stays in sync
+  with pixel-server's, without the two ever needing to coordinate a deploy.
 
 ### Implementation Plan
 
@@ -204,7 +246,32 @@ No persistent data models are introduced. The only structured input is the exist
 
 ## Open Questions
 
-These are called out explicitly rather than resolved by assumption, per the ambiguity noted in the source brief:
-
-1. **Developer ID delivery mechanism for non-GTG stores.** Exhibit 1 §6.2 specifies the Developer ID travels as an `X-Gtg-Developer-Id` HTTP header added by the proxy — which only exists once GTG is active for a store. Section 5 of the source brief separately describes Developer ID as something injected "at GTM script load," implying a possible client-side mechanism independent of GTG (relevant for the ~96% of stores not on GTG yet, whose tag adoption Google presumably still wants attributed). This spec does not assume which is correct; it needs confirmation with Google/product before Decision 3 can be implemented for non-GTG stores.
+1. ~~**Developer ID delivery mechanism for non-GTG stores.**~~ **Resolved, 2026-09-29 — see
+   Decision 3.** Confirmed empirically, not by assumption: non-GTG stores get Developer ID via
+   `vtex/pixel-server#88`'s content-based `gtag('set',...)` bootstrap, already shipped and
+   validated in production, with zero code needed in this app. GTG-enabled stores need the
+   `X-Gtg-Developer-Id` header from the (not-yet-built) proxy per Exhibit 1 §6.2 *or* this app's
+   own defensive fallback bootstrap (Decision 3 addendum) until that header is proven reliable.
 2. **Activation model impact on this app's rollout mechanism.** If VTEX ultimately accepts the contract's "big-bang" default-on model (§3) instead of the phased rollout assumed in Decision 2, this app's enablement mechanism would need to change from a gradual rollout flag to an unconditional default — a product/legal decision, not an engineering one, tracked here so it isn't lost.
+
+## Cross-repo context
+
+This app's GTG work is one of (at least) two independent implementations of the same Google
+initiative, in genuinely disjoint rendering pipelines:
+
+- [`vcs.checkout-ui#1697`](https://github.com/vtex/vcs.checkout-ui/pull/1697) (`feat/gtg-migration`)
+  — the Portal + checkout SDD, covering Portal-rendered pages (checkout v5/v6, `orderPlaced`),
+  which this app's `pixel/head.html` never touches.
+- [`pixel-server#88`](https://github.com/vtex/pixel-server/pull/88) — real shipped code this
+  spec now depends on directly for non-GTG Developer ID coverage (Decision 3).
+
+**Deliberate difference, not an inconsistency to fix**: the checkout spec keeps the 1P and 3P
+scripts permanently coexisting (no rollout flag), backed by a dedup key, rather than this app's
+flag-gated replace-with-fallback model (Decision 2). Checkout fires a small number of very
+high-value events per session (`begin_checkout`, `add_payment_info`, `purchase`), where even a
+24h fail-open gap during a proxy incident is judged an unacceptable loss — worth the extra
+dedup-key/telemetry cost. This app's storefront traffic is dominated by high-volume, low-value
+events (`page_view`, `scroll`, `session_start`), where a flag + time-boxed fallback is the
+better trade, and permanently double-proxying every page view would be a real cost for little
+benefit. Both specs record this explicitly so neither gets "corrected" to match the other later
+without this context.
