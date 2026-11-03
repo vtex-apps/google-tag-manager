@@ -119,6 +119,16 @@ Check below the full list of tags and variables that are blocked, by default, in
 
 Check out a list with all the GTM available tags on the [Google Developer Guide](https://developers.google.com/tag-manager/devguide).
 
+
+### Google Server Side Tagging
+
+It enables using and fixing the problems with Safari (private mode) tracking by creating a proxy to bypass the requests and send it to Google properly.
+
+1) You must follow the steps to create the SST by following the documentation: [Server Side Tagging Fundamentals](https://developers.google.com/tag-platform/learn/sst-fundamentals)
+2) Once you have configured that, you must enable the flag **Is Server side Tagging?** accessing the App Management and open the VTEX Google Tag Manager Settings
+
+<!--- image reference here-->
+![alt text](files/settings.png)
 <!-- DOCS-IGNORE:start -->
 
 ## Contributors ✨

@@ -13,22 +13,25 @@
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "builders": {
     "react": "3.x",
     "store": "0.x",
     "pixel": "0.x",
-    "docs": "0.x"
+    "docs": "0.x",
+    "node": "7.x"
   },
   "dependencies": {
     "vtex.pixel-interfaces": "1.x"
   },
   "policies": [
     {
-      "name": "pixel"
+      "name": "outbound-access",
+      "attrs": {
+        "host": "www.googletagmanager.com",
+        "path": "/*"
+      }
     }
   ],
   "settingsSchema": {
@@ -50,6 +53,12 @@
         "title": "Send Google Analytics 4 Events",
         "description": "When this setting is active, also send the GA4 version of the events",
         "type": "boolean"
+      },
+      "isServerSideTagging": {
+        "title": "Is Server side Tagging?",
+        "description": "When this setting is active, the GTM script will under the domain of the store",
+        "type": "boolean",
+        "default": false
       }
     }
   },

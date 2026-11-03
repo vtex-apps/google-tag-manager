@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- New Major Features:
+- New SST script proxy to bypass request and avoid blocking on Safari Private Mode
+
 ## [3.5.4] - 2024-04-16
 
 ## [3.5.3] - 2024-03-26
